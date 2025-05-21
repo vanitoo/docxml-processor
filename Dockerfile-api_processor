@@ -4,16 +4,19 @@ WORKDIR /source
 COPY ./DocumentXmlProcessorContext ./DocumentXmlProcessorContext/
 COPY ./ProcessingCommon ./ProcessingCommon/
 COPY ./DocumentXmlProcessorAPI ./DocumentXmlProcessorAPI/
-RUN dotnet restore DocumentXmlProcessorContext/DocumentXmlProcessorContext.csproj
-RUN dotnet restore ProcessingCommon/ProcessingCommon.csproj
-RUN dotnet restore DocumentXmlProcessorAPI/DocumentXmlProcessorAPI.csproj
+COPY nuget.config ./nuget.config
+
+RUN dotnet restore DocumentXmlProcessorAPI/DocumentXmlProcessorAPI.csproj \
+    && dotnet restore DocumentXmlProcessorContext/DocumentXmlProcessorContext.csproj \
+    && dotnet restore ProcessingCommon/ProcessingCommon.csproj
 
 WORKDIR /source/DocumentXmlProcessorAPI
-RUN dotnet build DocumentXmlProcessorAPI.csproj -c Release -o /app
-RUN dotnet publish DocumentXmlProcessorAPI.csproj -c Release -o /app
+RUN dotnet publish -c Release -o /app --no-restore --configfile ../nuget.config
 
-FROM mcr.microsoft.com/dotnet/aspnet:7.0
+
+FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS runtime
 WORKDIR /app
 COPY --from=build /app ./
 COPY ./DocumentXmlProcessorAPI/appsettings.json ./
+
 ENTRYPOINT ["dotnet", "DocumentXmlProcessorAPI.dll"]
