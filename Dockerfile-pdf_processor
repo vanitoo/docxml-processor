@@ -1,34 +1,25 @@
-# Optimized PDF Processor Dockerfile
-# Base size: ~250MB (vs ~590MB original)
-
 FROM mcr.microsoft.com/dotnet/sdk:7.0-alpine AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /source
 
-# Install build dependencies
-RUN apk add --no-cache curl
-
-# Copy .csproj files for caching
 COPY ./ProcessingCommon/ProcessingCommon.csproj ./ProcessingCommon/
 COPY ./PdfProcessor/PdfProcessor.csproj ./PdfProcessor/
 
-# Restore dependencies
 RUN dotnet restore PdfProcessor/PdfProcessor.csproj
 
-# Copy source code after restore
 COPY ./ProcessingCommon ./ProcessingCommon/
 COPY ./PdfProcessor ./PdfProcessor/
 
 WORKDIR /source/PdfProcessor
-RUN dotnet publish -c $BUILD_CONFIGURATION -o /app --no-restore
+RUN dotnet publish -c $BUILD_CONFIGURATION -o /app --no-restore /p:UseAppHost=false && \
+    find /app -name "*.pdb" -delete && \
+    find /app -name "*.xml" -delete
 
-# Remove unnecessary files
-RUN rm -rf /app/*.pdb /app/*.xml 2>/dev/null || true
+FROM ghcr.io/surnet/alpine-wkhtmltopdf:3.23.2-0.12.6-full AS wkhtmltopdf
 
 FROM mcr.microsoft.com/dotnet/aspnet:7.0-alpine AS runtime
 WORKDIR /app
 
-# Install runtime dependencies in single layer
 RUN apk add --no-cache \
     icu-libs \
     libgdiplus \
@@ -36,24 +27,24 @@ RUN apk add --no-cache \
     tzdata \
     libstdc++ \
     libgcc \
-    libssl1.1 \
     zlib \
     fontconfig \
     freetype \
     libx11 \
     libxext \
     libxrender \
-    ttf-freefont \
-    wget
-
-# Install wkhtmltopdf
-RUN wget -q https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.stretch_amd64.deb -O /tmp/wk.deb && \
-    dpkg -x /tmp/wk.deb /tmp/wk && \
-    cp -r /tmp/wk/usr/* /usr/ && \
-    ln -s /usr/local/lib/libwkhtmltox.so /usr/lib/libwkhtmltox.so && \
-    rm -rf /tmp/wk* /var/cache/*
+    ttf-freefont
 
 COPY --from=build /app ./
 COPY ./PdfProcessor/appsettings.json ./
 
+# wkhtmltopdf + native libs from Alpine-compatible image
+COPY --from=wkhtmltopdf /bin/wkhtmltopdf /bin/wkhtmltopdf
+COPY --from=wkhtmltopdf /bin/wkhtmltoimage /bin/wkhtmltoimage
+COPY --from=wkhtmltopdf /lib/libwkhtmltox* /lib/
+
+# for libs that look in /usr/lib
+RUN ln -sf /lib/libwkhtmltox.so /usr/lib/libwkhtmltox.so || true
+
 ENTRYPOINT ["dotnet", "PdfProcessor.dll"]
+
