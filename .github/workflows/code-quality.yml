@@ -6,16 +6,18 @@ on:
       - main
       - master
     paths:
-      - '**.cs'
-      - '**.csproj'
-      - '**.props'
-      - '**.config'
+      - '**/*.cs'
+      - '**/*.csproj'
+      - '**/*.props'
+      - '**/*.config'
+      - '**/*.sln'
   pull_request:
     paths:
-      - '**.cs'
-      - '**.csproj'
-      - '**.props'
-      - '**.config'
+      - '**/*.cs'
+      - '**/*.csproj'
+      - '**/*.props'
+      - '**/*.config'
+      - '**/*.sln'
 
 jobs:
   analyze:
@@ -35,17 +37,18 @@ jobs:
           dotnet-version: '7.0.x'
 
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore ./document-xml-processor.sln
 
       - name: Build solution
-        run: dotnet build --no-restore --verbosity minimal
+        run: dotnet build ./document-xml-processor.sln --no-restore --verbosity minimal
+
+      - name: Install Roslynator
+        run: dotnet tool install --global Roslynator.DotNet.Cli --version 4.6.1
 
       - name: Run Roslynator
         run: |
-          dotnet tool install --global Roslynator.DotNet.Cli --version 4.6.1
           export PATH="$PATH:$HOME/.dotnet/tools"
-          roslynator analyze . --severity warning --visibility internal,public 2>&1 | tee roslynator.log
-          echo "Roslynator analysis completed"
+          roslynator analyze ./document-xml-processor.sln --severity warning --visibility internal,public 2>&1 | tee roslynator.log
 
       - name: Upload Roslynator results
         if: always()
@@ -54,13 +57,6 @@ jobs:
           name: roslynator-results
           path: roslynator.log
           retention-days: 7
-
-      - name: Upload SARIF file
-        uses: actions/upload-artifact@v4
-        with:
-          name: sarif-results
-          path: '**/*.sarif'
-          retention-days: 30
 
   formatting:
     runs-on: ubuntu-latest
@@ -73,7 +69,8 @@ jobs:
         with:
           dotnet-version: '7.0.x'
 
+      - name: Restore dependencies
+        run: dotnet restore ./document-xml-processor.sln
+
       - name: Check code formatting
-        run: |
-          export PATH="$PATH:$HOME/.dotnet/tools"
-          dotnet format --verify-no-changes --verbosity diagnostic
+        run: dotnet format ./document-xml-processor.sln --verify-no-changes --verbosity diagnostic
