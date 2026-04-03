@@ -153,3 +153,6 @@ jobs:
 
       - name: Test
         run: dotnet test DocumentXmlProcessorAPI.Tests/DocumentXmlProcessorAPI.Tests.csproj --no-build --verbosity normal
+
+
+        
