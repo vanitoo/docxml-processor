@@ -2,9 +2,7 @@ name: Unit Tests
 
 on:
   push:
-    branches:
-      - main
-      - master
+    branches: [main, master]
     paths:
       - '**/*.cs'
       - '**/*.csproj'
@@ -21,11 +19,33 @@ on:
       - '**/*.sln'
       - '**/*.yml'
 
+env:
+  DOTNET_VERSION: '7.0.404'
+  NUGET_PACKAGES: ${{ github.workspace }}/.nuget/packages
+
 jobs:
-  test-processing-common:
+  test:
     runs-on: ubuntu-latest
-    name: ProcessingCommon.Tests
-    
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: ProcessingCommon.Tests
+            project: ProcessingCommon.Tests/ProcessingCommon.Tests.csproj
+          - name: XsltProcessor.Tests
+            project: XsltProcessor.Tests/XsltProcessor.Tests.csproj
+          - name: PdfProcessor.Tests
+            project: PdfProcessor.Tests/PdfProcessor.Tests.csproj
+          - name: OldFIleWatcher.Tests
+            project: OldFIleWatcher.Tests/OldFIleWatcher.Tests.csproj
+          - name: DocumentXmlProcessorContext.Tests
+            project: DocumentXmlProcessorContext.Tests/DocumentXmlProcessorContext.Tests.csproj
+          - name: DocumentXmlProcessorAPI.Tests
+            project: DocumentXmlProcessorAPI.Tests/DocumentXmlProcessorAPI.Tests.csproj
+
+    name: ${{ matrix.name }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -33,186 +53,22 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '7.0.404'
-          enable-global-path: false
-          include-global-tools: false
+          dotnet-version: ${{ env.DOTNET_VERSION }}
 
       - name: Cache NuGet packages
         uses: actions/cache@v4
         with:
-          path: ~/.nuget/packages
+          path: ${{ env.NUGET_PACKAGES }}
           key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
           restore-keys: |
             ${{ runner.os }}-nuget-
 
       - name: Restore
-        run: dotnet restore ProcessingCommon.Tests/ProcessingCommon.Tests.csproj
+        run: dotnet restore ${{ matrix.project }}
 
       - name: Build
-        run: dotnet build ProcessingCommon.Tests/ProcessingCommon.Tests.csproj --no-restore --verbosity minimal
+        run: dotnet build ${{ matrix.project }} --no-restore --verbosity minimal
 
       - name: Test
-        run: dotnet test ProcessingCommon.Tests/ProcessingCommon.Tests.csproj --no-build --verbosity normal
-
-  test-xslt-processor:
-    runs-on: ubuntu-latest
-    name: XsltProcessor.Tests
-    
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '7.0.404'
-          enable-global-path: false
-          include-global-tools: false
-
-      - name: Cache NuGet packages
-        uses: actions/cache@v4
-        with:
-          path: ~/.nuget/packages
-          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
-          restore-keys: |
-            ${{ runner.os }}-nuget-
-
-      - name: Restore
-        run: dotnet restore XsltProcessor.Tests/XsltProcessor.Tests.csproj
-
-      - name: Build
-        run: dotnet build XsltProcessor.Tests/XsltProcessor.Tests.csproj --no-restore --verbosity minimal
-
-      - name: Test
-        run: dotnet test XsltProcessor.Tests/XsltProcessor.Tests.csproj --no-build --verbosity normal
-
-  test-pdf-processor:
-    runs-on: ubuntu-latest
-    name: PdfProcessor.Tests
-    
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '7.0.404'
-          enable-global-path: false
-          include-global-tools: false
-
-      - name: Cache NuGet packages
-        uses: actions/cache@v4
-        with:
-          path: ~/.nuget/packages
-          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
-          restore-keys: |
-            ${{ runner.os }}-nuget-
-
-      - name: Restore
-        run: dotnet restore PdfProcessor.Tests/PdfProcessor.Tests.csproj
-
-      - name: Build
-        run: dotnet build PdfProcessor.Tests/PdfProcessor.Tests.csproj --no-restore --verbosity minimal
-
-      - name: Test
-        run: dotnet test PdfProcessor.Tests/PdfProcessor.Tests.csproj --no-build --verbosity normal
-
-  test-old-file-watcher:
-    runs-on: ubuntu-latest
-    name: OldFIleWatcher.Tests
-    
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '7.0.404'
-          enable-global-path: false
-          include-global-tools: false
-
-      - name: Cache NuGet packages
-        uses: actions/cache@v4
-        with:
-          path: ~/.nuget/packages
-          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
-          restore-keys: |
-            ${{ runner.os }}-nuget-
-
-      - name: Restore
-        run: dotnet restore OldFIleWatcher.Tests/OldFIleWatcher.Tests.csproj
-
-      - name: Build
-        run: dotnet build OldFIleWatcher.Tests/OldFIleWatcher.Tests.csproj --no-restore --verbosity minimal
-
-      - name: Test
-        run: dotnet test OldFIleWatcher.Tests/OldFIleWatcher.Tests.csproj --no-build --verbosity normal
-
-  test-context:
-    runs-on: ubuntu-latest
-    name: DocumentXmlProcessorContext.Tests
-    
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '7.0.404'
-          enable-global-path: false
-          include-global-tools: false
-
-      - name: Cache NuGet packages
-        uses: actions/cache@v4
-        with:
-          path: ~/.nuget/packages
-          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
-          restore-keys: |
-            ${{ runner.os }}-nuget-
-
-      - name: Restore
-        run: dotnet restore DocumentXmlProcessorContext.Tests/DocumentXmlProcessorContext.Tests.csproj
-
-      - name: Build
-        run: dotnet build DocumentXmlProcessorContext.Tests/DocumentXmlProcessorContext.Tests.csproj --no-restore --verbosity minimal
-
-      - name: Test
-        run: dotnet test DocumentXmlProcessorContext.Tests/DocumentXmlProcessorContext.Tests.csproj --no-build --verbosity normal
-
-  test-api:
-    runs-on: ubuntu-latest
-    name: DocumentXmlProcessorAPI.Tests
-    
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '7.0.404'
-          enable-global-path: false
-          include-global-tools: false
-
-      - name: Cache NuGet packages
-        uses: actions/cache@v4
-        with:
-          path: ~/.nuget/packages
-          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
-          restore-keys: |
-            ${{ runner.os }}-nuget-
-
-      - name: Restore
-        run: dotnet restore DocumentXmlProcessorAPI.Tests/DocumentXmlProcessorAPI.Tests.csproj
-
-      - name: Build
-        run: dotnet build DocumentXmlProcessorAPI.Tests/DocumentXmlProcessorAPI.Tests.csproj --no-restore --verbosity minimal
-
-      - name: Test
-        run: dotnet test DocumentXmlProcessorAPI.Tests/DocumentXmlProcessorAPI.Tests.csproj --no-build --verbosity normal
-
-
+        run: dotnet test ${{ matrix.project }} --no-build --verbosity normal
         
