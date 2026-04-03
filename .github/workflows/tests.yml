@@ -35,6 +35,14 @@ jobs:
         with:
           dotnet-version: '7.0'
 
+      - name: Cache NuGet packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+
       - name: Restore
         run: dotnet restore ProcessingCommon.Tests/ProcessingCommon.Tests.csproj
 
@@ -56,6 +64,14 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '7.0'
+
+      - name: Cache NuGet packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
 
       - name: Restore
         run: dotnet restore XsltProcessor.Tests/XsltProcessor.Tests.csproj
@@ -79,6 +95,14 @@ jobs:
         with:
           dotnet-version: '7.0'
 
+      - name: Cache NuGet packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+
       - name: Restore
         run: dotnet restore PdfProcessor.Tests/PdfProcessor.Tests.csproj
 
@@ -100,6 +124,14 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '7.0'
+
+      - name: Cache NuGet packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
 
       - name: Restore
         run: dotnet restore OldFIleWatcher.Tests/OldFIleWatcher.Tests.csproj
@@ -123,6 +155,14 @@ jobs:
         with:
           dotnet-version: '7.0'
 
+      - name: Cache NuGet packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+
       - name: Restore
         run: dotnet restore DocumentXmlProcessorContext.Tests/DocumentXmlProcessorContext.Tests.csproj
 
@@ -144,6 +184,14 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '7.0'
+
+      - name: Cache NuGet packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
 
       - name: Restore
         run: dotnet restore DocumentXmlProcessorAPI.Tests/DocumentXmlProcessorAPI.Tests.csproj
