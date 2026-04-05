@@ -1,4 +1,4 @@
-﻿using System.Text.Json;
+using System.Text.Json;
 using DocumentXmlProcessorAPI.Models;
 using DocumentXmlProcessorAPI.Models.Request;
 using DocumentXmlProcessorAPI.Services;
@@ -28,8 +28,11 @@ public class DocumentProcessingController : ControllerBase
     public async Task<StandartResponse<Guid>> Add(AddFileModel request)
     {
         var result = await _processingFileService.AddToProcessing(request.Xml, request.AdditionalData, request.CallbackUrl, request.CallbackParams);
-        if(result.IsSuccess == false)
+        if (result.IsSuccess == false)
+        {
             ModelState.AddModelError("Custom", string.Join(";", result.Errors));
+        }
+
         _brokerProcessor.SendMessage(new MessageConvert()
         {
             MessageType = MessageTypes.MessageXslt,
@@ -49,7 +52,7 @@ public class DocumentProcessingController : ControllerBase
         var result = await _processingFileService.GetHtml(processId);
         return StandartResponseAnswer.Ok(result);
     }
-    
+
     [HttpGet("Pdf")]
     public async Task<StandartResponse<List<byte[]>>> GetPdf(Guid processId)
     {
@@ -73,7 +76,7 @@ public class DocumentProcessingController : ControllerBase
         var result = await _processingFileService.DocumentState(processId);
         return StandartResponseAnswer.Ok((int)result);
     }
-    
+
     [HttpGet("StateHtml")]
     public async Task<StandartResponse<int>> ProcessingCompleteHtml(Guid processId)
     {

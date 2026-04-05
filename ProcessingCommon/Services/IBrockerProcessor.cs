@@ -1,4 +1,4 @@
-﻿using System.Text;
+using System.Text;
 using System.Text.Json;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -30,7 +30,7 @@ public abstract class RabbitMqProcessor : IBrockerProcessor
         _settings = settings.Value;
         _logger = logger;
     }
-    
+
 
     protected abstract void ProcessingMessage(byte[] body, ulong tag);
     protected abstract void InitSendData();
@@ -78,13 +78,14 @@ public abstract class RabbitMqProcessor : IBrockerProcessor
 
     protected void CreateConnectionAndChannels()
     {
-        var factory = new ConnectionFactory() { 
-            UserName = _settings.UserName, 
+        var factory = new ConnectionFactory()
+        {
+            UserName = _settings.UserName,
             Password = _settings.UserPassword,
             HostName = _settings.Connection,
             DispatchConsumersAsync = true
         };
-        
+
         if (_connection == null)
         {
             _connection = factory.CreateConnection();
@@ -96,12 +97,12 @@ public abstract class RabbitMqProcessor : IBrockerProcessor
             _connection.Close();
             _connection = factory.CreateConnection();
         }
-        
+
         if (_channelSend == null)
         {
             _channelSend = _connection.CreateModel();
             InitSendData();
-        } 
+        }
         else if (_channelSend.IsOpen == false)
         {
             _channelSend.Close();
@@ -112,14 +113,14 @@ public abstract class RabbitMqProcessor : IBrockerProcessor
         if (_channelRecive == null)
         {
             _channelRecive = _connection.CreateModel();
-            _channelRecive.BasicQos(0,_messagePrefetchCount, false);
+            _channelRecive.BasicQos(0, _messagePrefetchCount, false);
             InitReciveData();
-        } 
+        }
         else if (_channelRecive.IsOpen == false)
         {
             _channelRecive.Close();
             _channelRecive = _connection.CreateModel();
-            _channelRecive.BasicQos(0,_messagePrefetchCount, false);
+            _channelRecive.BasicQos(0, _messagePrefetchCount, false);
             InitReciveData();
         }
     }

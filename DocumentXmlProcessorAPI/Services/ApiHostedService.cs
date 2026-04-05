@@ -1,4 +1,4 @@
-﻿using ProcessingCommon.Services;
+using ProcessingCommon.Services;
 
 namespace DocumentXmlProcessorAPI.Services;
 

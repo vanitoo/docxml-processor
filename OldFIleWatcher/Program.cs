@@ -1,4 +1,4 @@
-﻿using DocumentXmlProcessorContext.Context;
+using DocumentXmlProcessorContext.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;
 using ProcessingCommon.Services;
 
 namespace XsltProcessor.Services;
@@ -7,7 +7,7 @@ public class ServiceWorker : IServiceWorker
 {
     private readonly ILogger<ServiceWorker> _logger;
     private readonly IBrockerProcessor _brockerProcessor;
-    
+
     public ServiceWorker(ILogger<ServiceWorker> logger, IBrockerProcessor brockerProcessor)
     {
         _logger = logger;

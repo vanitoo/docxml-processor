@@ -1,4 +1,4 @@
-﻿using System.Net;
+using System.Net;
 using DocumentXmlProcessorAPI.Models;
 
 namespace DocumentXmlProcessorAPI.Middleware;
@@ -6,12 +6,12 @@ namespace DocumentXmlProcessorAPI.Middleware;
 public class ExceptionHandlingMiddleware
 {
     private readonly RequestDelegate _next;
-    
+
     public ExceptionHandlingMiddleware(RequestDelegate next)
     {
         _next = next;
     }
-    
+
     public async Task InvokeAsync(HttpContext httpContext, ILogger<ExceptionHandlingMiddleware> logger)
     {
         try
@@ -24,7 +24,7 @@ public class ExceptionHandlingMiddleware
             await HandleExceptionAsync(httpContext, ex);
         }
     }
-    
+
     private static async Task HandleExceptionAsync(HttpContext httpContext, Exception exception)
     {
         httpContext.Response.ContentType = "application/json";

@@ -1,4 +1,4 @@
-﻿namespace XsltTester.Models;
+namespace XsltTester.Models;
 
 public class TestSettings
 {

@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using ProcessingCommon.Models.Settings;
@@ -25,5 +25,4 @@ var services = new ServiceCollection()
     .BuildServiceProvider();
 
 services.GetService<IServiceWorker>()!.StartService();
-    
-    
+

@@ -1,4 +1,4 @@
-﻿namespace ProcessingCommon.Services;
+namespace ProcessingCommon.Services;
 
 public interface IServiceWorker
 {

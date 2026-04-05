@@ -1,4 +1,4 @@
-﻿namespace ProcessingCommon.Models.Messages;
+namespace ProcessingCommon.Models.Messages;
 
 public class ResultPdfMessageModel
 {

@@ -1,4 +1,4 @@
-﻿using System.Xml;
+using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
 
@@ -18,17 +18,17 @@ public static class XmlExtensions
         xElement = null;
         return false;
     }
-    
+
     public static XmlDocument ToXmlDocument(this XElement xElement)
     {
         var xmlDocument = new XmlDocument();
         xmlDocument.Load(xElement.ToStream());
         return xmlDocument;
     }
-    
+
     public static IEnumerable<XElement> GetSubElementsIgnoringNameSpaces(this XElement xmlData, string key)
     {
         return xmlData.XPathSelectElements($".//*[local-name() = '{(object)key}']");
     }
-    
+
 }

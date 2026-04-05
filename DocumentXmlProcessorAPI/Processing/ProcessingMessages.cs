@@ -1,4 +1,4 @@
-﻿using System.Text.Json;
+using System.Text.Json;
 using DocumentXmlProcessorAPI.Services;
 using DocumentXmlProcessorContext.Context;
 using Microsoft.EntityFrameworkCore;
@@ -20,7 +20,7 @@ public class ProcessingMessages : IProcessing<bool, MessageConvert>
         _processingFileService = processingFileService;
         _context = context;
     }
-    
+
     public bool Processing(MessageConvert data)
     {
         switch (data.MessageType)
@@ -100,8 +100,11 @@ public class ProcessingMessages : IProcessing<bool, MessageConvert>
             if (String.IsNullOrWhiteSpace(needProcess.CallbackUrl) == false)
             {
                 List<Tuple<string, string>> cParams = new();
-                if(String.IsNullOrWhiteSpace(needProcess.CallbackParams) == false)
+                if (String.IsNullOrWhiteSpace(needProcess.CallbackParams) == false)
+                {
                     cParams = JsonSerializer.Deserialize<List<Tuple<string, string>>>(needProcess.CallbackParams);
+                }
+
                 var client = new RestClient(needProcess.CallbackUrl);
                 var request = new RestRequest();
                 request.AddParameter("processId", processId.ToString());

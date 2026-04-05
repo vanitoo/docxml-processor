@@ -1,4 +1,4 @@
-﻿using System.Text;
+using System.Text;
 using System.Text.Json;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -48,11 +48,13 @@ public class PdfRabbitMqProcessor : RabbitMqProcessor
                     ProcessingTime = (end - start).TotalSeconds
                 })
             };
-            
+
             bool sendMessageToApi = SendMessage(resultMessage, BrockerNames.ApiProcessName, BrockerNames.ApiRoutingKey);
             if (sendMessageToApi == false)
+            {
                 sendMessageToApi = SendMessage(resultMessage, BrockerNames.ApiProcessName, BrockerNames.ApiRoutingKey);
-            
+            }
+
             if (sendMessageToApi)
             {
                 _logger.LogInformation($"Сообщение {messageData.ProcessDocumentId} обработано: ({DateTime.Now})");
@@ -86,9 +88,14 @@ public class PdfRabbitMqProcessor : RabbitMqProcessor
             _logger.LogError($"Ошибка при обработке сообщения {errorId.ToString()}: {ex.Message}");
             bool sendMessageToApi = SendMessage(resultMessage, BrockerNames.ApiProcessName, BrockerNames.ApiRoutingKey);
             if (sendMessageToApi == false)
+            {
                 sendMessageToApi = SendMessage(resultMessage, BrockerNames.ApiProcessName, BrockerNames.ApiRoutingKey);
-            if(sendMessageToApi == false)
+            }
+
+            if (sendMessageToApi == false)
+            {
                 _logger.LogError($"Не удалось отправить уведомление об ошибке {errorId.ToString()}.");
+            }
         }
         ConfirmMessage(tag);
     }

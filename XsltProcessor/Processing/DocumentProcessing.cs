@@ -1,4 +1,4 @@
-﻿using System.Text.Json;
+using System.Text.Json;
 using Microsoft.Extensions.Logging;
 using ProcessingCommon.Models.Data;
 using ProcessingCommon.Models.Messages;
@@ -42,7 +42,7 @@ public class DocumentProcessing : IProcessing<List<string>, XsltProcessingMessag
                 }
             }
         }
-        
+
         return builder.GetResultHtmls.ToList();
     }
 }

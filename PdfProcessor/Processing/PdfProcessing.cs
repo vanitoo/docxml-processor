@@ -1,4 +1,4 @@
-﻿using NetCoreHTMLToPDF;
+using NetCoreHTMLToPDF;
 using ProcessingCommon.Interfaces;
 
 namespace PdfProcessor.Processing;

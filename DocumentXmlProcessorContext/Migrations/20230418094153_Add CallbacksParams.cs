@@ -1,28 +1,27 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace DocumentXmlProcessorContext.Migrations
+namespace DocumentXmlProcessorContext.Migrations;
+
+/// <inheritdoc />
+public partial class AddCallbacksParams : Migration
 {
     /// <inheritdoc />
-    public partial class AddCallbacksParams : Migration
+    protected override void Up(MigrationBuilder migrationBuilder)
     {
-        /// <inheritdoc />
-        protected override void Up(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.AddColumn<string>(
-                name: "CallbackParams",
-                table: "ProcessingFiles",
-                type: "text",
-                nullable: true);
-        }
+        migrationBuilder.AddColumn<string>(
+            name: "CallbackParams",
+            table: "ProcessingFiles",
+            type: "text",
+            nullable: true);
+    }
 
-        /// <inheritdoc />
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropColumn(
-                name: "CallbackParams",
-                table: "ProcessingFiles");
-        }
+    /// <inheritdoc />
+    protected override void Down(MigrationBuilder migrationBuilder)
+    {
+        migrationBuilder.DropColumn(
+            name: "CallbackParams",
+            table: "ProcessingFiles");
     }
 }

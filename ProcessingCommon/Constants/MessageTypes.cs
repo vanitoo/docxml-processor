@@ -1,4 +1,4 @@
-﻿namespace ProcessingCommon.Constants;
+namespace ProcessingCommon.Constants;
 
 public static class MessageTypes
 {

@@ -1,4 +1,4 @@
-﻿namespace ProcessingCommon.Models.Settings;
+namespace ProcessingCommon.Models.Settings;
 
 public class RabbitSettings
 {

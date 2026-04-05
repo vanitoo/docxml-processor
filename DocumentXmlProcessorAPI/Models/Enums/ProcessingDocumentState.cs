@@ -1,4 +1,4 @@
-﻿namespace DocumentXmlProcessorAPI.Models.Enums;
+namespace DocumentXmlProcessorAPI.Models.Enums;
 
 public enum ProcessingDocumentState
 {

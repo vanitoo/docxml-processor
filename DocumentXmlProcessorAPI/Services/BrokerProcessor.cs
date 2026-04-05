@@ -1,4 +1,4 @@
-﻿using System.Text;
+using System.Text;
 using System.Text.Json;
 using DocumentXmlProcessorAPI.Processing;
 using DocumentXmlProcessorContext.Context;
@@ -15,7 +15,7 @@ public class ApiRabbitMqProcessor : RabbitMqProcessor
 {
     private readonly IServiceScopeFactory _scopeFactory;
 
-    public ApiRabbitMqProcessor(ILogger<RabbitMqProcessor> logger, 
+    public ApiRabbitMqProcessor(ILogger<RabbitMqProcessor> logger,
         IOptions<RabbitSettings> settings, IServiceScopeFactory scopeFactory)
         : base(settings, logger)
     {
@@ -65,8 +65,8 @@ public class ApiRabbitMqProcessor : RabbitMqProcessor
         var queueName = _channelSend.QueueDeclare(queue: BrockerNames.XsltProcessName, durable: true,
             exclusive: false, autoDelete: false, arguments: null).QueueName;
         _channelSend.ExchangeDeclare(exchange: BrockerNames.XsltProcessName, type: ExchangeType.Direct,
-            durable:true, autoDelete:false);
-        _channelSend.QueueBind(queue: queueName, exchange: BrockerNames.XsltProcessName, 
+            durable: true, autoDelete: false);
+        _channelSend.QueueBind(queue: queueName, exchange: BrockerNames.XsltProcessName,
             routingKey: BrockerNames.XsltRoutingKey);
     }
 
@@ -79,7 +79,7 @@ public class ApiRabbitMqProcessor : RabbitMqProcessor
         consumer.Received += async (sender, e) =>
         {
             var body = e.Body.ToArray();
-            Task.Factory.StartNew(() => ProcessingMessage(body,e.DeliveryTag));
+            Task.Factory.StartNew(() => ProcessingMessage(body, e.DeliveryTag));
             await Task.Yield();
         };
         _channelRecive.BasicConsume(queue: BrockerNames.ApiProcessName, autoAck: false, consumer: consumer);

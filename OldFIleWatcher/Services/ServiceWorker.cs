@@ -1,4 +1,4 @@
-﻿using DocumentXmlProcessorContext.Context;
+using DocumentXmlProcessorContext.Context;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -13,7 +13,7 @@ public class ServiceWorker : IServiceWorker
     private readonly ILogger<ServiceWorker> _logger;
     private readonly ApiSettings _settings;
     private readonly IServiceScopeFactory _scopeFactory;
-    
+
     public ServiceWorker(ILogger<ServiceWorker> logger, IOptions<ApiSettings> settings, IServiceScopeFactory scopeFactory)
     {
         _logger = logger;

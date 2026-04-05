@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using ProcessingCommon.Services;
@@ -13,7 +13,7 @@ public class ServiceWorker : IServiceWorker
     private readonly AstraDbContext _context;
     private readonly ILogger<ServiceWorker> _logger;
     private readonly TestSettings _settings;
-    
+
     public ServiceWorker(ILogger<ServiceWorker> logger, AstraDbContext context, IOptions<TestSettings> settings)
     {
         _logger = logger;
@@ -26,8 +26,8 @@ public class ServiceWorker : IServiceWorker
         _logger.LogInformation($"Начало тестирования! ({DateTime.Now})");
         var span = DateTime.Now.AddDays(-2);
         var testData = _context.GsObjectDocuments
-            .Where(x => x.Type == "ESADout_CU" 
-                        && (x.AlbumVersion == "5.20.0" || x.AlbumVersion == "5.21.0") 
+            .Where(x => x.Type == "ESADout_CU"
+                        && (x.AlbumVersion == "5.20.0" || x.AlbumVersion == "5.21.0")
                         && x.IsDeleted == false
                         && x.DateBorn >= span).ToList();
         foreach (var data in testData)
@@ -43,8 +43,11 @@ public class ServiceWorker : IServiceWorker
                         Data = y.Data
                     })
                 .FirstOrDefault(x => x.DocumentId == data.DocumentId);
-            if(needTest == null)
+            if (needTest == null)
+            {
                 continue;
+            }
+
             var client = new RestClient(_settings.Base);
             var request = new RestRequest();
             request.AddBody(new AddFileModel()

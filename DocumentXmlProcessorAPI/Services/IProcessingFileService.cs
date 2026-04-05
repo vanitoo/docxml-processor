@@ -1,4 +1,4 @@
-﻿using System.Text;
+using System.Text;
 using System.Text.Json;
 using DocumentXmlProcessorAPI.Models.DataTransfer;
 using DocumentXmlProcessorAPI.Models.Enums;
@@ -25,7 +25,7 @@ public class ProcessingFileService : IProcessingFileService
     private readonly DocumentProcessorContext _context;
     private readonly ILogger<ProcessingFileService> _logger;
     private readonly IWebHostEnvironment _environment;
-    
+
     private const string DataDirectory = "Data";
 
     public ProcessingFileService(DocumentProcessorContext context, ILogger<ProcessingFileService> logger, IWebHostEnvironment environment)
@@ -40,11 +40,15 @@ public class ProcessingFileService : IProcessingFileService
         var processId = Guid.NewGuid();
         JsonDocument? jsonData = null;
         if (String.IsNullOrWhiteSpace(additionalData) == false)
+        {
             jsonData = JsonDocument.Parse(additionalData);
+        }
 
         string directoryPath = Path.Combine(_environment.ContentRootPath, DataDirectory, "Xml");
         if (!Directory.Exists(directoryPath))
+        {
             Directory.CreateDirectory(directoryPath);
+        }
 
         string filePath = Path.Combine(directoryPath, $"{processId}.xml");
         await File.WriteAllTextAsync(filePath, xml);
@@ -69,7 +73,7 @@ public class ProcessingFileService : IProcessingFileService
         }
         catch (Exception ex)
         {
-            return new ServiceResponse<Guid?>() { Result = null, Errors = new List<string>() { "Произошла непредвиденная ошибка, обратитесь в тех поддержку." }};
+            return new ServiceResponse<Guid?>() { Result = null, Errors = new List<string>() { "Произошла непредвиденная ошибка, обратитесь в тех поддержку." } };
         }
 
         return new ServiceResponse<Guid?>() { Result = processId };
@@ -82,16 +86,20 @@ public class ProcessingFileService : IProcessingFileService
             var needDocument = _context.ProcessingFiles.Include(x => x.ProcessingFileData)
                 .FirstOrDefault(x => x.Id == processId);
             if (needDocument == null)
+            {
                 return false;
-            
+            }
+
             string directoryPath = Path.Combine(_environment.ContentRootPath, DataDirectory, "Html", processId.ToString());
-            
+
             needDocument.ProcessingFileData.HtmlPath = directoryPath;
             needDocument.ProcessingFileData.HtmlTimeProcessing = timeProcessing;
             _context.SaveChanges();
-            
+
             if (!Directory.Exists(directoryPath))
+            {
                 Directory.CreateDirectory(directoryPath);
+            }
 
             foreach (var doc in html)
             {
@@ -115,17 +123,21 @@ public class ProcessingFileService : IProcessingFileService
             var needDocument = _context.ProcessingFiles.Include(x => x.ProcessingFileData)
                 .FirstOrDefault(x => x.Id == processId);
             if (needDocument == null)
+            {
                 return false;
-            
+            }
+
             string directoryPath = Path.Combine(_environment.ContentRootPath, DataDirectory, "Pdf", processId.ToString());
-            
+
             needDocument.ProcessingFileData.PdfPath = directoryPath;
             needDocument.ProcessingFileData.PdfTimeProcessing = timeProcessing;
             needDocument.DateCompleteProcessing = DateTime.Now;
             _context.SaveChanges();
-            
+
             if (!Directory.Exists(directoryPath))
+            {
                 Directory.CreateDirectory(directoryPath);
+            }
 
             foreach (var doc in pdfs)
             {
@@ -202,7 +214,7 @@ public class ProcessingFileService : IProcessingFileService
             {
                 return new List<byte[]>() { Encoding.UTF8.GetBytes("В обработке не найден документ") };
             }
-            
+
             if (needDocument.ProcessingFileErrors.Any())
             {
                 return new List<byte[]>() { Encoding.UTF8.GetBytes($"Во время обработки документа, произошла ошибка, обратитесь в тех. поддержку. ProcessId = {processId}") };
@@ -249,7 +261,7 @@ public class ProcessingFileService : IProcessingFileService
             {
                 string directoryPath = Path.Combine(_environment.ContentRootPath, DataDirectory, "Html",
                     file.Id.ToString());
-                
+
                 if (Directory.Exists(directoryPath))
                 {
                     try
@@ -282,7 +294,7 @@ public class ProcessingFileService : IProcessingFileService
             {
                 string directoryPath = Path.Combine(_environment.ContentRootPath, DataDirectory, "Pdf",
                     file.Id.ToString());
-                
+
                 if (Directory.Exists(directoryPath))
                 {
                     try
@@ -333,11 +345,20 @@ public class ProcessingFileService : IProcessingFileService
             .Where(x => x.Id == processId).FirstOrDefaultAsync();
 
         if (needDocument == null)
+        {
             return ProcessingDocumentState.NotDocument;
+        }
+
         if (needDocument.ProcessingFileErrors.Any())
+        {
             return ProcessingDocumentState.Error;
+        }
+
         if (needDocument.DateCompleteProcessing == null)
+        {
             return ProcessingDocumentState.NotComplete;
+        }
+
         return ProcessingDocumentState.Complete;
     }
 
@@ -349,11 +370,20 @@ public class ProcessingFileService : IProcessingFileService
             .Where(x => x.Id == processId).FirstOrDefaultAsync();
 
         if (needDocument == null)
+        {
             return ProcessingDocumentState.NotDocument;
+        }
+
         if (needDocument.ProcessingFileErrors.Any())
+        {
             return ProcessingDocumentState.Error;
+        }
+
         if (needDocument.IsCompleteHtml == false)
+        {
             return ProcessingDocumentState.NotComplete;
+        }
+
         return ProcessingDocumentState.Complete;
     }
 }

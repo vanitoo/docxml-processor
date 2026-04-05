@@ -1,4 +1,4 @@
-﻿namespace DocumentXmlProcessorContext.Entity;
+namespace DocumentXmlProcessorContext.Entity;
 
 public class ProcessingFileError
 {

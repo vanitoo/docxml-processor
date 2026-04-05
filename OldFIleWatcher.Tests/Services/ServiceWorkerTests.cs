@@ -20,7 +20,7 @@ public class ServiceWorkerTests
     {
         _loggerMock = new Mock<ILogger<ServiceWorker>>();
         _scopeFactoryMock = new Mock<IServiceScopeFactory>();
-        
+
         _apiSettings = new ApiSettings
         {
             Url = "https://test.com",

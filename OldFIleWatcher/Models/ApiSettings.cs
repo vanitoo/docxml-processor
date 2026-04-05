@@ -1,4 +1,4 @@
-﻿namespace OldFIleWatcher.Models;
+namespace OldFIleWatcher.Models;
 
 public class ApiSettings
 {

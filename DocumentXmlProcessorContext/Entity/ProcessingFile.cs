@@ -1,4 +1,4 @@
-﻿using System.Text.Json;
+using System.Text.Json;
 
 namespace DocumentXmlProcessorContext.Entity;
 
@@ -9,31 +9,34 @@ public class ProcessingFile : IDisposable
     public DateTime? DateCompleteProcessing { get; set; }
     public JsonDocument? AdditionalData { get; set; }
     public string? CallbackUrl { get; set; }
-    
+
     public string? CallbackParams { get; set; }
 
-    public bool IsComplete {
+    public bool IsComplete
+    {
         get
         {
             return String.IsNullOrWhiteSpace(ProcessingFileData.HtmlPath) == false &&
                    String.IsNullOrWhiteSpace(ProcessingFileData.PdfPath) == false;
         }
     }
-    public bool IsCompleteHtml {
+    public bool IsCompleteHtml
+    {
         get
         {
             return String.IsNullOrWhiteSpace(ProcessingFileData.HtmlPath) == false;
 
         }
     }
-    public bool IsCompletePdf {
+    public bool IsCompletePdf
+    {
         get
         {
             return String.IsNullOrWhiteSpace(ProcessingFileData.PdfPath) == false;
 
         }
     }
-    
+
     public Guid ProcessingFileDataId { get; set; }
     public virtual ProcessingFileData ProcessingFileData { get; set; } = null!;
 

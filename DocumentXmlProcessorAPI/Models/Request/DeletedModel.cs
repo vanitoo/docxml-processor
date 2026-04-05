@@ -1,4 +1,4 @@
-﻿namespace DocumentXmlProcessorAPI.Models.Request;
+namespace DocumentXmlProcessorAPI.Models.Request;
 
 public class DeletedModel
 {

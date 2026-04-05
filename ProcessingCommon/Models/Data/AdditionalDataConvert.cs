@@ -1,4 +1,4 @@
-﻿namespace ProcessingCommon.Models.Data;
+namespace ProcessingCommon.Models.Data;
 
 public class AdditionalDataConvert
 {
