@@ -12,6 +12,7 @@ IConfigurationRoot configuration = new ConfigurationBuilder()
 
 var services = new ServiceCollection()
     .Configure<RabbitSettings>(configuration.GetSection("Rabbit"))
+    .Configure<ServiceSettings>(configuration.GetSection("Service"))
     .AddLogging(builder =>
     {
         builder.AddConsole();

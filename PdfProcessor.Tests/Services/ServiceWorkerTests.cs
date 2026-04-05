@@ -1,5 +1,6 @@
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Moq;
 using PdfProcessor.Services;
 using ProcessingCommon.Services;
@@ -34,10 +35,12 @@ public class ServiceWorkerTests
     [Fact]
     public void ServiceWorker_StartService_ShouldCallStartRecived()
     {
-        // Arrange
+        // Arrange - use 0 timeout for fast tests
+        var options = Options.Create(new ServiceSettings { TimeoutMinutes = 0 });
         var worker = new ServiceWorker(
             _loggerMock.Object,
-            _brockerProcessorMock.Object
+            _brockerProcessorMock.Object,
+            options
         );
 
         // Act
