@@ -2,9 +2,7 @@ name: Code Quality
 
 on:
   push:
-    branches:
-      - main
-      - master
+    branches: [main, master]
     paths:
       - '**/*.cs'
       - '**/*.csproj'
@@ -35,10 +33,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup .NET
+      - name: Setup .NET SDK
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '7.0.x'
+          dotnet-version: '7.0.410'
+
+      - name: Show .NET info
+        run: dotnet --info
 
       - name: Create NuGet package directory
         run: mkdir -p "$NUGET_PACKAGES"
@@ -53,7 +54,9 @@ jobs:
         run: dotnet tool install --global Roslynator.DotNet.Cli --version 4.6.1
 
       - name: Run Roslynator
+        shell: bash
         run: |
+          set -o pipefail
           export PATH="$PATH:$HOME/.dotnet/tools"
           roslynator analyze ./document-xml-processor.sln --severity warning --visibility internal,public 2>&1 | tee roslynator.log
 
@@ -74,10 +77,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup .NET
+      - name: Setup .NET SDK
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '7.0.x'
+          dotnet-version: '7.0.410'
+
+      - name: Show .NET info
+        run: dotnet --info
 
       - name: Create NuGet package directory
         run: mkdir -p "$NUGET_PACKAGES"
@@ -85,8 +91,17 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore ./document-xml-processor.sln
 
-      - name: Check code formatting
-        run: dotnet format ./document-xml-processor.sln --verify-no-changes --verbosity diagnostic
+      - name: Run formatting check
+        shell: bash
+        run: |
+          set -o pipefail
+          dotnet format ./document-xml-processor.sln --no-restore --verify-no-changes --verbosity diagnostic 2>&1 | tee dotnet-format.log
 
-
-        
+      - name: Upload formatting results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dotnet-format-results
+          path: dotnet-format.log
+          retention-days: 7
+          
