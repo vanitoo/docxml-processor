@@ -40,6 +40,5 @@ RUN apk add --no-cache \
 
 COPY --from=build /app ./
 COPY ./DocumentXmlProcessorAPI/appsettings.json ./
-COPY ./VERSION ./
 
 ENTRYPOINT ["dotnet", "DocumentXmlProcessorAPI.dll"]

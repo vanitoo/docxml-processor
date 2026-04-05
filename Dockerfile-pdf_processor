@@ -37,7 +37,6 @@ RUN apk add --no-cache \
 
 COPY --from=build /app ./
 COPY ./PdfProcessor/appsettings.json ./
-COPY ./VERSION ./
 
 COPY --from=wkhtmltopdf /bin/wkhtmltopdf /usr/local/bin/wkhtmltopdf
 COPY --from=wkhtmltopdf /bin/wkhtmltoimage /usr/local/bin/wkhtmltoimage

@@ -37,7 +37,6 @@ RUN apk add --no-cache \
 
 COPY --from=build /app ./
 COPY ./XsltProcessor/appsettings.json ./
-COPY ./VERSION ./
 
 # Ensure xsd and xslt folders are copied
 COPY ./XsltProcessor/xsd/ ./xsd/
