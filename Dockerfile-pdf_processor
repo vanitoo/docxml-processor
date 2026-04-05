@@ -5,6 +5,9 @@ WORKDIR /source
 COPY ./ProcessingCommon/ProcessingCommon.csproj ./ProcessingCommon/
 COPY ./PdfProcessor/PdfProcessor.csproj ./PdfProcessor/
 
+# Copy VERSION too, because csproj expects it at /source/VERSION
+COPY ./VERSION ./VERSION
+
 RUN dotnet restore PdfProcessor/PdfProcessor.csproj
 
 COPY ./ProcessingCommon ./ProcessingCommon/

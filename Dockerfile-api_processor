@@ -14,6 +14,9 @@ COPY ./ProcessingCommon/ProcessingCommon.csproj ./ProcessingCommon/
 COPY ./DocumentXmlProcessorAPI/DocumentXmlProcessorAPI.csproj ./DocumentXmlProcessorAPI/
 COPY nuget.config ./
 
+# Copy VERSION too, because csproj expects it at /source/VERSION
+COPY ./VERSION ./VERSION
+
 # Restore dependencies
 RUN dotnet restore DocumentXmlProcessorAPI/DocumentXmlProcessorAPI.csproj
 

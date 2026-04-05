@@ -20,6 +20,9 @@ COPY ./ProcessingCommon/ProcessingCommon.csproj ./ProcessingCommon/
 COPY ./OldFIleWatcher/OldFIleWatcher.csproj ./OldFIleWatcher/
 COPY nuget.config ./nuget.config
 
+# Copy VERSION too, because csproj expects it at /source/VERSION
+COPY ./VERSION ./VERSION
+
 RUN dotnet restore ./OldFIleWatcher/OldFIleWatcher.csproj --configfile ./nuget.config
 
 # Copy source code after restore
