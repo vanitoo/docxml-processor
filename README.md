@@ -1,108 +1,101 @@
 [![Build and Push Docker Images](https://github.com/vanitoo/document-xml-processor/actions/workflows/docker.yml/badge.svg)](https://github.com/vanitoo/document-xml-processor/actions/workflows/docker.yml)
+[![Unit Tests](https://github.com/vanitoo/document-xml-processor/actions/workflows/tests.yml/badge.svg)](https://github.com/vanitoo/document-xml-processor/actions/workflows/tests.yml)
+[![Code Quality](https://github.com/vanitoo/document-xml-processor/actions/workflows/code-quality.yml/badge.svg)](https://github.com/vanitoo/document-xml-processor/actions/workflows/code-quality.yml)
 
 # Document XML Processor
 
-Система обработки XML документов с использованием XSLT трансформаций, генерации PDF и API для управления процессом.
+Система обработки XML документов с использованием XSLT трансформаций, генерации PDF и REST API для управления процессом обработки.
 
 ## Архитектура проекта
 
 Проект состоит из следующих компонентов:
 
-- **DocumentXmlProcessorAPI** - ASP.NET Core API для управления процессом обработки документов
-- **XsltProcessor** - Сервис обработки XSLT трансформаций XML → HTML
-- **PdfProcessor** - Сервис генерации PDF из HTML
-- **OldFileWatcher** - Сервис мониторинга файлов
-- **ProcessingCommon** - Общие компоненты и модели
-- **DocumentXmlProcessorContext** - Контекст базы данных (Entity Framework)
-- **XsltTester** - Утилита для тестирования XSLT трансформаций
+| Компонент | Назначение |
+|-----------|------------|
+| **DocumentXmlProcessorAPI** | ASP.NET Core Web API для управления процессом обработки документов |
+| **XsltProcessor** | Сервис XSLT-трансформаций: преобразование XML → HTML |
+| **PdfProcessor** | Сервис генерации PDF из HTML |
+| **OldFileWatcher** | Сервис мониторинга файловой системы |
+| **ProcessingCommon** | Общие компоненты, интерфейсы и модели |
+| **DocumentXmlProcessorContext** | Контекст Entity Framework Core для PostgreSQL |
+| **XsltTester** | Утилита для тестирования XSLT-трансформаций |
 
 ## Стек технологий
 
-- .NET 7.0
+- **.NET 8.0**
 - ASP.NET Core Web API
 - Entity Framework Core + PostgreSQL
 - RabbitMQ (обмен сообщениями)
 - Docker + docker-compose
 - NLog (логирование)
 
-## Руководство для AI-ассистентов
+## Конвейер обработки данных
 
-Для эффективной работы с проектом ознакомьтесь с файлами:
-- `AGENTS.md` - основные правила и особенности проекта
-- `.roo/rules-code/AGENTS.md` - правила кодирования
-- `.roo/rules-debug/AGENTS.md` - особенности отладки
-- `.roo/rules-architect/AGENTS.md` - архитектурные ограничения
-- `.roo/rules-ask/AGENTS.md` - контекст документации
+```
+XML-файл → OldFileWatcher (мониторинг) → 
+→ XsltProcessor (XSLT: XML → HTML) → 
+→ [PdfProcessor (HTML → PDF) + DocumentXmlProcessorAPI (HTML)]
+```
 
-## Инструкция по сборке
+## Быстрый старт
 
-### Использование Build.bat
+### Сборка и запуск
 
-1. Выполните сборку проекта через compound BuildAll в Visual Studio
-2. Скопируйте `docker-compose.yml` в папку с собранными проектами
-3. Запустите `Build.bat` для сборки и публикации образов
-
-### Ручная сборка
-
-Сборка исходников в изображения:
 ```bash
+# Сборка Docker-образов
 docker-compose build
-```
 
-Добавление тега изображениям:
-```bash
-docker tag build-old-file-watcher 192.168.12.104:5050/build-old-file-watcher-latest
-docker tag build-pdf-processing 192.168.12.104:5050/build-pdf-processing-latest
-docker tag build-xslt-processing 192.168.12.104:5050/build-xslt-processing-latest
-docker tag build-document-xml-processor-api 192.168.12.104:5050/build-document-xml-processor-api-latest
-```
-
-Заливка изображений в приватный registry:
-```bash
-docker push 192.168.12.104:5050/build-old-file-watcher-latest
-docker push 192.168.12.104:5050/build-pdf-processing-latest
-docker push 192.168.12.104:5050/build-xslt-processing-latest
-docker push 192.168.12.104:5050/build-document-xml-processor-api-latest
-```
-
-## CI/CD Pipeline
-
-Проект использует Jenkins для автоматизированной сборки и публикации Docker-образов.
-
-### Jenkins Pipeline (`Jenkinsfile`)
-
-Пайплайн выполняет следующие шаги:
-
-1. **Checkout**: Загружает код из репозитория GitHub.
-2. **Set Version**: Читает версию из файла `VERSION`.
-3. **Build, Tag, Push** для каждого сервиса:
-   - `file_watcher`
-   - `pdf_processor`
-   - `xslt_processor`
-   - `api_processor`
-
-Для каждого сервиса:
-- Собирает Docker-образ с тегом `${VERSION}` на основе соответствующего `Dockerfile-*`.
-- Создаёт теги для реестра: `${REGISTRY}/service:${VERSION}` и `${REGISTRY}/service:latest`.
-- Публикует образы в реестр `192.168.12.104:5050`.
-
-### Запуск пайплайна
-
-Пайплайн запускается автоматически при пуше в репозиторий или вручную в Jenkins UI.
-
-После успешного выполнения необходимо вручную обновить и перезапустить сервисы:
-```bash
-docker-compose pull
+# Запуск всех сервисов
 docker-compose up -d
 ```
 
-## Запуск
+API будет доступно на порту **5000**.
+
+### Требования
+
+- .NET 8.0 SDK (для локальной сборки)
+- Docker и Docker Compose
+- PostgreSQL (хост: 192.168.12.202:5432)
+- RabbitMQ (хост: 192.168.12.212)
+
+## CI/CD
+
+### GitHub Actions (основной)
+
+Проект использует GitHub Actions для автоматизированной сборки и публикации Docker-образов.
+
+#### Триггеры запуска
+
+- Пуш в ветку `main` или `master` — сборка без пуша в registry
+- Создание тега `v*` (например, `v8.10`) — сборка с пушем в registry
+
+#### Публикация в registry
+
+Образы публикуются в GitHub Container Registry: `ghcr.io/{owner}/document-xml-processor`
+
+Теги:
+- `${SERVICE}:${VERSION}` — конкретная версия (например, `api_processor:8.9`)
+- `${SERVICE}:latest` — latest
+
+#### Обновление сервисов
 
 ```bash
-docker-compose up
+# Логин в GitHub Container Registry
+echo $GITHUB_TOKEN | docker login ghcr.io -u USERNAME --password-stdin
+
+# Pull новых образов
+docker-compose pull
+
+# Перезапуск
+docker-compose up -d
 ```
 
-API будет доступен на порту 5000.
+## Тестирование
+
+```bash
+# Запуск всех тестов
+dotnet test document-xml-processor.sln
+```
 
 ## Конфигурация
 
@@ -110,5 +103,23 @@ API будет доступен на порту 5000.
 - Подключение к PostgreSQL
 - Настройки RabbitMQ
 - Конфигурация NLog
+
+## Безопасность
+
+Политика безопасности описана в файле [SECURITY.md](SECURITY.md).
+
+## Лицензия
+
+Проект распространяется под лицензией Apache License 2.0 — подробности в файле [LICENSE](LICENSE).
+
+## Руководство для разработчиков
+
+Для эффективной работы с проектом ознакомьтесь с файлами:
+- `AGENTS.md` — основные правила и особенности проекта
+- `.roo/rules-code/AGENTS.md` — правила кодирования
+- `.roo/rules-debug/AGENTS.md` — особенности отладки
+- `.roo/rules-architect/AGENTS.md` — архитектурные ограничения
+- `.roo/rules-ask/AGENTS.md` — контекст документации
+- `KODA.md` — инструкции для AI-ассистентов
 
 
