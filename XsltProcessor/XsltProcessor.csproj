@@ -32,13 +32,17 @@
         <None Update="appsettings.json">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
-        <None Update="xsd\*\*">
+        <None Update="xsd\**">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
-        <None Update="xslt\*\*">
+        <None Update="xslt\**">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
         <None Update="Dockerfile">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Include="..\VERSION">
+          <Link>VERSION</Link>
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
     </ItemGroup>

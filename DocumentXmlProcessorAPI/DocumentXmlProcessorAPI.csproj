@@ -50,6 +50,10 @@
       <None Update="Dockerfile">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
+      <None Include="..\VERSION">
+        <Link>VERSION</Link>
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
 </Project>
