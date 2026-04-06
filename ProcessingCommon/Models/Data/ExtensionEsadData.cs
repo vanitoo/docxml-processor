@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace ProcessingCommon.Models.Data;
 
@@ -15,5 +15,7 @@ public class ExtensionEsadData
     public string? DestinationPlace { get; set; }
     public string? DestinationCustom { get; set; }
     public string? DestinationStation { get; set; }
+    public string? DestinationPlaceCertificate { get; set; }
+    public string? DestinationPlaceDescription { get; set; }
     public Dictionary<string, string>? DictCountry { get; set; }
 }

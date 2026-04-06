@@ -1,4 +1,4 @@
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using ProcessingCommon.Models.Data;
 using System.Reflection;
 using System.Runtime.InteropServices.JavaScript;
@@ -29,7 +29,7 @@ public class XsltBuilder
     public XsltBuilder BasicBuild()
     {
         _resultsHtml.Clear();
-
+        
         XElement document = GetDocumentWithoutSignature();
         if (document == default)
         {
@@ -55,14 +55,14 @@ public class XsltBuilder
     {
         try
         {
-            _dictCountry = data.DictCountry ?? new Dictionary<string, string>();
-
+            _dictCountry = data.DictCountry??new Dictionary<string, string>();
+           
             List<string> editData = new List<string>();
             if (_resultsHtml.Any())
             {
                 foreach (var html in _resultsHtml)
                 {
-                    string result = html;
+                    string result = html; 
                     int lastReplacementPosition = 0;
                     result = AddExtFieldTdNumber(data.DocumentType, data.TdRegNumber ?? String.Empty, result, ref lastReplacementPosition);
                     if (data.DocumentType == "EsadOut_CU")
@@ -78,14 +78,17 @@ public class XsltBuilder
                     }
                     else
                     {
+                        var postAddress = CopyElements("Таможенный орган назначения", result, lastReplacementPosition, "Почтовый");
                         result = ReplaceCodeCountry(result);
                         result = AddExtField3("Таможенный орган отправления", data.CustomCode, result, ref lastReplacementPosition);
                         result = AddExtField3("Таможенный орган отправления", data.StatusName, result, ref lastReplacementPosition);
-                        result = AddExtField3("Таможенный орган отправления", data.CustomsOffical, result, ref lastReplacementPosition);
+                        result = AddExtField3("Таможенный орган отправления",data.CustomsOffical, result, ref lastReplacementPosition);
 
                         result = DeleteElements("Таможенный орган назначения", result, ref lastReplacementPosition);
                         result = AddElement("Таможенный орган назначения", data.DestinationCustom, result, ref lastReplacementPosition);
+                        result = AddElement("Таможенный орган назначения", data.DestinationPlaceCertificate, result, ref lastReplacementPosition);
                         result = AddElement("Таможенный орган назначения", data.DestinationStation, result, ref lastReplacementPosition);
+                        result = AddElement("Таможенный орган назначения", postAddress, result, ref lastReplacementPosition);
 
                         result = AddExtField3("Отметки таможенного органа отправления", "1:" + data.DestinationPlace, result, ref lastReplacementPosition);
                         result = AddExtField3("Отметки таможенного органа отправления", "2:Срок таможенного транзита: " + data.TransitDateLimit, result, ref lastReplacementPosition);
@@ -115,12 +118,12 @@ public class XsltBuilder
         }
         catch (Exception ex)
         {
-            _logger.LogError("Ошибка при формировании расширенного EsadOut: {ex}", ex);
+            _logger.LogError("Ошибка при формировании расширенного EsadOut: {ex}",ex);
         }
 
         return this;
     }
-
+    
 
     public XsltBuilder ExtensionPi(ExtensionPIData data)
     {
@@ -141,7 +144,7 @@ public class XsltBuilder
         }
         catch (Exception ex)
         {
-            _logger.LogError("Ошибка при формировании расширенного EsadOut: {ex}", ex);
+            _logger.LogError("Ошибка при формировании расширенного EsadOut: {ex}",ex);
         }
 
         return this;
@@ -193,18 +196,14 @@ public class XsltBuilder
             return result.Substring(0, start + 1) + replaceValue + result.Substring(end);
         }
         else
-        {
             return result;
-        }
     }
     private string AddExtFieldTdNumber(string type, string insertValue, string result, ref int lastReplacementPosition)
     {
         if (type == null) { type = "TransitDeclaration"; }
 
         if (!new string[] { "EsadOut_CU", "TransitDeclaration" }.Contains(type))
-        {
             throw new Exception("Неизвестный бланк");
-        }
 
         string refValue = ">ДЕКЛАРАЦИЯ";
         var replaceValue = $"<td class=\"graphMain\" align=\"center\" valign=\"center\" rowspan=\"3\" style=\"width:60.6mm;border-left:solid 0.8pt black;border-bottom:solid 0.8pt black;\">{insertValue}</td>";
@@ -244,9 +243,7 @@ public class XsltBuilder
             return result.Substring(0, start) + "<div><element>" + addValue + "</element></div>" + result.Substring(start);
         }
         else
-        {
             return result;
-        }
     }
 
     private static string DeleteElements(string refValue, string result, ref int lastReplacementPosition)
@@ -259,6 +256,14 @@ public class XsltBuilder
         str = Regex.Replace(str, pattern, string.Empty, RegexOptions.Singleline);
         lastReplacementPosition = _base;
         return result.Substring(0, start) + $"{str}" + result.Substring(end);
+    }
+    private static string CopyElements(string refValue, string result, int lastReplacementPosition, string startValue)
+    {
+        int _base = result.IndexOf(refValue, lastReplacementPosition);
+        int start = result.IndexOf(startValue, _base);
+        int end = result.IndexOf("</td>", _base);
+        string str = result.Substring(start, end - start);
+        return str;
     }
     private static string AddExtField3(string refValue, string replaceValue, string result, ref int lastReplacementPosition)
     {
@@ -279,9 +284,7 @@ public class XsltBuilder
             return result.Substring(0, start) + replaceValue + result.Substring(end);
         }
         else
-        {
             return result;
-        }
     }
     private static string AddExtFieldTdNumberExtPages(string type, string insertValue, string result, ref int lastReplacementPosition)
     {
@@ -309,7 +312,7 @@ public class XsltBuilder
             if (documentType == "TransitDeclaration")
             {
                 xsdPath = "EEC_" + xsdPath;
-                xsltPath = "EEC_" + documentType + ".xslt";
+                xsltPath = "EEC_" + documentType +".xslt";
             }
             else
             {
@@ -317,11 +320,11 @@ public class XsltBuilder
                 xsltPath = $"{((String.IsNullOrWhiteSpace(documentModeId) == false) ? $"{documentModeId}_" : String.Empty)}{documentType}.xslt";
 
             }
-
+               
             string version = GetValidVersion(document, xsdPath, GetPossibleVersion(_xml, documentType));
-            string xslt_schema = Path.Combine(GetCurrentAppDirectory(), "xslt", version, xsltPath);
+            string xslt_schema = Path.Combine(GetCurrentAppDirectory(),"xslt", version, xsltPath);
             Guid generateProcessId = Guid.NewGuid();
-
+            
             _logger.LogInformation($"Start generate document {generateProcessId} {DateTime.Now}: {xsdPath}");
             AppContext.SetSwitch("Switch.System.Xml.AllowDefaultResolver", true);
             XslCompiledTransform xslt = new XslCompiledTransform();
@@ -347,14 +350,9 @@ public class XsltBuilder
         {
             var correctVersion = version;
             if (startAlbum != default && correctVersion == startAlbum)
-            {
                 continue;
-            }
-
             if (CheckValidVersion(document, xsd, correctVersion) == true)
-            {
                 return correctVersion;
-            }
         }
         _logger.LogError("Не найдена подходящая версия альбома для документа {Name}", document.Name.LocalName);
         throw new ArgumentException("Не найдена подходящая версия альбома для документа {Name}", document.Name.LocalName);
@@ -367,7 +365,7 @@ public class XsltBuilder
             XmlSchemaSet schemas = new XmlSchemaSet();
             schemas.XmlResolver = new XmlUrlResolver();
             string mainNamespace = document.GetDefaultNamespace().NamespaceName;
-            schemas.Add(mainNamespace, Path.Combine(GetCurrentAppDirectory(), "xsd", version, xsd));
+            schemas.Add(mainNamespace, Path.Combine(GetCurrentAppDirectory(),"xsd", version, xsd));
             bool errors = false;
             XDocument validateDocument = new XDocument(document);
             validateDocument.Validate(schemas, (o, e) =>
@@ -382,11 +380,11 @@ public class XsltBuilder
             return false;
         }
     }
-    private string? GetPossibleVersion(XElement document, string documentType)
+    private string? GetPossibleVersion(XElement document, string documentType) 
     {
         XElement possibleVersion = null;
         document.TryGetFirstSubElementIgnoringNameSpaces("SoftVersion", out possibleVersion);
-        if (possibleVersion != default)
+        if(possibleVersion != default)
         {
             return possibleVersion.Value?.Split("/").FirstOrDefault();
         }
@@ -397,9 +395,7 @@ public class XsltBuilder
             foreach (var knownVersion in knownVersions)
             {
                 if (rawData.Contains($"{documentType}:{knownVersion}"))
-                {
                     return knownVersion;
-                }
             }
         }
         return null;
@@ -420,7 +416,7 @@ public class XsltBuilder
     {
         var elements = container.GetSubElementsIgnoringNameSpaces("Object");
         List<XElement> documents = new();
-        foreach (var element in elements)
+        foreach(var element in elements)
         {
             var needElement = element.Elements().FirstOrDefault();
             if (needElement != default)
@@ -432,21 +428,21 @@ public class XsltBuilder
     }
     private IEnumerable<string> GetAllKnownVersion()
     {
-        var xsd = Directory.GetDirectories(Path.Combine(GetCurrentAppDirectory(), "xsd"), "*", SearchOption.AllDirectories);
-        List<string> list = new List<string>();
-        foreach (var s in xsd)
-        {
-            string separator = (s.Contains("\\") == true) ? "\\" : "/";
-            var pathSplit = s.Split(separator, StringSplitOptions.RemoveEmptyEntries);
-            var version = pathSplit.LastOrDefault();
-            if (String.IsNullOrWhiteSpace(version) == false)
-            {
-                list.Add(version);
-            }
-        }
-
-        _logger.LogInformation($"All known version: {String.Join(";", list)}");
-        return list;
+       var xsd = Directory.GetDirectories(Path.Combine(GetCurrentAppDirectory(), "xsd"), "*", SearchOption.AllDirectories);
+       List<string> list = new List<string>();
+       foreach (var s in xsd)
+       {
+           string separator = (s.Contains("\\") == true) ? "\\" : "/";
+           var pathSplit = s.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+           var version = pathSplit.LastOrDefault();
+           if (String.IsNullOrWhiteSpace(version) == false)
+           {
+               list.Add(version);
+           }
+       }
+       
+       _logger.LogInformation($"All known version: {String.Join(";", list)}");
+       return list;
     }
 
     private string GetCurrentAppDirectory()

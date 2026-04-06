@@ -116,10 +116,6 @@ dotnet test document-xml-processor.sln
 
 Для эффективной работы с проектом ознакомьтесь с файлами:
 - `AGENTS.md` — основные правила и особенности проекта
-- `.roo/rules-code/AGENTS.md` — правила кодирования
-- `.roo/rules-debug/AGENTS.md` — особенности отладки
-- `.roo/rules-architect/AGENTS.md` — архитектурные ограничения
-- `.roo/rules-ask/AGENTS.md` — контекст документации
 - `KODA.md` — инструкции для AI-ассистентов
 
 
