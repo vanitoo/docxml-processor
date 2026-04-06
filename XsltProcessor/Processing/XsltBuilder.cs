@@ -261,6 +261,8 @@ public class XsltBuilder
     {
         int _base = result.IndexOf(refValue, lastReplacementPosition);
         int start = result.IndexOf(startValue, _base);
+        if (start < 0)
+            return String.Empty;
         int end = result.IndexOf("</td>", _base);
         string str = result.Substring(start, end - start);
         return str;
