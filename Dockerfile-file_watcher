@@ -4,6 +4,8 @@
 # Specify .NET version via arguments
 ARG DOTNET_VERSION=8.0
 ARG BUILD_CONFIGURATION=Release
+ARG VERSION
+RUN echo $VERSION > ./VERSION
 
 # ===== Build Stage =====
 FROM mcr.microsoft.com/dotnet/sdk:${DOTNET_VERSION}-alpine AS build
