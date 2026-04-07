@@ -5,13 +5,15 @@
 ARG DOTNET_VERSION=8.0
 ARG BUILD_CONFIGURATION=Release
 ARG VERSION
-RUN echo $VERSION > ./VERSION
 
 # ===== Build Stage =====
 FROM mcr.microsoft.com/dotnet/sdk:${DOTNET_VERSION}-alpine AS build
+
 ARG DOTNET_VERSION
 ARG BUILD_CONFIGURATION
 WORKDIR /source
+ARG VERSION
+RUN echo "$VERSION" > ./VERSION
 
 # Install build dependencies
 RUN apk add --no-cache curl
@@ -21,9 +23,6 @@ COPY ./DocumentXmlProcessorContext/DocumentXmlProcessorContext.csproj ./Document
 COPY ./ProcessingCommon/ProcessingCommon.csproj ./ProcessingCommon/
 COPY ./OldFIleWatcher/OldFIleWatcher.csproj ./OldFIleWatcher/
 COPY nuget.config ./nuget.config
-
-# Copy VERSION too, because csproj expects it at /source/VERSION
-COPY ./VERSION ./VERSION
 
 RUN dotnet restore ./OldFIleWatcher/OldFIleWatcher.csproj --configfile ./nuget.config
 
@@ -47,7 +46,8 @@ RUN apk add --no-cache \
     icu-libs \
     libgdiplus \
     ca-certificates \
-    tzdata
+    tzdata \
+    wget
 
 # Copy built application
 COPY --from=build /app ./
