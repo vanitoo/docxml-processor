@@ -75,8 +75,8 @@ git push origin v8.10
 ```
 
 Образы публикуются в GitHub Container Registry:
-- `ghcr.io/{owner}/document-xml-processor/{service}:{version}`
-- `ghcr.io/{owner}/document-xml-processor/{service}:latest`
+- `ghcr.io/{owner}/docxml-processor/{service}:{version}`
+- `ghcr.io/{owner}/docxml-processor/{service}:latest`
 
 #### Вариант 2: Скрипт BuildAndPublish.cmd
 
@@ -176,10 +176,10 @@ API будет доступно на порту 5000.
 
 #### Публикация в registry
 
-Образы публикуются в GitHub Container Registry: `ghcr.io/{owner}/document-xml-processor`
+Образы публикуются в GitHub Container Registry: `ghcr.io/{owner}/docxml-processor`
 
 Теги:
-- `${SERVICE}:${VERSION}` — конкретная версия (например, `ghcr.io/owner/document-xml-processor/api_processor:8.9`)
+- `${SERVICE}:${VERSION}` — конкретная версия (например, `ghcr.io/owner/docxml-processor/api_processor:8.9`)
 - `${SERVICE}:latest` — latest
 - `${SERVICE}:sha-*` — хеш коммита
 
@@ -196,10 +196,10 @@ API будет доступно на порту 5000.
 echo $GITHUB_TOKEN | docker login ghcr.io -u USERNAME --password-stdin
 
 # Pull новых образов
-docker pull ghcr.io/{owner}/document-xml-processor/file_watcher:latest
-docker pull ghcr.io/{owner}/document-xml-processor/pdf_processor:latest
-docker pull ghcr.io/{owner}/document-xml-processor/xslt_processor:latest
-docker pull ghcr.io/{owner}/document-xml-processor/api_processor:latest
+docker pull ghcr.io/{owner}/docxml-processor/file_watcher:latest
+docker pull ghcr.io/{owner}/docxml-processor/pdf_processor:latest
+docker pull ghcr.io/{owner}/docxml-processor/xslt_processor:latest
+docker pull ghcr.io/{owner}/docxml-processor/api_processor:latest
 
 # Перезапуск docker-compose
 docker-compose up -d
@@ -214,7 +214,7 @@ docker-compose -f docker-compose.yml pull
 docker-compose -f docker-compose.yml up -d
 
 # Или с явным указанием версии
-docker pull ghcr.io/{owner}/document-xml-processor/api_processor:8.9
+docker pull ghcr.io/{owner}/docxml-processor/api_processor:8.9
 ```
 
 ---

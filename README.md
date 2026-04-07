@@ -1,6 +1,6 @@
-[![Build and Push Docker Images](https://github.com/vanitoo/document-xml-processor/actions/workflows/docker.yml/badge.svg)](https://github.com/vanitoo/document-xml-processor/actions/workflows/docker.yml)
-[![Unit Tests](https://github.com/vanitoo/document-xml-processor/actions/workflows/tests.yml/badge.svg)](https://github.com/vanitoo/document-xml-processor/actions/workflows/tests.yml)
-[![Code Quality](https://github.com/vanitoo/document-xml-processor/actions/workflows/code-quality.yml/badge.svg)](https://github.com/vanitoo/document-xml-processor/actions/workflows/code-quality.yml)
+[![Build and Push Docker Images](https://github.com/vanitoo/docxml-processor/actions/workflows/docker.yml/badge.svg)](https://github.com/vanitoo/docxml-processor/actions/workflows/docker.yml)
+[![Unit Tests](https://github.com/vanitoo/docxml-processor/actions/workflows/tests.yml/badge.svg)](https://github.com/vanitoo/docxml-processor/actions/workflows/tests.yml)
+[![Code Quality](https://github.com/vanitoo/docxml-processor/actions/workflows/code-quality.yml/badge.svg)](https://github.com/vanitoo/docxml-processor/actions/workflows/code-quality.yml)
 
 # Document XML Processor
 
@@ -71,7 +71,7 @@ API будет доступно на порту **5000**.
 
 #### Публикация в registry
 
-Образы публикуются в GitHub Container Registry: `ghcr.io/{owner}/document-xml-processor`
+Образы публикуются в GitHub Container Registry: `ghcr.io/{owner}/docxml-processor`
 
 Теги:
 - `${SERVICE}:${VERSION}` — конкретная версия (например, `api_processor:8.9`)

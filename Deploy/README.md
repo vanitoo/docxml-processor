@@ -55,7 +55,7 @@ version: '3.8'
 services:
   rabbitmq:
     image: rabbitmq:3-management
-    container_name: document-xml-processor-rabbitmq
+    container_name: docxml-processor-rabbitmq
     environment:
       RABBITMQ_DEFAULT_USER: user
       RABBITMQ_DEFAULT_PASS: password
@@ -103,7 +103,7 @@ version: '3.8'
 services:
   jenkins:
     build: .
-    container_name: document-xml-processor-jenkins
+    container_name: docxml-processor-jenkins
     ports:
       - "8080:8080"
       - "50000:50000"

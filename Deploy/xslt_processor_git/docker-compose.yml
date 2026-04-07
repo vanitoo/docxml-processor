@@ -1,6 +1,6 @@
 services:
   file_watcher:
-    image: ghcr.io/vanitoo/document-xml-processor/file_watcher:latest
+    image: ghcr.io/vanitoo/docxml-processor/file_watcher:latest
     healthcheck:
       disable: true
     container_name: file_watcher
@@ -19,7 +19,7 @@ services:
 
 
   pdf_processor:
-    image: ghcr.io/vanitoo/document-xml-processor/pdf_processor:latest
+    image: ghcr.io/vanitoo/docxml-processor/pdf_processor:latest
     container_name: pdf_processor
     restart: always
     networks:
@@ -36,7 +36,7 @@ services:
 
 
   xslt_processor:
-    image: ghcr.io/vanitoo/document-xml-processor/xslt_processor:latest
+    image: ghcr.io/vanitoo/docxml-processor/xslt_processor:latest
     container_name: xslt_processor
     restart: always
     networks:
@@ -53,7 +53,7 @@ services:
 
 
   api_processor:
-    image: ghcr.io/vanitoo/document-xml-processor/api_processor:latest
+    image: ghcr.io/vanitoo/docxml-processor/api_processor:latest
     container_name: api_processor
     restart: always
     ports:

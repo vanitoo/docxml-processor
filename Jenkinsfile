@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git url: 'https://github.com/vanitoo/document-xml-processor.git', credentialsId: 'github-creds'
+                git url: 'https://github.com/vanitoo/docxml-processor.git', credentialsId: 'github-creds'
             }
         }
 
