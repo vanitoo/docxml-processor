@@ -58,4 +58,9 @@ COPY ./OldFIleWatcher/appsettings.json ./
 # Healthcheck
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s CMD wget --no-verbose --tries=1 --spider http://localhost:5000/health || exit 1
 
+# .NET 8 runtime provides the non-root app user (UID 1654).
+RUN mkdir -p /app/logs /app/Data && chown app:app /app/logs /app/Data
+ENV HOME=/home/app
+USER app
+
 ENTRYPOINT ["dotnet", "OldFIleWatcher.dll"]

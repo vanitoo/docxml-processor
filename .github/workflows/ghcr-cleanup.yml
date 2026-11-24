@@ -1,0 +1,32 @@
+name: GHCR retention
+
+on:
+  schedule:
+    - cron: '23 3 * * 0'
+  workflow_dispatch:
+    inputs:
+      apply:
+        description: Delete eligible old CI versions (otherwise dry run)
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  packages: write
+
+concurrency:
+  group: docker-publish
+  cancel-in-progress: false
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      OWNER: ${{ github.repository_owner }}
+      REPO: ${{ github.event.repository.name }}
+      APPLY: ${{ github.event_name == 'schedule' || inputs.apply == true }}
+    steps:
+      - uses: actions/checkout@v5
+      - name: Clean old CI image versions
+        run: python3 .github/scripts/ghcr-retention.py

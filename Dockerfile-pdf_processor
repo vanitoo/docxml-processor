@@ -51,4 +51,9 @@ COPY --from=wkhtmltopdf /lib/libwkhtmltox* /lib/
 RUN chmod +x /usr/local/bin/wkhtmltopdf /usr/local/bin/wkhtmltoimage && \
     ln -sf /lib/libwkhtmltox.so /usr/lib/libwkhtmltox.so || true
 
+# .NET 8 runtime provides the non-root app user (UID 1654).
+RUN mkdir -p /app/logs /app/Data && chown app:app /app/logs /app/Data
+ENV HOME=/home/app
+USER app
+
 ENTRYPOINT ["dotnet", "PdfProcessor.dll"]

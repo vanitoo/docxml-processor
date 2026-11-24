@@ -46,4 +46,9 @@ RUN apk add --no-cache \
 COPY --from=build /app ./
 COPY ./DocumentXmlProcessorAPI/appsettings.json ./
 
+# .NET 8 runtime provides the non-root app user (UID 1654).
+RUN mkdir -p /app/logs /app/Data && chown app:app /app/logs /app/Data
+ENV HOME=/home/app
+USER app
+
 ENTRYPOINT ["dotnet", "DocumentXmlProcessorAPI.dll"]
