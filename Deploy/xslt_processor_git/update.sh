@@ -1,5 +1,27 @@
 #!/bin/bash
-docker compose pull
-docker compose up -d
-docker compose logs -f
-docker ps
+set -euo pipefail
+cd -- "$(dirname -- "${BASH_SOURCE[0]}")"
+docker compose config --quiet
+docker compose pull --ignore-buildable
+# Refuse mixed revisions if a registry promotion is incomplete.
+revision=""
+for service in file_watcher pdf_processor xslt_processor api_processor; do
+    image="ghcr.io/vanitoo/docxml-processor/$service:latest"
+    current=$(docker image inspect --format '{{index .Config.Labels "org.opencontainers.image.revision"}}' "$image")
+    version=$(docker image inspect --format '{{index .Config.Labels "org.opencontainers.image.version"}}' "$image")
+    [[ -n "$current" && "$current" != "<no value>" && -n "$version" && "$version" != "<no value>" ]] || { echo "Missing image metadata: $image" >&2; exit 1; }
+    identity="$current:$version"
+    [[ -z "$revision" || "$revision" == "$identity" ]] || { echo "Mixed image versions; deployment aborted" >&2; exit 1; }
+    revision="$identity"
+done
+echo "Deploying $revision"
+# Bind mounts override image ownership. Check access without changing host permissions.
+docker compose run --rm --no-deps --entrypoint sh api_processor -c 'test -w /app/Data' || {
+    echo "API cannot write /app/Data; grant UID 1654 access to the host Data directory before deployment" >&2
+    exit 1
+}
+docker compose up -d --wait --wait-timeout 120
+docker compose ps
+if [[ "${1:-}" == "--logs" ]]; then
+    docker compose logs -f
+fi

@@ -1,0 +1,16 @@
+.git
+.github
+**/bin
+**/obj
+**/TestResults
+**/.vs
+**/.idea
+**/.nuget
+**/*.user
+**/*.log
+**/*.pdb
+**/appsettings.Development.json
+**/secrets.json
+**/.env
+Deploy
+DocumentXmlProcessor.zip

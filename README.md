@@ -42,11 +42,8 @@ XML-файл → OldFileWatcher (мониторинг) →
 ### Сборка и запуск
 
 ```bash
-# Сборка Docker-образов
-docker-compose build
-
-# Запуск всех сервисов
-docker-compose up -d
+cd Deploy/xslt_processor_git
+bash update.sh
 ```
 
 API будет доступно на порту **5000**.
@@ -66,16 +63,17 @@ API будет доступно на порту **5000**.
 
 #### Триггеры запуска
 
-- Пуш в ветку `main` или `master` — сборка без пуша в registry
-- Создание тега `v*` (например, `v8.10`) — сборка с пушем в registry
+- Пуш в ветку `main` или `master` — тесты, сборка и публикация в GHCR
+- Создание тега `v*` (например, `v8.22`) — тесты, публикация версии и GitHub Release
+- Pull Request — тесты и сборка без публикации
 
 #### Публикация в registry
 
 Образы публикуются в GitHub Container Registry: `ghcr.io/{owner}/docxml-processor`
 
 Теги:
-- `${SERVICE}:${VERSION}` — конкретная версия (например, `api_processor:8.9`)
-- `${SERVICE}:latest` — latest
+- `${SERVICE}:${VERSION}` — версионный тег: `YYYY.MM.DD-HHMMSS-RUN_NUMBER-SHA` для push, `8.22` для тега `v8.22`
+- `${SERVICE}:latest` — продвигается только после успешных тестов и сборки всех четырёх образов. Продвижение тегов не атомарно; update.sh проверяет совпадение версии и ревизии.
 
 #### Обновление сервисов
 
@@ -83,18 +81,16 @@ API будет доступно на порту **5000**.
 # Логин в GitHub Container Registry
 echo $GITHUB_TOKEN | docker login ghcr.io -u USERNAME --password-stdin
 
-# Pull новых образов
-docker-compose pull
-
-# Перезапуск
-docker-compose up -d
+cd Deploy/xslt_processor_git
+bash update.sh
+# Для просмотра логов: bash update.sh --logs
 ```
 
 ## Тестирование
 
 ```bash
 # Запуск всех тестов
-dotnet test document-xml-processor.sln
+dotnet test DocumentXmlProcessor.Tests.sln -c Release
 ```
 
 ## Конфигурация
@@ -119,3 +115,10 @@ dotnet test document-xml-processor.sln
 - `KODA.md` — инструкции для AI-ассистентов
 
 
+
+## Защита образов и хранение GHCR
+
+- Четыре основных сервиса запускаются от встроенного пользователя .NET `app` (UID/GID 1654). Cleaner с cron и инфраструктурные контейнеры не изменены.
+- Перед обновлением проверьте права на bind mount `Data`. При необходимости администратор может предоставить доступ через ACL: `sudo setfacl -Rm u:1654:rwX Data` и `sudo find Data -type d -exec setfacl -m d:u:1654:rwx {} +`. Не меняйте владельца данных вслепую.
+- Trivy проверяет каждый собранный образ до отправки в GHCR. JSON-отчёты доступны в Actions 30 дней. Публикация блокируется при CRITICAL с доступным исправлением; остальные CVE остаются в отчёте.
+- GHCR retention: еженедельно удаляются только CI-версии старше 90 дней за пределами 30 последних CI-версий каждого сервиса. `latest`, релизные и прочие пользовательские теги, а также нетегированные манифесты сохраняются. Ручной запуск по умолчанию dry-run; для удаления включите apply. Репозиторий должен иметь admin-доступ к четырём пакетам GHCR. Для длительно используемой версии создайте защищённый пользовательский тег или резервную копию в локальном registry.

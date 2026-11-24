@@ -1,14 +1,14 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine AS build
 ARG BUILD_CONFIGURATION=Release
-ARG VERSION
-RUN echo $VERSION > ./VERSION
 WORKDIR /source
 
 COPY ./ProcessingCommon/ProcessingCommon.csproj ./ProcessingCommon/
 COPY ./PdfProcessor/PdfProcessor.csproj ./PdfProcessor/
 
-# Copy VERSION too, because csproj expects it at /source/VERSION
-COPY ./VERSION ./VERSION
+
+COPY Directory.Build.props ./
+COPY nuget.config ./
+COPY VERSION ./VERSION
 
 RUN dotnet restore PdfProcessor/PdfProcessor.csproj
 
@@ -16,9 +16,10 @@ COPY ./ProcessingCommon ./ProcessingCommon/
 COPY ./PdfProcessor ./PdfProcessor/
 
 WORKDIR /source/PdfProcessor
+ARG VERSION
+RUN if [ -n "$VERSION" ]; then printf '%s\n' "$VERSION" > /source/VERSION; fi
 RUN dotnet publish -c $BUILD_CONFIGURATION -o /app --no-restore /p:UseAppHost=false && \
-    find /app -name "*.pdb" -delete && \
-    find /app -name "*.xml" -delete
+    find /app -name '*.pdb' -delete
 
 FROM ghcr.io/surnet/alpine-wkhtmltopdf:3.23.2-0.12.6-full AS wkhtmltopdf
 
@@ -50,5 +51,9 @@ COPY --from=wkhtmltopdf /lib/libwkhtmltox* /lib/
 RUN chmod +x /usr/local/bin/wkhtmltopdf /usr/local/bin/wkhtmltoimage && \
     ln -sf /lib/libwkhtmltox.so /usr/lib/libwkhtmltox.so || true
 
-ENTRYPOINT ["dotnet", "PdfProcessor.dll"]
+# .NET 8 runtime provides the non-root app user (UID 1654).
+RUN mkdir -p /app/logs /app/Data && chown app:app /app/logs /app/Data
+ENV HOME=/home/app
+USER app
 
+ENTRYPOINT ["dotnet", "PdfProcessor.dll"]

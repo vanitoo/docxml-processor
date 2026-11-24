@@ -3,21 +3,18 @@
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine AS build
 ARG BUILD_CONFIGURATION=Release
-ARG VERSION
-RUN echo $VERSION > ./VERSION
 WORKDIR /source
-
-# Install build dependencies
-RUN apk add --no-cache curl
 
 # Copy only necessary .csproj files for caching
 COPY ./ProcessingCommon/ProcessingCommon.csproj ./ProcessingCommon/
 COPY ./XsltProcessor/XsltProcessor.csproj ./XsltProcessor/
 
-# Copy VERSION too, because csproj expects it at /source/VERSION
-COPY ./VERSION ./VERSION
 
 # Restore dependencies
+COPY Directory.Build.props ./
+COPY nuget.config ./
+COPY VERSION ./VERSION
+
 RUN dotnet restore XsltProcessor/XsltProcessor.csproj
 
 # Copy only necessary source code after restore
@@ -25,10 +22,12 @@ COPY ./ProcessingCommon ./ProcessingCommon/
 COPY ./XsltProcessor ./XsltProcessor/
 
 WORKDIR /source/XsltProcessor
+ARG VERSION
+RUN if [ -n "$VERSION" ]; then printf '%s\n' "$VERSION" > /source/VERSION; fi
 RUN dotnet publish XsltProcessor.csproj -c $BUILD_CONFIGURATION -o /app --no-restore
 
 # Remove unnecessary files
-RUN rm -rf /app/*.pdb /app/*.xml 2>/dev/null || true
+RUN find /app -name '*.pdb' -delete
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine AS runtime
 WORKDIR /app
@@ -46,5 +45,10 @@ COPY ./XsltProcessor/appsettings.json ./
 # Ensure xsd and xslt folders are copied
 COPY ./XsltProcessor/xsd/ ./xsd/
 COPY ./XsltProcessor/xslt/ ./xslt/
+
+# .NET 8 runtime provides the non-root app user (UID 1654).
+RUN mkdir -p /app/logs /app/Data && chown app:app /app/logs /app/Data
+ENV HOME=/home/app
+USER app
 
 ENTRYPOINT ["dotnet", "XsltProcessor.dll"]

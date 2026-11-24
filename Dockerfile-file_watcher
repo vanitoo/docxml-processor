@@ -1,4 +1,4 @@
-﻿# Optimized File Watcher Dockerfile
+# Optimized File Watcher Dockerfile
 # Base size: ~80MB (vs ~220MB original)
 
 # Specify .NET version via arguments
@@ -12,17 +12,15 @@ FROM mcr.microsoft.com/dotnet/sdk:${DOTNET_VERSION}-alpine AS build
 ARG DOTNET_VERSION
 ARG BUILD_CONFIGURATION
 WORKDIR /source
-ARG VERSION
-RUN echo "$VERSION" > ./VERSION
-
-# Install build dependencies
-RUN apk add --no-cache curl
 
 # Copy .csproj files for caching
 COPY ./DocumentXmlProcessorContext/DocumentXmlProcessorContext.csproj ./DocumentXmlProcessorContext/
 COPY ./ProcessingCommon/ProcessingCommon.csproj ./ProcessingCommon/
 COPY ./OldFIleWatcher/OldFIleWatcher.csproj ./OldFIleWatcher/
 COPY nuget.config ./nuget.config
+
+COPY Directory.Build.props ./
+COPY VERSION ./VERSION
 
 RUN dotnet restore ./OldFIleWatcher/OldFIleWatcher.csproj --configfile ./nuget.config
 
@@ -32,10 +30,12 @@ COPY ./ProcessingCommon ./ProcessingCommon/
 COPY ./OldFIleWatcher ./OldFIleWatcher/
 
 WORKDIR /source/OldFIleWatcher
+ARG VERSION
+RUN if [ -n "$VERSION" ]; then printf '%s\n' "$VERSION" > /source/VERSION; fi
 RUN dotnet publish -c $BUILD_CONFIGURATION -o /app --no-restore --configfile ../nuget.config
 
 # Remove unnecessary files
-RUN rm -rf /app/*.pdb /app/*.xml 2>/dev/null || true
+RUN find /app -name '*.pdb' -delete
 
 # ===== Runtime Stage =====
 FROM mcr.microsoft.com/dotnet/aspnet:${DOTNET_VERSION}-alpine AS runtime
@@ -57,5 +57,10 @@ COPY ./OldFIleWatcher/appsettings.json ./
 
 # Healthcheck
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s CMD wget --no-verbose --tries=1 --spider http://localhost:5000/health || exit 1
+
+# .NET 8 runtime provides the non-root app user (UID 1654).
+RUN mkdir -p /app/logs /app/Data && chown app:app /app/logs /app/Data
+ENV HOME=/home/app
+USER app
 
 ENTRYPOINT ["dotnet", "OldFIleWatcher.dll"]
