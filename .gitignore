@@ -56,7 +56,6 @@ project.fragment.lock.json
 
 *.tar
 *.tgz
-.dockerignore
 
 #################################
 # OS специфичное

@@ -3,12 +3,7 @@
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine AS build
 ARG BUILD_CONFIGURATION=Release
-ARG VERSION
-RUN echo $VERSION > ./VERSION
 WORKDIR /source
-
-# Install build dependencies
-RUN apk add --no-cache curl
 
 # Copy .csproj files for caching
 COPY ./DocumentXmlProcessorContext/DocumentXmlProcessorContext.csproj ./DocumentXmlProcessorContext/
@@ -16,10 +11,11 @@ COPY ./ProcessingCommon/ProcessingCommon.csproj ./ProcessingCommon/
 COPY ./DocumentXmlProcessorAPI/DocumentXmlProcessorAPI.csproj ./DocumentXmlProcessorAPI/
 COPY nuget.config ./
 
-# Copy VERSION too, because csproj expects it at /source/VERSION
-COPY ./VERSION ./VERSION
 
 # Restore dependencies
+COPY Directory.Build.props ./
+COPY VERSION ./VERSION
+
 RUN dotnet restore DocumentXmlProcessorAPI/DocumentXmlProcessorAPI.csproj
 
 # Copy source code after restore
@@ -27,11 +23,15 @@ COPY ./DocumentXmlProcessorContext ./DocumentXmlProcessorContext/
 COPY ./ProcessingCommon ./ProcessingCommon/
 COPY ./DocumentXmlProcessorAPI ./DocumentXmlProcessorAPI/
 
+COPY README.md ./README.md
+
 WORKDIR /source/DocumentXmlProcessorAPI
+ARG VERSION
+RUN if [ -n "$VERSION" ]; then printf '%s\n' "$VERSION" > /source/VERSION; fi
 RUN dotnet publish DocumentXmlProcessorAPI.csproj -c $BUILD_CONFIGURATION -o /app --no-restore
 
 # Remove unnecessary files to reduce size
-RUN rm -rf /app/*.pdb /app/*.xml 2>/dev/null || true
+RUN find /app -name '*.pdb' -delete
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine AS runtime
 WORKDIR /app

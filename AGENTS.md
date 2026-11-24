@@ -3,8 +3,9 @@
 This file provides guidance to agents when working with code in this repository.
 
 ## Build System Notes
-- Docker builds require pre-compiled binaries; Dockerfiles copy from obj/Debug/ directories
-- docker-compose.yml contains case sensitivity issue: references "DocumentXMLProcessorAPI/" but actual directory is "DocumentXmlProcessorAPI/" (fails on Linux Docker hosts)
+- Dockerfiles use multi-stage .NET 8 builds; no precompiled binaries required.
+- Linux paths are case-sensitive; preserve actual project directory names.
+- CI runs six test projects before building/publishing images.
 
 ## Service Architecture
 - Background services (XsltProcessor, PdfProcessor, OldFileWatcher) run for fixed 60-minute duration then exit, not continuously
@@ -16,6 +17,6 @@ This file provides guidance to agents when working with code in this repository.
 - Processing pipeline: XML input -> XSLT transformation -> HTML output -> distributed to PDF and API queues
 
 ## Development Notes
-- No test framework or automated testing configured
-- No linting or code style enforcement tools configured
+- Automated unit tests are configured in .github/workflows/tests.yml.
+- Directory.Build.props enables .NET and Roslynator analyzers.
 - NLog configured for file and console logging with specific rules for ASP.NET Core and EF Core

@@ -1,26 +1,11 @@
 name: Unit Tests
 
 on:
-  push:
-    branches: [main, master]
-    paths:
-      - '**/*.cs'
-      - '**/*.csproj'
-      - '**/*.props'
-      - '**/*.config'
-      - '**/*.sln'
-      - '**/*.yml'
-  pull_request:
-    paths:
-      - '**/*.cs'
-      - '**/*.csproj'
-      - '**/*.props'
-      - '**/*.config'
-      - '**/*.sln'
-      - '**/*.yml'
+  workflow_call:
+  workflow_dispatch:
 
 env:
-  DOTNET_VERSION: '8.0.404'
+  DOTNET_VERSION: '8.0.x'
   NUGET_PACKAGES: ${{ github.workspace }}/.nuget/packages
 
 jobs:
@@ -59,7 +44,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ${{ env.NUGET_PACKAGES }}
-          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj', '**/*.props', '**/nuget.config') }}
           restore-keys: |
             ${{ runner.os }}-nuget-
 
@@ -67,8 +52,7 @@ jobs:
         run: dotnet restore ${{ matrix.project }}
 
       - name: Build
-        run: dotnet build ${{ matrix.project }} --no-restore --verbosity minimal
+        run: dotnet build ${{ matrix.project }} -c Release --no-restore --verbosity minimal
 
       - name: Test
-        run: dotnet test ${{ matrix.project }} --no-build --verbosity normal
-        
+        run: dotnet test ${{ matrix.project }} -c Release --no-build --verbosity normal
