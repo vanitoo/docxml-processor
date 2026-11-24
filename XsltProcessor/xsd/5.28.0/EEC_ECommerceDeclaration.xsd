@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"
+           targetNamespace="urn:EEC:R:063:ECommerceDeclaration:v2.0.0"
+           xmlns:ecgd="urn:EEC:R:063:ECommerceDeclaration:v2.0.0"
+           xmlns:cacdo="urn:EEC:M:CA:ComplexDataObjects:v1.11.0"
+           xmlns:casdo="urn:EEC:M:CA:SimpleDataObjects:v1.11.0"
+           xmlns:ccdo="urn:EEC:M:ComplexDataObjects:v0.4.16"
+           xmlns:csdo="urn:EEC:M:SimpleDataObjects:v0.4.16"
+           version="2.0.0">
+
+    <xs:import namespace="urn:EEC:M:CA:ComplexDataObjects:v1.11.0" schemaLocation="EEC_M_CA_ComplexDataObjects_v1.11.0.xsd"/>
+    <xs:import namespace="urn:EEC:M:CA:SimpleDataObjects:v1.11.0" schemaLocation="EEC_M_CA_SimpleDataObjects_v1.11.0.xsd"/>
+    <xs:import namespace="urn:EEC:M:ComplexDataObjects:v0.4.16" schemaLocation="EEC_M_ComplexDataObjects_v0.4.16.xsd"/>
+    <xs:import namespace="urn:EEC:M:SimpleDataObjects:v0.4.16" schemaLocation="EEC_M_SimpleDataObjects_v0.4.16.xsd"/>
+    <!-- Декларация на товары электронной торговли и корректировка декларации на товары электронной торговли -->
+
+    <!-- R.063: Декларация на товары электронной торговли и корректировка декларации на товары электронной торговли (Декларация на товары электронной торговли и корректировка декларации на товары электронной торговли) -->
+    <xs:element name="ECommerceDeclaration" type="ecgd:ECommerceDeclarationDetailsType">
+        <xs:annotation>
+            <xs:documentation>Декларация на товары электронной торговли и корректировка декларации на товары электронной торговли</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <!-- R.063.CDT: Декларация на товары электронной торговли и корректировка декларации на товары электронной торговли (Декларация на товары электронной торговли и корректировка декларации на товары электронной торговли_ Детали. Тип) -->
+    <xs:complexType name="ECommerceDeclarationDetailsType">
+        <xs:annotation>
+            <xs:documentation>Декларация на товары электронной торговли и корректировка декларации на товары электронной торговли</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element ref="csdo:EDocCode"/>
+            <xs:element ref="csdo:EDocId"/>
+            <xs:element ref="csdo:EDocRefId" minOccurs="0"/>
+            <xs:element ref="csdo:EDocDateTime"/>
+            <xs:element ref="cacdo:RefDeclarationIdDetails" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>регистрационный номер декларации на товары электронной торговли, сведения в которой изменяются (дополняются)</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element ref="casdo:DeclarationKindCode" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>кодовое обозначение типа таможенной декларации</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element ref="casdo:CustomsProcedureCode" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Кодовое обозначение вида заявляемой таможенной процедуры</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element ref="casdo:PreviousCustomsProcedureModeCode" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Кодовое обозначение вида предшествующей таможенной процедуры</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element ref="casdo:DeclarationFeatureCode" minOccurs="0"/>
+            <xs:element ref="casdo:EDocIndicatorCode"/>
+            <xs:element ref="csdo:PageQuantity" minOccurs="0"/>
+            <xs:element ref="casdo:GoodsCategoryCode">
+                <xs:annotation>
+                    <xs:documentation>кодовое обозначение категории товаров электронной торговли</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element ref="cacdo:ECDGoodsShipmentDetails" minOccurs="0"/>
+            <xs:element ref="csdo:EventDate" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Дата заполнения таможенного документа</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element ref="cacdo:DeclarantDetails" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Сведения о лице, осуществляющем таможенное декларирование товаров электронной торговли и (или) заполнившем таможенный документ</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element ref="cacdo:SignatoryPersonV2Details" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Сведения о сотруднике лица, осуществляющего таможенное декларирование товаров электронной торговли и (или) заполнившего таможенный документ</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

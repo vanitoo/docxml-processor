@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema elementFormDefault="qualified" targetNamespace="urn:customs.ru:Information:CustomsDocuments:ActOperationIndentif:5.10.0" version="5.10.0.0" xmlns:aopin="urn:customs.ru:Information:CustomsDocuments:ActOperationIndentif:5.10.0" xmlns:cat_ru="urn:customs.ru:CommonAggregateTypes:5.10.0" xmlns:clt_ru="urn:customs.ru:CommonLeafTypes:5.10.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="urn:customs.ru:CommonLeafTypes:5.10.0" schemaLocation="CommonLeafTypesCust.xsd" />
+  <xs:import namespace="urn:customs.ru:CommonAggregateTypes:5.10.0" schemaLocation="CommonAggregateTypesCust.xsd" />
+  <xs:annotation>
+    <xs:documentation>Акт об изменении, удалении, уничтожении или замене средств идентификации</xs:documentation>
+  </xs:annotation>
+  <xs:element name="ActOperationIndentif" type="aopin:ActOperationIndentifType" />
+  <xs:complexType name="ActOperationIndentifType">
+    <xs:annotation>
+      <xs:documentation>Акт об изменении, удалении, уничтожении или замене средств идентификации</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="cat_ru:BaseDocType">
+        <xs:sequence>
+          <xs:element name="ActDate" type="clt_ru:DateCustType">
+            <xs:annotation>
+              <xs:documentation>Дата акта</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ActNumber" type="clt_ru:DocumentNumberType">
+            <xs:annotation>
+              <xs:documentation>Номер акта</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="DescriptionCircumstances" type="clt_ru:FreeText250Type">
+            <xs:annotation>
+              <xs:documentation>Краткое описание обстоятельств</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="OperationIndentif" type="clt_ru:Numeric1Type">
+            <xs:annotation>
+              <xs:documentation>Операции со средствами идентификации. 1 - удаление, 2 - изменение, 3 - замена, 4 - уничтожение.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="unbounded" name="TransportIdentifier" type="clt_ru:TransportMeansIDType">
+            <xs:annotation>
+              <xs:documentation>Номер транспортных средств и контейнеров, на которых удалены или изменены средства идентификации</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="DescriptionIdentif" type="clt_ru:FreeText250Type">
+            <xs:annotation>
+              <xs:documentation>Описание измененных,  удаленных,  уничтоженных или  замененных средств идентификации </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="DescriptionNewIdentif" type="clt_ru:FreeText250Type">
+            <xs:annotation>
+              <xs:documentation>Описание новых средств идентификации</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ApplicationIdentifiDate" type="clt_ru:DateCustType">
+            <xs:annotation>
+              <xs:documentation>Дата применения средств(а) идентификации</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Customs" type="cat_ru:CUCustomsType">
+            <xs:annotation>
+              <xs:documentation>Сведения о таможенном органе</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="CustomsPerson" type="aopin:CustomsPersonInfoType">
+            <xs:annotation>
+              <xs:documentation>Должностное лицо таможенного органа</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="OperationPlace" type="aopin:OperationPlaceType">
+            <xs:annotation>
+              <xs:documentation>Описание места проведения операций по изменению, удалению, уничтожению или замене средств идентификации</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="SecondCopyReceived" type="aopin:PersonType">
+            <xs:annotation>
+              <xs:documentation>Второй экземпляр акта на руки получил</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="PersonGoods" type="aopin:PersonType">
+            <xs:annotation>
+              <xs:documentation>Лицо, обладающее полномочиями в отношении товаров (представитель лица)</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+        <xs:attribute fixed="1006138E" name="DocumentModeID" type="clt_ru:DocumentModeIDType" use="required">
+          <xs:annotation>
+            <xs:documentation>Идентификатор вида документа</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:annotation>
+    <xs:documentation>Локальные прикладные типы.</xs:documentation>
+  </xs:annotation>
+  <xs:complexType name="CustomsPersonInfoType">
+    <xs:annotation>
+      <xs:documentation>Должностное лицо таможенного органа</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="cat_ru:CustomsPersonType">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="PersonPost" type="clt_ru:PostType">
+            <xs:annotation>
+              <xs:documentation>Должность.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="OperationPlaceType">
+    <xs:annotation>
+      <xs:documentation>Описание места проведения операций по изменению, удалению, уничтожению или замене средств идентификации</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="cat_ru:CUCustomsType">
+        <xs:sequence>
+          <xs:element name="InformationTypeCode" type="clt_ru:Code2Type">
+            <xs:annotation>
+              <xs:documentation>Тип информации: 11- СВХ;  21- ТС; 25 - Свободный склад; 31- Склад получателя; 41 - Склад хранения собственных товаров (для РК); 52 - Транспортное средство (для РК); 60 - Помещение (площадки) УЭО; 72 - ЗТК (для РБ); 91 - Адрес места хранения  (для РБ); 99 - Иное место ВХ, 80- ОЭЗ</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="InspPlaceName" type="clt_ru:PlaceNameType">
+            <xs:annotation>
+              <xs:documentation>Наименование места досмотра, СВХ, ж/д станции</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="InspPlaceDesc" type="clt_ru:FreeText250Type">
+            <xs:annotation>
+              <xs:documentation>Описание места проведения досмотра. Иная информация о месте досмотра</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="WarehousePlace" type="aopin:WarehousePlaceType">
+            <xs:annotation>
+              <xs:documentation>Место погрузки/разгрузки. Сведения о лицензии/ свидетельстве склада.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="Address" type="cat_ru:AddressType">
+            <xs:annotation>
+              <xs:documentation>Адрес </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="PersonType">
+    <xs:annotation>
+      <xs:documentation>Сведения о лице</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="cat_ru:PersonSignatureType">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Job" type="clt_ru:Text50Type">
+            <xs:annotation>
+              <xs:documentation>Место работы</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="WarehousePlaceType">
+    <xs:annotation>
+      <xs:documentation>Место погрузки/разгрузки. Сведения о лицензии/ свидетельстве склада.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="cat_ru:DocumentBaseType">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="DocumentModeCode" type="clt_ru:LetterIndicatorType">
+            <xs:annotation>
+              <xs:documentation>Тип документа:1-Лицензия 2-Свидетельство</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>

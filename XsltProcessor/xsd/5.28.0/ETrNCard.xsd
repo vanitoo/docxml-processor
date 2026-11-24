@@ -1,0 +1,742 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:CategoryCust="urn:customs.ru:Categories:3.0.0" xmlns:clt_ru="urn:customs.ru:CommonLeafTypes:5.10.0" xmlns:cat_ru="urn:customs.ru:CommonAggregateTypes:5.24.0" xmlns:RUSclt_ru="urn:customs.ru:RUSCommonLeafTypes:5.21.0" xmlns:etnc="urn:customs.ru:Information:TransportDocuments:ETrNCard:5.28.0" targetNamespace="urn:customs.ru:Information:TransportDocuments:ETrNCard:5.28.0" elementFormDefault="qualified" version="5.28.0.0">
+	<xs:import namespace="urn:customs.ru:Categories:3.0.0" schemaLocation="CategoriesCust.xsd"/>
+	<xs:import namespace="urn:customs.ru:CommonLeafTypes:5.10.0" schemaLocation="CommonLeafTypesCust.xsd"/>
+	<xs:import namespace="urn:customs.ru:CommonAggregateTypes:5.24.0" schemaLocation="CommonAggregateTypesCust.xsd"/>
+	<xs:import namespace="urn:customs.ru:RUSCommonLeafTypes:5.21.0" schemaLocation="RUSCommonLeafTypes.xsd"/>
+	<xs:annotation>
+		<xs:documentation>Ответ на запрос ЭПД в случае проверки транспортного средства - карточка ЭТрН</xs:documentation>
+	</xs:annotation>
+	<xs:element name="ETrNCard" type="etnc:ETrNCardType">
+		<xs:annotation>
+			<xs:documentation>Ответ на запрос ЭПД в случае проверки транспортного средства - карточка ЭТрН</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="ETrNCardType">
+		<xs:annotation>
+			<xs:documentation>Ответ на запрос ЭПД в случае проверки транспортного средства - карточка ЭТрН (тип)</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="cat_ru:BaseDocType">
+				<xs:sequence>
+					<xs:element name="GUID" type="clt_ru:DocumentIDType">
+						<xs:annotation>
+							<xs:documentation>Уникальный идентификатор (УИД)</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ETrNNumber" type="RUSclt_ru:FreeText1000Type">
+						<xs:annotation>
+							<xs:documentation>Номер транспортной накладной</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ETrNDate" type="clt_ru:DateCustType">
+						<xs:annotation>
+							<xs:documentation>Дата транспортной накладной</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Cargo" type="etnc:CargoType" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Описание груза</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SpecialPermit" type="etnc:SpecialPermitType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Специальное разрешение</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AccompanyingDocuments" type="etnc:AccompanyingDocumentsType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Сопроводительные документы</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Transporter" type="etnc:ParticipantType">
+						<xs:annotation>
+							<xs:documentation>Перевозчик</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Sender" type="etnc:ParticipantType">
+						<xs:annotation>
+							<xs:documentation>Грузоотправитель</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Receiver" type="etnc:ParticipantType">
+						<xs:annotation>
+							<xs:documentation>Грузополучатель</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Address" type="etnc:AddressType">
+						<xs:annotation>
+							<xs:documentation>Адрес места доставки груза</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Driver" type="etnc:DriverType" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Водитель</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Vehicle" type="etnc:VehicleType">
+						<xs:annotation>
+							<xs:documentation>Информация о транспортном средстве</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ModifiedTransportationInformation" type="etnc:ModifiedTransportationInformationType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Сведения, измененные в процессе перевозки </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+				<xs:attribute name="DocumentModeID" type="clt_ru:DocumentModeIDType" use="required" fixed="1003107E">
+					<xs:annotation>
+						<xs:documentation>Идентификатор вида документа</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:annotation>
+		<xs:documentation>Локальные прикладные типы.</xs:documentation>
+	</xs:annotation>
+	<xs:complexType name="AccompanyingDocumentsType">
+		<xs:annotation>
+			<xs:documentation>Сопроводительныq документ</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DocumentName" type="etnc:Text255Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DocumentNumber" type="etnc:Text255Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DocumentDateIssue" type="clt_ru:DateCustType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AddressInfType">
+		<xs:annotation>
+			<xs:documentation>Информация об адресе, в том числе об адресе за пределами территории Российской Федерации</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CountryCode" type="clt_ru:Code3Type">
+				<xs:annotation>
+					<xs:documentation>Ширина</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AddressText" type="RUSclt_ru:FreeText1000Type">
+				<xs:annotation>
+					<xs:documentation>Долгота</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AddressRFType">
+		<xs:annotation>
+			<xs:documentation>Реквизиты адреса на территории Российской Федерации</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Postcode" type="clt_ru:PostalCodeType">
+				<xs:annotation>
+					<xs:documentation>Почтовый индекс</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RegionCode" type="clt_ru:CodeVariable2Type">
+				<xs:annotation>
+					<xs:documentation>Код региона</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="District" type="etnc:Text255Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Район</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Town" type="etnc:Text255Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Город</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Locality" type="etnc:Text255Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Населенный пункт</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Street" type="etnc:Text255Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Улица</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="House" type="RUSclt_ru:Id25Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дом</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Building" type="RUSclt_ru:Id25Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Корпус</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Apartment" type="RUSclt_ru:Id25Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Квартира</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AddressType">
+		<xs:annotation>
+			<xs:documentation>Адрес</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Coordinates" type="etnc:CoordinatesType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Координаты</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:choice>
+				<xs:element name="AddressRF" type="etnc:AddressRFType">
+					<xs:annotation>
+						<xs:documentation>Реквизиты адреса на территории Российской Федерации</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="AddressInf" type="etnc:AddressInfType">
+					<xs:annotation>
+						<xs:documentation>Информация об адресе, в том числе об адресе за пределами территории Российской Федерации</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="CodeGAR" type="clt_ru:DocumentIDType">
+					<xs:annotation>
+						<xs:documentation>Уникальный номер адреса объекта адресации в государственном адресном реестре</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CargoType">
+		<xs:annotation>
+			<xs:documentation>Информация о грузе</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CargoName" type="etnc:FreeText2000Type">
+				<xs:annotation>
+					<xs:documentation>Наименование груза</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NetWeight" type="clt_ru:QuantityBasisType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Масса нетто груза в килограммах</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GrossWeight" type="clt_ru:QuantityBasisType">
+				<xs:annotation>
+					<xs:documentation>Масса брутто груза в килограммах</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NumberPallets" type="clt_ru:Quantity4Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Количество паллет</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CargoDimensions" type="etnc:DimensionsType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Габариты груза, в метрах</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DangerousCargoInformation" type="etnc:DangerCargoType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Сведения об опасном грузе</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ContainerDetails" type="etnc:ContainerDetailsType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Сведения о контейнерах</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ChangedAddressType">
+		<xs:annotation>
+			<xs:documentation>Измененный адрес</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ForwardingDate" type="clt_ru:DateCustType">
+				<xs:annotation>
+					<xs:documentation>Дата и время переадресовки</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ReassignmentBasis" type="etnc:ReassignmentBasisType">
+				<xs:annotation>
+					<xs:documentation>Основание переадресовки</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Address" type="etnc:AddressType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Адрес места выгрузки</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Receiver" type="etnc:ParticipantType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Новый грузополучатель</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ChangedVehicleDriverType">
+		<xs:annotation>
+			<xs:documentation>Замененные транспортное средство или водители</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DateTimeReplacement" type="clt_ru:DateCustType">
+				<xs:annotation>
+					<xs:documentation>Дата и время замены</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Driver" type="etnc:DriverType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Водитель</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Vehicle" type="etnc:VehicleType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Данные о замене транспортного средства и/или прицепа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ContainerDetailsType">
+		<xs:annotation>
+			<xs:documentation>Сведения о контейнере</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="NumberContainers" type="clt_ru:Count2Type">
+				<xs:annotation>
+					<xs:documentation>Количество контейнеров (ЭТРН, ЭЗН)\Порядковый номер контейнера(ЭДФ)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ContainerID" type="etnc:Text255Type" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Идентификационный номер контейнера</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CoordinatesType">
+		<xs:annotation>
+			<xs:documentation>Координаты</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Latitude" type="clt_ru:CodeVariable20Type">
+				<xs:annotation>
+					<xs:documentation>Ширина</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Longitude" type="clt_ru:CodeVariable20Type">
+				<xs:annotation>
+					<xs:documentation>Долгота</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DangerCargoType">
+		<xs:annotation>
+			<xs:documentation>Информация по опасным грузам</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="NumberUN" type="clt_ru:Text50Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Код UN</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ProperCargoName" type="etnc:FreeText2000Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Надлежащее отгрузочное наименование</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DimensionsType">
+		<xs:annotation>
+			<xs:documentation>Габаритные размеры</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Height" type="clt_ru:Quantity14point2Type">
+				<xs:annotation>
+					<xs:documentation>Высота, м</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Length" type="clt_ru:Quantity14point2Type">
+				<xs:annotation>
+					<xs:documentation>Длина, м</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Width" type="clt_ru:Quantity14point2Type">
+				<xs:annotation>
+					<xs:documentation>Ширина, м</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DriverType">
+		<xs:annotation>
+			<xs:documentation>Сведения о водителях</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="etnc:PersonType">
+				<xs:sequence>
+					<xs:element name="DriversLicenseNumber" type="clt_ru:DocumentNumberType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Номер водительского удостоверения</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DriversLicenseSeries" type="clt_ru:DocumentNumberType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Серия водительского удостоверения</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DateIssue" type="clt_ru:DateCustType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дата выдачи водительского удостоверения</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="INNPP" type="clt_ru:INNIDType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>ИНН физического лица</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="IdentificationSimpleSignature" type="RUSclt_ru:FreeText1000Type" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Сведения о способе идентификации при применении простой подписи</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Waybill" type="etnc:WaybillType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Путевой лист</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="IdentificationDocumentType">
+		<xs:annotation>
+			<xs:documentation>Данные документа, удостоверяющего личность иностранного физического лица</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DocumentType" type="RUSclt_ru:FreeText1000Type">
+				<xs:annotation>
+					<xs:documentation>Вид документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DocumentNumber" type="RUSclt_ru:Text100Type">
+				<xs:annotation>
+					<xs:documentation>Номер документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateIssue" type="clt_ru:DateCustType">
+				<xs:annotation>
+					<xs:documentation>Дата выдачи документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ModifiedTransportationInformationType">
+		<xs:annotation>
+			<xs:documentation>Сведения, измененные в процессе перевозки</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ChangedAddress" type="etnc:ChangedAddressType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Измененный адрес</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ChangedVehicleDriver" type="etnc:ChangedVehicleDriverType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Замененные транспортное средство или водители</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ParticipantType">
+		<xs:annotation>
+			<xs:documentation>Сведения о субъекте</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:choice>
+				<xs:element name="PersonPP" type="etnc:PersonPPType">
+					<xs:annotation>
+						<xs:documentation>Сведения о ФЛ</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="PersonLP" type="etnc:PersonLPType">
+					<xs:annotation>
+						<xs:documentation>Сведения о ЮЛ</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="PersonForeign" type="etnc:PersonForeignType">
+					<xs:annotation>
+						<xs:documentation>Сведения об иностранном лице</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PersonForeignType">
+		<xs:annotation>
+			<xs:documentation>Сведения об иностранном лице</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="StatusID" type="RUSclt_ru:Id25Type">
+				<xs:annotation>
+					<xs:documentation>Идентификация статуса</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ForeignPersonID" type="etnc:Text255Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор иностранного лица</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CompanyName" type="RUSclt_ru:FreeText1000Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование юридического лица полное /Фамилия, имя, отчество (при наличии) физического лица</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IdentificationDocument" type="etnc:IdentificationDocumentType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Данные документа, удостоверяющего личность иностранного физического лица</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PersonLPType">
+		<xs:annotation>
+			<xs:documentation>Сведения о ЮЛ</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="INNLP" type="clt_ru:INNIDType">
+				<xs:annotation>
+					<xs:documentation>ИНН юридического лица</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CompanyName" type="RUSclt_ru:FreeText1000Type">
+				<xs:annotation>
+					<xs:documentation>Наименование полное юридического лица</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PersonPPType">
+		<xs:annotation>
+			<xs:documentation>Сведения о ФЛ</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="INNPP" type="clt_ru:INNIDType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ИНН физического лица и индивидуального предпринимателя</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IsIndividualEntrepreneur" type="clt_ru:IndicatorType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Признак того, что физическое лицо является индивидуальным предпринимателем ("true" - является)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FullName" type="cat_ru:PersonBaseType">
+				<xs:annotation>
+					<xs:documentation>ФИО физического лица и индивидуального предпринимателя</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PersonType">
+		<xs:annotation>
+			<xs:documentation>Сведения о персонах</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="cat_ru:PersonBaseType">
+				<xs:sequence>
+					<xs:element name="PhoneNumber" type="etnc:Text255Type" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Перечень телефонов</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ReassignmentBasisType">
+		<xs:annotation>
+			<xs:documentation>Основание переадресовки</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DocumentName" type="etnc:Text255Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DocumentNumber" type="etnc:Text255Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DocumentDateIssue" type="clt_ru:DateCustType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DocumentID" type="etnc:Text255Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор файла документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SpecialPermitType">
+		<xs:annotation>
+			<xs:documentation>Специальное разрешение</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Number" type="etnc:Text255Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер специального разрешения</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Date" type="clt_ru:DateCustType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата специального разрешения</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Period" type="RUSclt_ru:Text100Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Срок действия специального разрешения</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FileID" type="etnc:Text255Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор файла специального разрешения (в том числе регистрационный номер, если документ / сведения о таком документе содержатся в государственных информационных системах)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RouteTextFormat" type="etnc:FreeText2000Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Маршрут, текстовый формат</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RouteMachineReadableFormat" type="etnc:FreeText2000Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Маршрут, машиночитаемый формат</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VehicleDetailsType">
+		<xs:annotation>
+			<xs:documentation>Сведения о транспортном средстве</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="STSNumber" type="clt_ru:Text10Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер СТС</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VINNumber" type="clt_ru:VINIDType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>VIN номер</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VehicleRegistrationPlate" type="clt_ru:Text10Type">
+				<xs:annotation>
+					<xs:documentation>Регистрационный номер</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OwnershipType" type="clt_ru:LetterIndicatorType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Тип владения</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Type" type="RUSclt_ru:FreeText1000Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Тип</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Brand" type="RUSclt_ru:FreeText1000Type">
+				<xs:annotation>
+					<xs:documentation>Марка</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CarryingCapacityTon" type="clt_ru:QuantityBasis0Type">
+				<xs:annotation>
+					<xs:documentation>Грузоподъемность, в тоннах</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CapacityCubicMeters" type="clt_ru:QuantityBasis0Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Вместимость, в кубических метрах</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VehicleType">
+		<xs:annotation>
+			<xs:documentation>Информация о транспортном средстве</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="VehicleInformation" type="etnc:VehicleDetailsType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Данные о транспортном средстве</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TrailerInformation" type="etnc:VehicleDetailsType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Данные о прицепе</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="WaybillType">
+		<xs:annotation>
+			<xs:documentation>Путевой лист</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="WaybillName" type="etnc:Text255Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование путевого листа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="WaybillNumber" type="etnc:Text255Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер путевого листа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="WaybillDateIssue" type="clt_ru:DateCustType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата выписки путевого листа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DocumentID" type="etnc:Text255Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор файла документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="FreeText2000Type">
+		<xs:annotation>
+			<xs:documentation>Строка от 1 до 2000 символов. Текстовый.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="CategoryCust:TextCategoriesCust">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="2000"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Text255Type">
+		<xs:annotation>
+			<xs:documentation>Строка от 1 до 255 символов. Текстовый.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="CategoryCust:TextCategoriesCust">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="255"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Приказ Минфина России от 13.05.2016 г. № 61н "Об утверждении Порядка совершения таможенных операций при проведении идентификации товаров Евразийского экономического союза, ввозимых на территорию особой экономической зоны с остальной части таможенной территории Евразийского экономического союза, и совершения таможенных операций при обратном вывозе таких товаров с территории особой экономической зоны на остальную часть таможенной территории Евразийского экономического союза"-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:clt_ru="urn:customs.ru:CommonLeafTypes:5.10.0" xmlns:cat_ru="urn:customs.ru:CommonAggregateTypes:5.24.0" xmlns:RUScat_ru="urn:customs.ru:RUSCommonAggregateTypes:5.24.0" xmlns:oagd="urn:customs.ru:Information:CustomsDocuments:OEZ_AppIdentifGoodsDecision:5.26.0" targetNamespace="urn:customs.ru:Information:CustomsDocuments:OEZ_AppIdentifGoodsDecision:5.26.0" elementFormDefault="qualified" version="5.26.0.0">
+	<xs:import namespace="urn:customs.ru:CommonLeafTypes:5.10.0" schemaLocation="CommonLeafTypesCust.xsd"/>
+	<xs:import namespace="urn:customs.ru:CommonAggregateTypes:5.24.0" schemaLocation="CommonAggregateTypesCust.xsd"/>
+	<xs:import namespace="urn:customs.ru:RUSCommonAggregateTypes:5.24.0" schemaLocation="RUSCommonAggregateTypes.xsd"/>
+	<xs:annotation>
+		<xs:documentation>Решение по Заявлению об идентификации товаров ЕАЭС, ввозимых на территорию ОЭЗ</xs:documentation>
+	</xs:annotation>
+	<xs:element name="OEZ_AppIdentifGoodsDecision" type="oagd:OEZ_AppIdentifGoodsDecisionType">
+		<xs:annotation>
+			<xs:documentation>Решение по Заявлению об идентификации товаров ЕАЭС, ввозимых на территорию ОЭЗ</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="OEZ_AppIdentifGoodsDecisionType">
+		<xs:annotation>
+			<xs:documentation>Решение по Заявлению об идентификации товаров ЕАЭС, ввозимых на территорию ОЭЗ</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="cat_ru:BaseDocType">
+				<xs:sequence>
+					<xs:element name="AppRegNum" type="oagd:RegistrationNumberType">
+						<xs:annotation>
+							<xs:documentation>Регистрационный номер Заявления о проведении идентификации</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Customs" type="cat_ru:CustomsType">
+						<xs:annotation>
+							<xs:documentation>Сведения о таможенном органе</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Applicant" type="RUScat_ru:SubjectDetailsType">
+						<xs:annotation>
+							<xs:documentation>Сведения о заинтересованном лице</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Result" type="clt_ru:LetterIndicatorType">
+						<xs:annotation>
+							<xs:documentation>Результат рассмотрения Заявления: 1 - аннулирование заявления о проведении идентификации  (по заявлению в целом); 2 - отказано в идентификации, до фактического осмотра (по заявлению в целом); 3 - идентифицировано или отказано в идентификации (потоварно)</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="RefusalPriorActInsp" type="oagd:RefusalPriorActInspType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Отказ в проведении идентификации до фактического осмотра (Result=2)</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DecisionAppIdentif" type="oagd:DecisionGoodsType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Решение по товарам Заявления о проведении идентификации (Result=3)</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ActNumber" type="cat_ru:GTDID6Type" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Номер акта таможенного досмотра (осмотра)</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AppAcceptDate" type="clt_ru:DateTimeCustType">
+						<xs:annotation>
+							<xs:documentation>Дата и время принятия Заявления о проведении идентификации</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DecisionDate" type="clt_ru:DateTimeCustType">
+						<xs:annotation>
+							<xs:documentation>Дата и время принятия Решения по Заявлению о проведении идентификации</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="CustomsPerson" type="cat_ru:CustomsPersonType">
+						<xs:annotation>
+							<xs:documentation>Сведения о должностном лице таможенного органа</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+				<xs:attribute name="DocumentModeID" type="clt_ru:DocumentModeIDType" use="required" fixed="1060057E">
+					<xs:annotation>
+						<xs:documentation>Идентификатор вида документа</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:annotation>
+		<xs:documentation>Локальные прикладные типы</xs:documentation>
+	</xs:annotation>
+	<xs:complexType name="DecisionGoodsType">
+		<xs:annotation>
+			<xs:documentation>Решение по Заявлению</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="GoodsNumber" type="clt_ru:Count3Type">
+				<xs:annotation>
+					<xs:documentation>Номер товара</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GoodsDescription" type="clt_ru:FreeText250Type" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Описание товара</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GoodsDecision" type="clt_ru:LetterIndicatorType">
+				<xs:annotation>
+					<xs:documentation>Решение по товару: 1 - идентифицировано: 2 - отказано в идентификации</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RefusalPriorActInspType">
+		<xs:annotation>
+			<xs:documentation>Отказ в проведении идентификации до фактического осмотра</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="MotiveProhibition" type="clt_ru:FreeText250Type" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Сведения о причинах отказа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NecessityActivity" type="clt_ru:FreeText250Type" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Действия, которые необходимо предпринять лицу</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RegistrationNumberType">
+		<xs:annotation>
+			<xs:documentation>Регистрационный номер документа</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CustomsCode" type="clt_ru:CustomsCodeType">
+				<xs:annotation>
+					<xs:documentation>Код таможенного органа, зарегистрировавшего документ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RegistrationDate" type="clt_ru:DateCustType">
+				<xs:annotation>
+					<xs:documentation>Дата регистрации документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Number" type="clt_ru:CodeVariable10Type">
+				<xs:annotation>
+					<xs:documentation>Порядковый номер документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DocKind" type="clt_ru:CodeVariable5Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Четвертая часть регистрационного номера документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

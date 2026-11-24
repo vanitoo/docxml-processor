@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  Статьи 325, 340 ТК ЕАЭС, статья 239 Федерального закона от 03.08.2018 № 289-ФЗ  -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:clt_ru="urn:customs.ru:CommonLeafTypes:5.10.0" xmlns:cat_ru="urn:customs.ru:CommonAggregateTypes:5.24.0" xmlns:RUScat_ru="urn:customs.ru:RUSCommonAggregateTypes:5.24.0" xmlns:cda="urn:customs.ru:Information:CustomsAuditDocuments:ConfirmDeclarantAuthority:5.28.0" targetNamespace="urn:customs.ru:Information:CustomsAuditDocuments:ConfirmDeclarantAuthority:5.28.0" elementFormDefault="qualified" version="5.28.0.0">
+	<xs:import namespace="urn:customs.ru:CommonLeafTypes:5.10.0" schemaLocation="CommonLeafTypesCust.xsd"/>
+	<xs:import namespace="urn:customs.ru:CommonAggregateTypes:5.24.0" schemaLocation="CommonAggregateTypesCust.xsd"/>
+	<xs:import namespace="urn:customs.ru:RUSCommonAggregateTypes:5.24.0" schemaLocation="RUSCommonAggregateTypes.xsd"/>
+	<xs:annotation>
+		<xs:documentation>Запрос о подтверждении полномочий декларанта</xs:documentation>
+	</xs:annotation>
+	<xs:element name="ConfirmDeclarantAuthority" type="cda:ConfirmDeclarantAuthorityType">
+		<xs:annotation>
+			<xs:documentation>Запрос о подтверждении полномочий декларанта</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="ConfirmDeclarantAuthorityType">
+		<xs:annotation>
+			<xs:documentation>Запрос о подтверждении полномочий декларанта</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="cat_ru:BaseDocType">
+				<xs:sequence>
+					<xs:element name="Customs" type="cat_ru:CustomsType">
+						<xs:annotation>
+							<xs:documentation>Таможенный орган</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ExecutionDate" type="clt_ru:DateCustType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дата запроса</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="RequestNumber" type="cda:GTDID8Type" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Регистрационный номер запроса</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Declarant" type="cda:DeclarantType">
+						<xs:annotation>
+							<xs:documentation>Сведения о декларанте</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="VehicleDetails" type="cda:VehicleDetailsType">
+						<xs:annotation>
+							<xs:documentation>Сведения о транспортном средстве</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="CustomsPerson" type="cat_ru:CustomsPersonType">
+						<xs:annotation>
+							<xs:documentation>Должностное лицо ТО</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+				<xs:attribute name="DocumentModeID" type="clt_ru:DocumentModeIDType" use="required" fixed="1006952E">
+					<xs:annotation>
+						<xs:documentation>Идентификатор вида документа</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:annotation>
+		<xs:documentation>Локальные прикладные типы.</xs:documentation>
+	</xs:annotation>
+	<xs:complexType name="DeclarantType">
+		<xs:annotation>
+			<xs:documentation>Сведения о декларанте</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="PersonSurname" type="clt_ru:NameType">
+				<xs:annotation>
+					<xs:documentation>Фамилия</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PersonName" type="clt_ru:NameType">
+				<xs:annotation>
+					<xs:documentation>Имя</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PersonMiddleName" type="clt_ru:NameType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Отчество</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PersonIdCard" type="RUScat_ru:RUIdentityCardType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Реквизиты документа, удостоверяющего личность декларанта</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PersonINN" type="clt_ru:INNIDType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ИНН декларанта</xs:documentation>
+				</xs:annotation>
+			</xs:element>			
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="GTDID8Type">
+		<xs:annotation>
+			<xs:documentation>Регистрационный номер Запроса</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CustomsCode" type="clt_ru:CustomsCodeType">
+				<xs:annotation>
+					<xs:documentation>Код таможенного органа, зарегистрировавшего документ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RegistrationDate" type="clt_ru:DateCustType">
+				<xs:annotation>
+					<xs:documentation>Дата регистрации документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SerialNumber" type="clt_ru:Code8Type">
+				<xs:annotation>
+					<xs:documentation>Порядковый номер документа по журналу регистрации</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VehicleDetailsType">
+		<xs:annotation>
+			<xs:documentation>Сведения о транспортном средстве</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="MarkCode" type="clt_ru:MarkCarCodeType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Код марки транспортного средства в соответствии с классификатором марок дорожных транспортных средств</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Mark" type="clt_ru:MarkCarNameType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование марки транспортного средства</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Model" type="clt_ru:MarkCarNameType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование модели транспортного средства</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VINID" type="clt_ru:VINIDType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификационный номер транспортного средства (шасси транспортного средства, самоходной машины), присвоенный изготовителем</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ChassisID" type="clt_ru:VINIDType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификационный номер шасси (рамы) транспортного средства, присвоенный изготовителем</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BodyID" type="clt_ru:VINIDType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификационный номер кузова (кабины) транспортного средства (шасси транспортного средства, самоходной машины), присвоенный изготовителем</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

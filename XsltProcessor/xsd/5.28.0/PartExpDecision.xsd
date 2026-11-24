@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Проект постановления Правительства РФ "О внесении изменений в постановление Правительства Российской Федерации от 16 февраля 2023 г. № 240" -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:clt_ru="urn:customs.ru:CommonLeafTypes:5.10.0" xmlns:cat_ru="urn:customs.ru:CommonAggregateTypes:5.24.0" xmlns:RUDECLcat="urn:customs.ru:RUDeclCommonAggregateTypesCust:5.28.0" xmlns:pe_dec="urn:customs.ru:CustomsAuditDocuments:PartExpDecision:5.28.0" targetNamespace="urn:customs.ru:CustomsAuditDocuments:PartExpDecision:5.28.0" elementFormDefault="qualified" version="5.28.0.0">
+	<xs:import namespace="urn:customs.ru:CommonLeafTypes:5.10.0" schemaLocation="CommonLeafTypesCust.xsd"/>
+	<xs:import namespace="urn:customs.ru:CommonAggregateTypes:5.24.0" schemaLocation="CommonAggregateTypesCust.xsd"/>
+	<xs:import namespace="urn:customs.ru:RUDeclCommonAggregateTypesCust:5.28.0" schemaLocation="RUDeclCommonAggregateTypesCust.xsd"/>
+	<xs:annotation>
+		<xs:documentation>Решение об участии в эксперименте по мониторингу таможенными органами сведений, имеющихся в их распоряжении и полученных от лиц, участвующих в эксперименте по мониторингу таможенными органами таких сведений, из систем учета товаров / Информация о прекращении участия в эксперименте</xs:documentation>
+	</xs:annotation>
+	<xs:element name="PartExpDecision" type="pe_dec:PartExpDecisionType">
+		<xs:annotation>
+			<xs:documentation>Решение об участии в эксперименте по мониторингу таможенными органами сведений, имеющихся в их распоряжении и полученных от лиц, участвующих в эксперименте по мониторингу таможенными органами таких сведений, из систем учета товаров / Информация о прекращении участия в эксперименте</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="PartExpDecisionType">
+		<xs:annotation>
+			<xs:documentation>Решение об участии в эксперименте по мониторингу таможенными органами сведений, имеющихся в их распоряжении и полученных от лиц, участвующих в эксперименте по мониторингу таможенными органами таких сведений, из систем учета товаров / Информация о прекращении участия в эксперименте</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="cat_ru:BaseDocType">
+				<xs:sequence>
+					<xs:element name="DocKind" type="clt_ru:LetterIndicatorType" minOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Вид документа: 1 - Решение об участии в эксперименте по мониторингу таможенными органами сведений, имеющихся в их распоряжении и полученных от лиц, участвующих в эксперименте по мониторингу таможенными органами таких сведений, из систем учета товаров, 2 - Информация о прекращении участия в эксперименте</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Customs" type="cat_ru:CustomsType" minOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Сведения о таможенном органе, принявшем Решение о проведении таможенного мониторинга</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ApplicantInfo" type="pe_dec:ApplicantInfoType" minOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Сведения о лице, в отношении внешнеэкономической деятельности которого необходимо провести таможенный мониторинг</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DecisionDetails" type="pe_dec:DecisionDetailsType" minOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Реквизиты Решения об участии в эксперименте по мониторингу / Решения о прекращении участия в эксперименте по мониторингу</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+				<xs:attribute name="DocumentModeID" type="clt_ru:DocumentModeIDType" use="required" fixed="1006955E">
+					<xs:annotation>
+						<xs:documentation>Идентификатор вида документа</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:annotation>
+		<xs:documentation>Локальные прикладные типы</xs:documentation>
+	</xs:annotation>
+	<xs:complexType name="ApplicantInfoType">
+		<xs:annotation>
+			<xs:documentation>Сведения о лице, в отношении внешнеэкономической деятельности которого необходимо провести таможенный мониторинг</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="RUDECLcat:AEODeclarantDetailsType">
+				<xs:sequence>
+					<xs:element name="ResultInfo" type="clt_ru:FreeText500Type" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Информация о результатах подключения и тестирования информационного обмена</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="DecisionDetailsType">
+		<xs:annotation>
+			<xs:documentation>Реквизиты Решения об участии в эксперименте по мониторингу</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DocNumber" type="pe_dec:DocNumberType" minOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Номер документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SigningPerson" type="cat_ru:PersonSignatureType" minOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Сведения о лице, принявшем и подписавшем Решение</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DecisionSign" type="clt_ru:IndicatorType" minOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Принятое решение о проведении таможенного мониторинга: 0 - не проводить; 1 - провести</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MonitoringCustoms" type="cat_ru:CustomsType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Таможенный орган, которому поручено провести таможенный мониторинг</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PartExpTermDate" type="clt_ru:DateCustType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата прекращения участия в эксперименте</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PartExpTermCode" type="clt_ru:LetterIndicatorType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Код причины прекращения участия в эксперименте: 1 непредоставление участником эксперимента уполномоченному таможенному органу удаленного доступа к системе учета товаров или сведений из системы учета товаров и (или) электронных копий документов, 2 представление участником эксперимента в Федеральную таможенную службу уведомления о прекращении участия в эксперименте, 3 присвоение участнику эксперимента высокого уровня риска</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DecisionReason" type="clt_ru:FreeText250Type" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Основания для решения об участии / прекращения участия в эксперименте</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DocNumberType">
+		<xs:annotation>
+			<xs:documentation>Номер Решения</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="cat_ru:GTDIDType">
+				<xs:sequence>
+					<xs:element name="AddCode" type="clt_ru:Code3Type" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Указывается "210"</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="OperationCode" type="clt_ru:Code2Type" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Указывается "01"</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

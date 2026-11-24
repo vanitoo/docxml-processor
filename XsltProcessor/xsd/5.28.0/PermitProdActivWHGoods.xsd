@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Приказ Минфина России № 47н от 1 апреля 2022 года "Об определении формы разрешения таможенного органа на осуществление на территории свободного склада производственной и иной хозяйственной деятельности лицом, не являющимся владельцем свободного склада, которое выступает декларантом товаров, помещаемых под таможенную процедуру свободного склада, и порядка совершения таможенных операций, связанных с его выдачей"-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:clt_ru="urn:customs.ru:CommonLeafTypes:5.10.0" xmlns:cat_ru="urn:customs.ru:CommonAggregateTypes:5.24.0" xmlns:RUScat_ru="urn:customs.ru:RUSCommonAggregateTypes:5.24.0" xmlns:ppawhg="urn:customs.ru:Information:CustomsDocuments:PermitProdActivWHGoods:5.27.0" targetNamespace="urn:customs.ru:Information:CustomsDocuments:PermitProdActivWHGoods:5.27.0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="5.27.0.0">
+	<xs:import namespace="urn:customs.ru:CommonLeafTypes:5.10.0" schemaLocation="CommonLeafTypesCust.xsd"/>
+	<xs:import namespace="urn:customs.ru:CommonAggregateTypes:5.24.0" schemaLocation="CommonAggregateTypesCust.xsd"/>
+	<xs:import namespace="urn:customs.ru:RUSCommonAggregateTypes:5.24.0" schemaLocation="RUSCommonAggregateTypes.xsd"/>
+	<xs:annotation>
+		<xs:documentation>Разрешение таможенного органа на осуществление на территории свободного склада производственной и иной хозяйственной деятельности лицом, не являющимся владельцем свободного склада, которое выступает декларантом товаров, помещаемых под таможенную процедуру свободного склада</xs:documentation>
+	</xs:annotation>
+	<xs:element name="PermitProdActivWHGoods" type="ppawhg:PermitProdActivWHGoodsType">
+		<xs:annotation>
+			<xs:documentation>Разрешение таможенного органа на осуществление на территории свободного склада производственной и иной хозяйственной деятельности лицом, не являющимся владельцем свободного склада, которое выступает декларантом товаров, помещаемых под таможенную процедуру свободного склада</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="PermitProdActivWHGoodsType">
+		<xs:annotation>
+			<xs:documentation>Разрешение таможенного органа на осуществление на территории свободного склада производственной и иной хозяйственной деятельности лицом, не являющимся владельцем свободного склада, которое выступает декларантом товаров, помещаемых под таможенную процедуру свободного склада</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="cat_ru:BaseDocType">
+				<xs:sequence>
+					<xs:element name="PermitRegNum" type="ppawhg:RegistrationNumberType">
+						<xs:annotation>
+							<xs:documentation>Регистрационный номер Разрешения</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="PermitDate" type="clt_ru:DateCustType">
+						<xs:annotation>
+							<xs:documentation>Дата выдачи Разрешения</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Applicant" type="cat_ru:OrganizationBaseType">
+						<xs:annotation>
+							<xs:documentation>Сведения о Заявителе</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="FreeWHAddress" type="RUScat_ru:RUAddressType">
+						<xs:annotation>
+							<xs:documentation>Место нахождения свободного склада</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="CertificateNumber" type="cat_ru:DocumentBaseType">
+						<xs:annotation>
+							<xs:documentation>Номер свидетельства о включении в реестр владельцев свободных складов</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="CustomsSignature" type="cat_ru:PersonBaseType">
+						<xs:annotation>
+							<xs:documentation>Должностное лицо таможенного органа</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+				<xs:attribute name="DocumentModeID" type="clt_ru:DocumentModeIDType" use="required" fixed="1006384E">
+					<xs:annotation>
+						<xs:documentation>Идентификатор вида документа. Код документа в Альбоме форматов</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:annotation>
+		<xs:documentation>Локальные прикладные типы.</xs:documentation>
+	</xs:annotation>
+	<xs:complexType name="RegistrationNumberType">
+		<xs:annotation>
+			<xs:documentation>Регистрационный номер документа</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CustomsCode" type="clt_ru:CustomsCodeType">
+				<xs:annotation>
+					<xs:documentation>Код таможенного органа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Date" type="clt_ru:DateCustType">
+				<xs:annotation>
+					<xs:documentation>Дата регистрации</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SerialNumber" type="clt_ru:Code8Type">
+				<xs:annotation>
+					<xs:documentation>Порядковый регистрационный номер</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DocumentType" type="clt_ru:Code5Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Аббревиатура вида документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

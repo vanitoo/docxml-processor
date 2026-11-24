@@ -1,0 +1,437 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!--Отметки таможенного органа по декларации электронной торговли-->
+<xs:schema xmlns:clt_ru="urn:customs.ru:CommonLeafTypes:5.10.0" xmlns:cat_ru="urn:customs.ru:CommonAggregateTypes:5.24.0" xmlns:catESAD_ru="urn:customs.ru:RUCommonAggregateTypes:5.28.0" xmlns:e_cdcm="urn:customs.ru:Information:CustomsDocuments:E_CommerceDeclarationCustomMark:5.28.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:customs.ru:Information:CustomsDocuments:E_CommerceDeclarationCustomMark:5.28.0" elementFormDefault="qualified" version="5.28.0.0">
+  <xs:import namespace="urn:customs.ru:CommonLeafTypes:5.10.0" schemaLocation="CommonLeafTypesCust.xsd" />
+  <xs:import namespace="urn:customs.ru:CommonAggregateTypes:5.24.0" schemaLocation="CommonAggregateTypesCust.xsd" />
+  <xs:import namespace="urn:customs.ru:RUCommonAggregateTypes:5.28.0" schemaLocation="RUESADCommonAggregateTypesCust.xsd" />
+  <xs:annotation>
+    <xs:documentation>Отметки таможенного органа по декларации электронной торговли</xs:documentation>
+  </xs:annotation>
+  <xs:element name="E_CommerceDeclarationCustomMark" type="e_cdcm:E_CommerceDeclarationCustomMarkType">
+    <xs:annotation>
+      <xs:documentation>Отметки таможенного органа по декларации электронной торговли</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="E_CommerceDeclarationCustomMarkType">
+    <xs:annotation>
+      <xs:documentation>Отметки таможенного органа по декларации электронной торговли</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="cat_ru:BaseDocType">
+        <xs:sequence>
+          <xs:element name="E_CDRegNumber" type="cat_ru:GTDIDType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Регистрационный номер декларации электронной торговли</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="E_CDResolution" type="e_cdcm:ResolutionType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Принятые решения по ДЭТ</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="E_CDCommonMark" type="e_cdcm:CommonMarkType" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>Служебные отметки ДЭТ</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Consignment" type="e_cdcm:ConsignmentType" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>Принятые решения и служебные отметки по индивидуальным накладным</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="CustomsPerson" type="cat_ru:CustomsPersonType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Должностное лицо таможенного органа</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+        <xs:attribute name="DocumentModeID" type="clt_ru:DocumentModeIDType" use="required" fixed="1006297E">
+          <xs:annotation>
+            <xs:documentation>Идентификатор вида документа</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:annotation>
+    <xs:documentation>Локальные прикладные типы</xs:documentation>
+  </xs:annotation>
+  <xs:complexType name="CommonMarkType">
+    <xs:annotation>
+      <xs:documentation>Служебные отметки по ДЭТ </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="e_cdcm:CustomsMarkType">
+        <xs:sequence>
+          <xs:element name="GoodsPresentDate" type="clt_ru:DateCustType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Дата предъявления товаров</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="GoodsPresentTime" type="clt_ru:TimeCustType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Время предъявления  товаров</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ConsignmentType">
+    <xs:annotation>
+      <xs:documentation>Сведения о принятых решениях по индивидуальным накладным</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="DecisionCode" type="clt_ru:CodeVariable2Type">
+        <xs:annotation>
+          <xs:documentation>Код принятого решения в соответствии с классификатором решений,  принимаемых таможенными органами</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DecisionDate" type="clt_ru:DateTimeCustType">
+        <xs:annotation>
+          <xs:documentation>Дата и время принятия решения</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ReasonCode" type="clt_ru:CodeVariable3Type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Код причины отказа в выпуске</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Reason" type="clt_ru:FreeText250Type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Описание причины отказа в выпуске</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CustomsMark" type="e_cdcm:CustomsMarkType" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Служебные отметки</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="IndividualWayBill" type="e_cdcm:WayBillType">
+        <xs:annotation>
+          <xs:documentation>Сведения об индивидуальной накладной</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="GoodsResolution" type="e_cdcm:GoodsResolutionType" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Служебные отметки и принятые решения по товарам</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PersonName" type="clt_ru:NameType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>ФИО инспектора, заверившего запись</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="LNP" type="clt_ru:LNPIDType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Номер ЛНП инспектора, заверившего запись</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="LNPCustomsCode" type="clt_ru:CustomsCodeType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Код таможенного органа, указанный на оттиске ЛНП</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CustomsMarkType">
+    <xs:annotation>
+      <xs:documentation>Служебные отметки по индивидуальной накладной</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="GRNumber" type="clt_ru:CodeVariable2Type">
+        <xs:annotation>
+          <xs:documentation>Обозначение графы (подраздела графы) </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="StageMarkIdentifier" type="clt_ru:LetterIndicatorType">
+        <xs:annotation>
+          <xs:documentation>Идентификатор проставленной технологической отметки - 1 (номер этапа)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="NoteMarkIdentifier" type="clt_ru:Code2Type">
+        <xs:annotation>
+          <xs:documentation>Идентификатор проставленной технологической отметки  -  2 (тип примечания)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="StageDescription" type="clt_ru:FreeText250Type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Описание отметки</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="MarkDescription" type="clt_ru:FreeText500Type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Служебная запись </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DocumentInfo" type="cat_ru:DocumentBaseType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Информация о документе</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DeadlineReason" type="clt_ru:CodeVariable2Type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Код основания продления срока выпуска товаров</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Deadline" type="clt_ru:DateCustType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Срок</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PersonName" type="clt_ru:NameType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>ФИО инспектора, заверившего запись</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="LNP" type="clt_ru:LNPIDType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Номер ЛНП инспектора, заверившего запись</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="LNPCustomsCode" type="clt_ru:CustomsCodeType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Код таможенного органа, указанный на оттиске ЛНП</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DateTimeInf" type="clt_ru:DateTimeCustType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Дата и время проставления отметки</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="FoundationType">
+    <xs:annotation>
+      <xs:documentation>Обоснование принятого решения</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="FoundationCode" type="clt_ru:CodeVariable5Type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Код обоснования принятого решения</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="FoundationText" type="clt_ru:FreeText250Type" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Текст обоснования</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ResolutionCode" type="clt_ru:CodeVariable6Type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Код описания принятого решения</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ResolutionDescription" type="clt_ru:FreeText250Type" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Описание принятого решения</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Recommendation" type="clt_ru:FreeText250Type" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Рекомендации по устранению причин </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="GoodsMarkType">
+    <xs:annotation>
+      <xs:documentation>Служебные отметки по товару</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="MarkIdentif" type="clt_ru:DocumentIDType">
+        <xs:annotation>
+          <xs:documentation>Идентификатор отметки</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="RefMarkIdentif" type="clt_ru:DocumentIDType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Идентификатор связанной  отметки</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="MarkStatus" type="clt_ru:IndicatorType">
+        <xs:annotation>
+          <xs:documentation>Статус отметки : 1 - действующая, 0 - удаленная</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="GRNumber" type="clt_ru:CodeVariable2Type">
+        <xs:annotation>
+          <xs:documentation>Обозначение графы (подраздела графы) (C,D)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="StageMarkIdentifier" type="clt_ru:LetterIndicatorType">
+        <xs:annotation>
+          <xs:documentation>Идентификатор проставленной технологической отметки - 1 (номер этапа)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="NoteMarkIdentifier" type="clt_ru:Code2Type">
+        <xs:annotation>
+          <xs:documentation>Идентификатор проставленной технологической отметки  -  2 (тип примечания)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="InformationTypeCode" type="clt_ru:Code2Type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Код типа информации (SKRECC)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="MarkDescription" type="clt_ru:FreeText250Type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Служебная запись / номер документа </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DateInf" type="clt_ru:DateCustType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Дата проставления отметки/ Дата удаление отметки</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="TimeInf" type="clt_ru:TimeCustType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Время</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PersonName" type="clt_ru:NameType">
+        <xs:annotation>
+          <xs:documentation>ФИО инспектора, заверившего запись</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="LNP" type="clt_ru:LNPIDType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Номер ЛНП инспектора, заверившего запись</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="LNPCustomsCode" type="clt_ru:CustomsCodeType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Код таможенного органа, указанный на оттиске ЛНП</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ReqCompletionDate" type="clt_ru:DateTimeCustType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Дата завершения контроля</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Deadline" type="clt_ru:DateCustType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Срок</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CustomsCode" type="clt_ru:CustomsCodeType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Код таможенного органа</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CustomsActionDate" type="clt_ru:DateCustType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Дата совершения отдельных таможенных операций</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DocumentIndicator" type="clt_ru:LetterIndicatorType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Признак документа. Заполняется при указании номера акта: - досмотра/осмотра/осмотр с ИДК/наблюдения (‘Д’,‘О’,’И’,’Н’; - если ДТ является последней полной таможенной декларацией ('Z')</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DeadlineMonth" type="clt_ru:Quantity2Type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Срок продления / общий в месяцах</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DeadlineReason" type="clt_ru:CodeVariable2Type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Код основания продления срока выпуска товаров</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DocumentInfo" type="cat_ru:DocumentBaseType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Информация о документе (номер, дата)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CommonMarkOrganization" type="cat_ru:OrganizationBaseType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Сведения об организации (лице) </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="StageDescription" type="clt_ru:FreeText250Type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Описание этапа.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="IdentifierDescription" type="clt_ru:FreeText250Type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Описание типа примечания</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="GoodsResolutionType">
+    <xs:annotation>
+      <xs:documentation>Служебные отметки и принятые решения по товарам.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="GoodsNumeric" type="clt_ru:Count3Type">
+        <xs:annotation>
+          <xs:documentation>Номер товара по индивидуальной накладной</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="TotalGoodsNumeric" type="clt_ru:Count3Type">
+        <xs:annotation>
+          <xs:documentation>Порядковый номер товара в ДЭТ</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="GoodsResult" type="e_cdcm:ResolutionType" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Принятые решения по товарам</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="GoodsMark" type="e_cdcm:GoodsMarkType" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Служебные отметки по товарам.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ResolutionType">
+    <xs:annotation>
+      <xs:documentation>Принятые решения по ДЭТ / товарам.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="catESAD_ru:RUESADDecisionType">
+        <xs:sequence>
+          <xs:element name="FoundationDes" type="e_cdcm:FoundationType" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>Обоснование принятого решения </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="PersonName" type="clt_ru:NameType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>ФИО должностного лица таможенного органа</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="WayBillType">
+    <xs:annotation>
+      <xs:documentation>Сведения об индивидуальной накладной</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="cat_ru:DocumentBaseType">
+        <xs:sequence>
+          <xs:element name="WayBillID" type="clt_ru:DocumentIDType">
+            <xs:annotation>
+              <xs:documentation>Уникальный идентификатор накладной в ДЭТ</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ObjectOrdinal" type="clt_ru:Count3Type">
+            <xs:annotation>
+              <xs:documentation>Порядковый номер накладной</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ConsigneeName" type="clt_ru:NameType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Наименование получателя</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>

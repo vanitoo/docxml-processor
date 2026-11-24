@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema elementFormDefault="qualified" targetNamespace="urn:customs.ru:Information:CommercialFinanceDocuments:StatementOfAccount:5.10.0" version="5.10.0.0" xmlns:catComFin_ru="urn:customs.ru:Information:CommercialFinanceDocuments:CommercialFinanceCommonAgregateTypesCust:5.10.0" xmlns:cat_ru="urn:customs.ru:CommonAggregateTypes:5.10.0" xmlns:cltComFin_ru="urn:customs.ru:Information:CommercialFinanceDocuments:CommercialFinanceCommonLeafTypesCust:5.8.0" xmlns:clt_ru="urn:customs.ru:CommonLeafTypes:5.10.0" xmlns:soa="urn:customs.ru:Information:CommercialFinanceDocuments:StatementOfAccount:5.10.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="urn:customs.ru:CommonLeafTypes:5.10.0" schemaLocation="CommonLeafTypesCust.xsd" />
+  <xs:import namespace="urn:customs.ru:CommonAggregateTypes:5.10.0" schemaLocation="CommonAggregateTypesCust.xsd" />
+  <xs:import namespace="urn:customs.ru:Information:CommercialFinanceDocuments:CommercialFinanceCommonLeafTypesCust:5.8.0" schemaLocation="CommercialFinanceCommonLeafTypesCust.xsd" />
+  <xs:import namespace="urn:customs.ru:Information:CommercialFinanceDocuments:CommercialFinanceCommonAgregateTypesCust:5.10.0" schemaLocation="CommercialFinanceCommonAggregateTypesCust.xsd" />
+  <xs:annotation>
+    <xs:documentation>Выписка со счета</xs:documentation>
+  </xs:annotation>
+  <xs:element name="StatementOfAccount" type="soa:StatementOfAccountType" />
+  <xs:complexType name="StatementOfAccountType">
+    <xs:annotation>
+      <xs:documentation>Выписка со счета</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="cat_ru:BaseDocType">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ReservedAmount" type="clt_ru:AmountType">
+            <xs:annotation>
+              <xs:documentation>Сумма забронированных средств (если больше нуля). Не заполняется для выписки, содержащей текущий остаток на счете</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="CreditLimitAmount" type="clt_ru:AmountType">
+            <xs:annotation>
+              <xs:documentation>Сумма лимита внутридневного кредита (если больше нуля). Не заполняется для выписки, содержащей текущий остаток на счете</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="CreditAmount" type="clt_ru:AmountType">
+            <xs:annotation>
+              <xs:documentation>Общая сумма документов по кредиту счета участников (если больше нуля). Не заполняется для выписки, содержащей текущий остаток на счете</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="DebetAmount" type="clt_ru:AmountType">
+            <xs:annotation>
+              <xs:documentation>Общая сумма документов по дебету счета участников (если больше нуля). Не заполняется для выписки, содержащей текущий остаток на счете</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="OutBal" type="clt_ru:AmountType">
+            <xs:annotation>
+              <xs:documentation>Исходящий остаток на счете участника (дебетовый остаток - отрицательный, кредитовый - положительный)</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="EnterBal" type="clt_ru:AmountType">
+            <xs:annotation>
+              <xs:documentation>Входящий остаток на счете участника (дебетовый остаток - отрицательный, кредитовый - положительный). Не заполняется для выписки, содержащей текущий остаток на счете</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="LastMovementDate" type="clt_ru:DateCustType">
+            <xs:annotation>
+              <xs:documentation>Дата последнего движения по счету. Не заполняется при отсутствии движения по счету</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="AbstractKind" type="clt_ru:LetterIndicatorType">
+            <xs:annotation>
+              <xs:documentation>Тип выписки (0 - окончательная выписка, 1 - промежуточная выписка, 2 - текущий остаток на счете, 3 - свернутая выписка)</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="AbstractDate" type="clt_ru:DateCustType">
+            <xs:annotation>
+              <xs:documentation>Дата, на которую формируется выписка</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="DocumentInfo" type="soa:DocumentInfoType">
+            <xs:annotation>
+              <xs:documentation>Информация о формировании формы документа</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="AccountHolder" type="catComFin_ru:CustomerType">
+            <xs:annotation>
+              <xs:documentation>Информация о владельце счета</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="TransInfo" type="soa:TransInfoType">
+            <xs:annotation>
+              <xs:documentation>Информация об одной операции по лицевому счету в выписке</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+        <xs:attribute fixed="1002013E" name="DocumentModeID" type="clt_ru:DocumentModeIDType" use="required">
+          <xs:annotation>
+            <xs:documentation>Идентификатор вида документа</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:annotation>
+    <xs:documentation>Локальные прикладные типы</xs:documentation>
+  </xs:annotation>
+  <xs:complexType name="DocumentInfoType">
+    <xs:annotation>
+      <xs:documentation>Информация о формировании формы документа</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="OrganizationName" type="clt_ru:NameType">
+        <xs:annotation>
+          <xs:documentation>Наименование учреждения, выпустившего форму</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CreationDate" type="clt_ru:DateCustType">
+        <xs:annotation>
+          <xs:documentation>Дата формирования формы</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="CreationTime" type="clt_ru:TimeCustType">
+        <xs:annotation>
+          <xs:documentation>Время формирования формы</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TransInfoType">
+    <xs:annotation>
+      <xs:documentation>Информация об одной операции по лицевому счету в выписке. Не заполняется для свернутой выписки и выписки, содержащей текущий остаток на счете</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="AccDocNo" type="clt_ru:Count3Type">
+        <xs:annotation>
+          <xs:documentation>Номер расчетного документа</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="TransKind" type="clt_ru:Code2Type">
+        <xs:annotation>
+          <xs:documentation>Вид операции. Указывается в соответствии со Справочником видов операций</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="BICCorr" type="clt_ru:BICIDType">
+        <xs:annotation>
+          <xs:documentation>БИК банка корреспондента. БИК РКЦ получателя (отправителя) платежа, если получателем (отправителем) средств является клиент РКЦ, либо БИК кредитной организации, если получателем (отправителем) является ее клиент</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="CorrAccBrf" type="cltComFin_ru:CorrAccountType">
+        <xs:annotation>
+          <xs:documentation>Корреспондирующий счет. Номер балансового счета второго порядка, через который осуществляются операции по зачислению (списанию) средств на корреспондентский или лицевой счет клиента РКЦ в зависимости от способа расчетов между РКЦ</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="PayerPersonalAccount" type="clt_ru:AccountType">
+        <xs:annotation>
+          <xs:documentation>Счет отправителя/ плательщика</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="PayeePersonalAccount" type="clt_ru:AccountType">
+        <xs:annotation>
+          <xs:documentation>Счет получателя</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="TurnoverKind" type="clt_ru:Numeric1Type">
+        <xs:annotation>
+          <xs:documentation>Вид оборотов (1 - основные, 2 - заключительные, 3 - эмиссионные заключительные)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DC" type="clt_ru:Numeric1Type">
+        <xs:annotation>
+          <xs:documentation>Признак дебета/кредита счета клиента (1 - дебет, 2 - кредит)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Amount" type="clt_ru:AmountType">
+        <xs:annotation>
+          <xs:documentation>Сумма</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="TransDate" type="clt_ru:DateCustType">
+        <xs:annotation>
+          <xs:documentation>Дата совершения операций по счету</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

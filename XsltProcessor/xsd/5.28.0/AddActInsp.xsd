@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:cat_ru="urn:customs.ru:CommonAggregateTypes:5.24.0" xmlns:clt_ru="urn:customs.ru:CommonLeafTypes:5.10.0" xmlns:ATDcat="urn:customs.ru:Information:CustomsDocuments:ATDCommon:5.28.0" xmlns:aai="urn:customs.ru:Information:CustomsDocuments:AddActInsp:5.28.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:customs.ru:Information:CustomsDocuments:AddActInsp:5.28.0" elementFormDefault="qualified" version="5.28.0.0">
+	<xs:import namespace="urn:customs.ru:CommonAggregateTypes:5.24.0" schemaLocation="CommonAggregateTypesCust.xsd"/>
+	<xs:import namespace="urn:customs.ru:CommonLeafTypes:5.10.0" schemaLocation="CommonLeafTypesCust.xsd"/>
+	<xs:import namespace="urn:customs.ru:Information:CustomsDocuments:ATDCommon:5.28.0" schemaLocation="ATDCommon.xsd"/>
+	<xs:annotation>
+		<xs:documentation>Дополнение/приложение к акту досмотра/осмотра/наблюдения/изменении СТИ</xs:documentation>
+	</xs:annotation>
+	<xs:element name="AddActInsp" type="aai:AddActInspType">
+		<xs:annotation>
+			<xs:documentation>Дополнение/приложение к акту досмотра/осмотра/наблюдения/изменении СТИ</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="AddActInspType">
+		<xs:annotation>
+			<xs:documentation>Дополнение/приложение к акту досмотра/осмотра/наблюдения/изменении СТИ</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="cat_ru:BaseDocType">
+				<xs:sequence>
+					<xs:element name="Act_ID" type="clt_ru:DocumentIDType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Уникальный идентификатор АТД</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ATDNum" type="clt_ru:DocumentNumberType">
+						<xs:annotation>
+							<xs:documentation>Номер АТД</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Comments" type="clt_ru:FreeText250Type" minOccurs="0" maxOccurs="4">
+						<xs:annotation>
+							<xs:documentation>Комментарии</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="PreviewInfo" type="ATDcat:PreviewInfoType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Информация о вложении</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="NumberOfPhoto" type="clt_ru:Count4Type" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Количество приложенных фотографий</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="InspectionParticipant" type="aai:InspectionParticipantType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Сведения о подписи АТД</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="InspectionReqGoods" type="aai:OperationTimeType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Требование о предъявлении товаров </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ReqOperations" type="aai:OperationTimeType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Требование о проведении грузовых и иных операций в отношении товаров</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SignatureDate" type="clt_ru:DateTimeCustType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дата и время окончания досмотра (время последней подписи)</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+				<xs:attribute name="DocumentModeID" type="clt_ru:DocumentModeIDType" use="required" fixed="1006246E">
+					<xs:annotation>
+						<xs:documentation>Идентификатор вида документа</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="InspectionParticipantType">
+		<xs:annotation>
+			<xs:documentation>Лицо, присутствующее при досмотре (осмотре)</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="cat_ru:PersonBaseType">
+				<xs:sequence>
+					<xs:element name="Status" type="clt_ru:Numeric1Type">
+						<xs:annotation>
+							<xs:documentation>Статус или должность лица, присутствующего при досмотре (осмотре): 3 - декларант (иное лицо, уполномоченное в отношении товаров, либо представитель); 4 - понятой; 5 - эксперт; 6 - оператор почтовой связи; 9 - должностное лицо ТО</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SignatureFlag" type="clt_ru:Numeric1Type">
+						<xs:annotation>
+							<xs:documentation>Статус подписи лица: 0 - присутствовал, не подписан, 1 - подписан в бумажном виде, 2- подписан ЭП, 3 - отказ от подписи в электронном виде, 4 - истек таймаут для подписания ЭП</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SignPersonDate" type="clt_ru:DateTimeCustType">
+						<xs:annotation>
+							<xs:documentation>Дата и время подписи (отметки)</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="OperationTimeType">
+		<xs:annotation>
+			<xs:documentation>Хроника совершения операций</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OperationDirect" type="clt_ru:DateTimeCustType">
+				<xs:annotation>
+					<xs:documentation>Дата и время требования</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Limit" type="clt_ru:DateTimeCustType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Назначенный срок</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SuccessDate" type="clt_ru:DateTimeCustType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата и время выполнения требования</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IgnoreDate" type="clt_ru:DateTimeCustType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата и время внесения записи о невыполнении требования</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:annotation>
+		<xs:documentation>Локальные прикладные типы</xs:documentation>
+	</xs:annotation>
+</xs:schema>

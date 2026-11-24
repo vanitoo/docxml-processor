@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Проект приказа вместо Приказа ФТС России от 25 февраля 2019 г. № 321 «Об утверждении форм заявления лица, внесшего авансовые платежи, о предоставлении отчета о расходовании денежных средств, внесенных в качестве авансовых платежей, отчета о расходовании денежных средств, внесенных в качестве авансовых платежей, порядка подачи лицом, внесшим авансовые платежи, заявления о предоставлении отчета о расходовании денежных средств, внесенных в качестве авансовых платежей, а также порядка предоставления таможенным органом такого отчета»-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:cat_crd="urn:customs.ru:CardCommonAggregateTypes:5.21.0" xmlns:clt_ru="urn:customs.ru:CommonLeafTypes:5.10.0" xmlns:cat_ru="urn:customs.ru:CommonAggregateTypes:5.24.0" xmlns:RUScat_ru="urn:customs.ru:RUSCommonAggregateTypes:5.24.0" xmlns:cia="urn:customs.ru:Information:ELSDocuments:ELSConfInfoApp:5.28.0" targetNamespace="urn:customs.ru:Information:ELSDocuments:ELSConfInfoApp:5.28.0" elementFormDefault="qualified" version="5.28.0.0">
+	<xs:import namespace="urn:customs.ru:CommonLeafTypes:5.10.0" schemaLocation="CommonLeafTypesCust.xsd"/>
+	<xs:import namespace="urn:customs.ru:CommonAggregateTypes:5.24.0" schemaLocation="CommonAggregateTypesCust.xsd"/>
+	<xs:import namespace="urn:customs.ru:RUSCommonAggregateTypes:5.24.0" schemaLocation="RUSCommonAggregateTypes.xsd"/>
+	<xs:import namespace="urn:customs.ru:CardCommonAggregateTypes:5.21.0" schemaLocation="CardCommonAggregateTypes.xsd"/>
+	<xs:annotation>
+		<xs:documentation>Заявление лица, внесшего авансовые платежи, о предоставлении отчета о расходовании денежных средств, внесенных в качестве авансовых платежей</xs:documentation>
+	</xs:annotation>
+	<xs:element name="ELSConfInfoApp" type="cia:ELSConfInfoAppType">
+		<xs:annotation>
+			<xs:documentation>Заявление лица, внесшего авансовые платежи, о предоставлении отчета о расходовании денежных средств, внесенных в качестве авансовых платежей</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="ELSConfInfoAppType">
+		<xs:annotation>
+			<xs:documentation>Заявление лица, внесшего авансовые платежи, о предоставлении отчета о расходовании денежных средств, внесенных в качестве авансовых платежей</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="cat_crd:BaseDocType">
+				<xs:sequence>
+					<xs:element name="DocNumber" type="clt_ru:DocumentNumberType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Номер заявления</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DocDate" type="clt_ru:DateCustType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дата заявления</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Customs" type="cat_ru:CustomsType">
+						<xs:annotation>
+							<xs:documentation>Таможенный орган, в адрес которого направлено заявление</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ApplicantInfo" type="cia:DeclarantInfoExtType">
+						<xs:annotation>
+							<xs:documentation>Сведения о заявителе</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="PeriodBegin" type="clt_ru:DateCustType">
+						<xs:annotation>
+							<xs:documentation>Начало запрашиваемого периода</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="PeriodEnd" type="clt_ru:DateCustType">
+						<xs:annotation>
+							<xs:documentation>Окончание запрашиваемого периода</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ApplicantSignature" type="cat_ru:PersonSignatureType">
+						<xs:annotation>
+							<xs:documentation>Подпись руководителя организации или уполномоченного от имени организации или ИП</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ReportProvidingForm" type="cia:ReportProvidingFormType">
+						<xs:annotation>
+							<xs:documentation>Форма предоставления отчета</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+				<xs:attribute name="DocumentModeID" type="clt_ru:DocumentModeIDType" use="required" fixed="1040025E">
+					<xs:annotation>
+						<xs:documentation>Идентификатор вида документа</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:annotation>
+		<xs:documentation>Локальные прикладные типы.</xs:documentation>
+	</xs:annotation>
+	<xs:complexType name="DeclarantInfoExtType">
+		<xs:annotation>
+			<xs:documentation>Информация о заявителе</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="RUScat_ru:RUOrganizationBaseType">
+				<xs:sequence>
+					<xs:element name="OKPOID" type="clt_ru:OKPOIDType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Код организации по ОКПО</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="OKATOCode" type="clt_ru:OKATOCodeType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Код ОКАТО</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Address" type="RUScat_ru:RUAddressType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Адрес (почтовый адрес) </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Contact" type="cat_ru:ContactType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Контактная информация</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="FactAddress" type="RUScat_ru:RUAddressType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Фактический адрес заявителя</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="InsuranceNumber" type="clt_ru:CodeVariable11Type" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Страховой номер индивидуального лицевого счёта (СНИЛС)</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="BornDate" type="clt_ru:DateCustType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дата рождения физического лица</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="IdentityCard" type="RUScat_ru:RUIdentityCardType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Документ, удостоверяющий личность физического лица</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="TaxNumber" type="RUScat_ru:UITN40Type" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Налоговый номер (или его аналог), для лиц, не состоящих на учете в налоговых органах РФ</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ReportProvidingFormType">
+		<xs:annotation>
+			<xs:documentation>Форма предоставления отчета</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ReportProvidingFormIndicator" type="clt_ru:DigitalIndicatorType" minOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Форма предоставления отчета (0 - в электронном виде, 1 - на бумажном носителе, 2 – в электронном виде и на бумажном носителе)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ReportProvidingAddress" type="RUScat_ru:RUAddressType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Почтовый адрес для предоставления отчета (заполняется при ReportProvidingFormIndicator = 1,2)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Phone" type="clt_ru:PhoneNumberType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Информация для направления корреспонденции: номер телефона</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="E_mail" type="clt_ru:Text50Type" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Информация для направления корреспонденции: адрес электронной почты</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

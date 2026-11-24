@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Письмо ГУИТ от 19.09.2018 № 09-126 № 59561 пункт 4.2.3-->
+<xs:schema xmlns:cat_ru="urn:customs.ru:CommonAggregateTypes:5.10.0" xmlns:clt_ru="urn:customs.ru:CommonLeafTypes:5.10.0" xmlns:rdrp="urn:customs.ru:Information:CommercialFinanceDocuments:RecDecisionRevokePayments:5.14.2" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:customs.ru:Information:CommercialFinanceDocuments:RecDecisionRevokePayments:5.14.2" elementFormDefault="qualified" version="5.14.2.0">
+	<xs:import namespace="urn:customs.ru:CommonLeafTypes:5.10.0" schemaLocation="CommonLeafTypesCust.xsd"/>
+	<xs:import namespace="urn:customs.ru:CommonAggregateTypes:5.10.0" schemaLocation="CommonAggregateTypesCust.xsd"/>
+	<xs:annotation>
+		<xs:documentation>Квитанция об исполнении Решения о приостановлении операций по счетам</xs:documentation>
+	</xs:annotation>
+	<xs:element name="RecDecisionRevokePayments" type="rdrp:RecDecisionRevokePaymentsType">
+		<xs:annotation>
+			<xs:documentation>Квитанция об исполнении Решения о приостановлении операций по счетам</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="RecDecisionRevokePaymentsType">
+		<xs:annotation>
+			<xs:documentation>Квитанция об исполнении Решения о приостановлении операций по счетам</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="cat_ru:BaseDocType">
+				<xs:sequence>
+					<xs:element name="DocType" type="clt_ru:CodeVariable2Type">
+						<xs:annotation>
+							<xs:documentation>Тип решения: РПО - Решение таможенного органа о приостановлении операций по счетам плательщика.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DocumentReference" type="rdrp:DRP_DocumentReferenceType">
+						<xs:annotation>
+							<xs:documentation>Реквизиты Решения</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="NumberRecDecision" type="clt_ru:DocumentNumberType">
+						<xs:annotation>
+							<xs:documentation>Номер Квитанции</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DateRecDecision" type="clt_ru:DateCustType">
+						<xs:annotation>
+							<xs:documentation>Дата Квитанции</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="BankAndAccountInfo" type="rdrp:BankInformationType">
+						<xs:annotation>
+							<xs:documentation>Информация о банке и счёте</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="PayerInfo" type="cat_ru:OrganizationBaseType">
+						<xs:annotation>
+							<xs:documentation>Сведения о плательщике-держателе счета</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Executor" type="rdrp:ExecutorType">
+						<xs:annotation>
+							<xs:documentation>Исполнитель</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ResultCode" type="clt_ru:CodeVariable2Type">
+						<xs:annotation>
+							<xs:documentation>Код результата: 01 - исполнено; 02 - в банке отсутствует плательщик с указанным ИНН; 03 - в банке отсутствует номер счета; 04 - счет плательщика закрыт; 05 - наименование плательщика не соответствует номеру счета плательщика; 06 - блокировка по данному решению уже установлена; 07 - иное</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ResultText" type="clt_ru:FreeText250Type" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Дополнительная информация о результате исполнения</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+				<xs:attribute name="DocumentModeID" type="clt_ru:DocumentModeIDType" use="required" fixed="1002037E">
+					<xs:annotation>
+						<xs:documentation>Идентификатор вида документа</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:annotation>
+		<xs:documentation>Локальные прикладные типы.</xs:documentation>
+	</xs:annotation>
+	<xs:complexType name="BankInformationType">
+		<xs:annotation>
+			<xs:documentation>Информация о банке и счёте плательщика</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="cat_ru:BankInformationType">
+				<xs:sequence>
+					<xs:element name="CEMPId" type="clt_ru:ForeignAccountType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Идентификатор КЭСП</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="DRP_DocumentReferenceType">
+		<xs:annotation>
+			<xs:documentation>Регистрационный номер решения об отзыве инкассового поручения/ поручения на перевод денежных средств/ приостановлении операций по счетам/ отмене приостановления операций по счетам </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CustomsCode" type="clt_ru:CustomsCodeType">
+				<xs:annotation>
+					<xs:documentation>Код таможенного органа, сформировавшего решение</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RegistrationYear" type="clt_ru:DateYearCustType">
+				<xs:annotation>
+					<xs:documentation>Год принятия решения</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DocNumber" type="clt_ru:GTDIDType">
+				<xs:annotation>
+					<xs:documentation>Порядковый номер решения</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ExecutorType">
+		<xs:annotation>
+			<xs:documentation>Исполнитель</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="cat_ru:PersonBaseType">
+				<xs:sequence>
+					<xs:element name="ExecutivePhone" type="clt_ru:PhoneNumberType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Контактный телефон</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

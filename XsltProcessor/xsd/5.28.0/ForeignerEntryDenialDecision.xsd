@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Приказ ФТС России от 8 августа 2017 г. № 1288 «Об утверждении Порядка рассмотрения материалов, содержащих обстоятельства, являющиеся основанием для принятия (отмены) решения о неразрешении въезда в Российскую Федерацию в отношении иностранного гражданина или лица без гражданства, а также форм решения о неразрешении въезда в Российскую Федерацию в отношении иностранного гражданина или лица без гражданства, решения об отмене решения о неразрешении въезда в Российскую Федерацию в отношении иностранного гражданина или лица без гражданства, уведомления иностранного гражданина или лица без гражданства о принятом решении о неразрешении въезда в Российскую Федерацию».-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:clt_ru="urn:customs.ru:CommonLeafTypes:5.10.0" xmlns:cat_ru="urn:customs.ru:CommonAggregateTypes:5.24.0" xmlns:RUSclt_ru="urn:customs.ru:RUSCommonLeafTypes:5.21.0" xmlns:fsbngp="urn:customs.ru:Information:CustomsAuditDocuments:ForeignerEntryDenialDecision:5.28.0" targetNamespace="urn:customs.ru:Information:CustomsAuditDocuments:ForeignerEntryDenialDecision:5.28.0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="5.28.0.0">
+	<xs:import namespace="urn:customs.ru:CommonLeafTypes:5.10.0" schemaLocation="CommonLeafTypesCust.xsd"/>
+	<xs:import namespace="urn:customs.ru:CommonAggregateTypes:5.24.0" schemaLocation="CommonAggregateTypesCust.xsd"/>
+	<xs:import namespace="urn:customs.ru:RUSCommonLeafTypes:5.21.0" schemaLocation="RUSCommonLeafTypes.xsd"/>
+	<xs:annotation>
+		<xs:documentation>Решение о неразрешении въезда в Российскую Федерацию в отношении иностранного гражданина или лица без гражданства/ Решение об отмене решения о неразрешении въезда в Российскую Федерацию в отношении иностранного гражданина или лица без гражданства</xs:documentation>
+	</xs:annotation>
+	<xs:element name="ForeignerEntryDenialDecision" type="fsbngp:ForeignerEntryDenialDecisionType">
+		<xs:annotation>
+			<xs:documentation>Решение о неразрешении въезда в Российскую Федерацию в отношении иностранного гражданина или лица без гражданства/ Решение об отмене решения о неразрешении въезда в Российскую Федерацию в отношении иностранного гражданина или лица без гражданства</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="ForeignerEntryDenialDecisionType">
+		<xs:annotation>
+			<xs:documentation>Решение о неразрешении въезда в Российскую Федерацию в отношении иностранного гражданина или лица без гражданства/ Решение об отмене решения о неразрешении въезда в Российскую Федерацию в отношении иностранного гражданина или лица без гражданства</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="cat_ru:BaseDocType">
+				<xs:sequence>
+					<xs:element name="DocKind" type="clt_ru:LetterIndicatorType">
+						<xs:annotation>
+							<xs:documentation>Тип документа: 1 - Решение о неразрешении въезда; 2 - Решение об отмене решения о неразрешении въезда</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DecisionNumber" type="cat_ru:GTDIDType">
+						<xs:annotation>
+							<xs:documentation>Номер Решения о неразрешении въезда</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DecisionRepealNumber" type="cat_ru:GTDIDType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Номер Решения об отмене решения о неразрешении въезда</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="CustonsAuthority" type="cat_ru:CustomsType">
+						<xs:annotation>
+							<xs:documentation>Таможенный орган</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="CustonsPerson" type="fsbngp:CustonsPersonType">
+						<xs:annotation>
+							<xs:documentation>Должностное лицо таможенного органа, принявшее решение</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Person" type="fsbngp:PersonType">
+						<xs:annotation>
+							<xs:documentation>Лицо, в отношении которого принято решение</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SheetsNumber" type="clt_ru:Count3Type">
+						<xs:annotation>
+							<xs:documentation>Количество листов материалов дела</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DecisionReasons" type="clt_ru:FreeText500Type">
+						<xs:annotation>
+							<xs:documentation>Обстоятельства, являющиеся основанием для принятия решения/ отмены решения</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="LegalBasis" type="fsbngp:LegalBasisType" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Правовое основание принятия решения о неразрешении въезда</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ChiefCustonsPerson" type="fsbngp:CustonsPersonType">
+						<xs:annotation>
+							<xs:documentation>Должностное лицо таможенного органа, утвердившее решение</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+				<xs:attribute name="DocumentModeID" type="clt_ru:DocumentModeIDType" use="required" fixed="1006298E">
+					<xs:annotation>
+						<xs:documentation>Идентификатор вида документа</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:annotation>
+		<xs:documentation>Локальные прикладные типы</xs:documentation>
+	</xs:annotation>
+	<xs:complexType name="CustonsPersonType">
+		<xs:annotation>
+			<xs:documentation>Должностное лицо таможенного органа</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="cat_ru:PersonSignatureType">
+				<xs:sequence>
+					<xs:element name="SpecialRank" type="clt_ru:Text150Type">
+						<xs:annotation>
+							<xs:documentation>Специальное звание</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="IdentityCardType">
+		<xs:annotation>
+			<xs:documentation>Документ, удостоверяющий личность</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="IdentityCardCode" type="RUSclt_ru:RUIdentityCardCodeType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Код вида документа, удостоверяющего личность, в соответствии с классификатором видов документов, удостоверяющих личность</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IdentityCardName" type="clt_ru:Text40Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Краткое наименование документа, удостоверяющего личность</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FullIdentityCardName" type="clt_ru:FreeText250Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Полное наименование документа, удостоверяющего личность</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IdentityCardSeries" type="clt_ru:IdentityCardSeriesType">
+				<xs:annotation>
+					<xs:documentation>Серия документа, удостоверяющего личность</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IdentityCardNumber" type="clt_ru:IdentityCardNumberType">
+				<xs:annotation>
+					<xs:documentation>Номер документа, удостоверяющего личность</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IdentityCardDate" type="clt_ru:DateCustType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата выдачи документа, удостоверяющего личность</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DocValidityDate" type="clt_ru:DateCustType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата окончания срока, в течение которого документ имеет силу</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OrganizationName" type="clt_ru:NameType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование организации, выдавшей документ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IssuerCode" type="clt_ru:CodeVariable7Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Код подразделения органа, выдавшего документ, удостоверяющий личность</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AuthorityId" type="clt_ru:CodeVariable20Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Строка, идентифицирующая орган государственной власти государства-члена либо уполномоченную им организацию, выдавшую документ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CountryCode" type="clt_ru:CountryA2CodeType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Кодовое обозначение страны</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="LegalBasisType">
+		<xs:annotation>
+			<xs:documentation>Правовое основание принятия решения</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Fact" type="clt_ru:Text10Type">
+				<xs:annotation>
+					<xs:documentation>Статья Федерального закона "О порядке выезда из Российской Федерации и въезда в Российскую Федерацию"</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateEnd" type="clt_ru:Text10Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Часть статьи Федерального закона "О порядке выезда из Российской Федерации и въезда в Российскую Федерацию"</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateNotification" type="clt_ru:Text10Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Подпункт указанной части статьи Федерального закона "О порядке выезда из Российской Федерации и въезда в Российскую Федерацию"</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DecisionFormulation" type="clt_ru:FreeText500Type" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Формулировка принятого решения</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PersonType">
+		<xs:annotation>
+			<xs:documentation>Сведения о лице, в отношении которого принято решение</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="FamilyName" type="clt_ru:FreeText500Type">
+				<xs:annotation>
+					<xs:documentation>Фамилия</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FirstName" type="clt_ru:FreeText500Type">
+				<xs:annotation>
+					<xs:documentation>Имя</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Patronymic" type="clt_ru:FreeText500Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Отчество (другие именные компоненты)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Citizenship" type="clt_ru:Text150Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Гражданство</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IdentityCard" type="fsbngp:IdentityCardType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Документ, удостоверяющий личность</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Birthday" type="clt_ru:DateCustType">
+				<xs:annotation>
+					<xs:documentation>Дата рождения</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

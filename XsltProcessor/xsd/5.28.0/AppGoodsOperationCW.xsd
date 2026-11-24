@@ -1,0 +1,275 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- Проект приказа Минфина РФ вземен Приказа ФТС России от 18.03.2019 № 445 "Об утверждении формы заявления на совершение операций с товарами, помещенными под таможенную процедуру таможенного склада, и формы решения таможенного органа по результатам рассмотрения указанного заявления" Приложение №1 -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:clt_ru="urn:customs.ru:CommonLeafTypes:5.10.0" xmlns:cat_ru="urn:customs.ru:CommonAggregateTypes:5.24.0" xmlns:RUScat_ru="urn:customs.ru:RUSCommonAggregateTypes:5.24.0" xmlns:RUDECLcat="urn:customs.ru:RUDeclCommonAggregateTypesCust:5.28.0" xmlns:agocw="urn:customs.ru:Information:WarehouseDocuments:AppGoodsOperationCW:5.28.0" targetNamespace="urn:customs.ru:Information:WarehouseDocuments:AppGoodsOperationCW:5.28.0" elementFormDefault="qualified" version="5.28.0.0">
+  <xs:import namespace="urn:customs.ru:CommonLeafTypes:5.10.0" schemaLocation="CommonLeafTypesCust.xsd" />
+  <xs:import namespace="urn:customs.ru:CommonAggregateTypes:5.24.0" schemaLocation="CommonAggregateTypesCust.xsd" />
+  <xs:import namespace="urn:customs.ru:RUSCommonAggregateTypes:5.24.0" schemaLocation="RUSCommonAggregateTypes.xsd" />
+  <xs:import namespace="urn:customs.ru:RUDeclCommonAggregateTypesCust:5.28.0" schemaLocation="RUDeclCommonAggregateTypesCust.xsd" />
+  <xs:annotation>
+    <xs:documentation>Заявление на совершение операций с товарами, помещенными под таможенную процедуру таможенного склада</xs:documentation>
+  </xs:annotation>
+  <xs:element name="AppGoodsOperationCW" type="agocw:AppGoodsOperationCWType">
+    <xs:annotation>
+      <xs:documentation>Заявление на совершение операций с товарами, помещенными под таможенную процедуру таможенного склада</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="AppGoodsOperationCWType">
+    <xs:annotation>
+      <xs:documentation>Заявление на совершение операций с товарами, помещенными под таможенную процедуру таможенного склада</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="cat_ru:BaseDocType">
+        <xs:sequence>
+          <xs:element name="Status" type="clt_ru:LetterIndicatorType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Статус заявления: 0 - Составлено, 1 - Подача в нерабочее время, возврат заявителю, 2 - Выявлены ошибки, возврат заявителю, 3 - Отказано в регистрации, 4 - В работе, 5 - Рассмотрено</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="CustomsName" type="cat_ru:CustomsType">
+            <xs:annotation>
+              <xs:documentation>Наименование таможенного органа, в регионе деятельности которого функционирует таможенный склад или расположено место хранения</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Applicant" type="agocw:ApplicantType">
+            <xs:annotation>
+              <xs:documentation>Сведения о заявителе</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="OperationPeriod" type="agocw:OperationPeriodType">
+            <xs:annotation>
+              <xs:documentation>Период совершения операций</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="GTDNumber" type="cat_ru:GTDIDType">
+            <xs:annotation>
+              <xs:documentation>Номер ДТ, по которой товары помещены под таможенную процедуру таможенного склада</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="CWGood" type="agocw:CWGoodType" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>Товар, помещенный под таможенную процедуру таможенного склада</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="AttachedDocument" type="agocw:AttachedDocumentType" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>Документ, прилагаемый к заявлению</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ApplicantSignature" type="cat_ru:PersonBaseType">
+            <xs:annotation>
+              <xs:documentation>Подпись декларанта или уполномоченного им лица</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ApplicationDate" type="clt_ru:DateCustType">
+            <xs:annotation>
+              <xs:documentation>Дата составления заявления</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Registration" type="agocw:RegistrationType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Регистрационный номер заявления</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+        <xs:attribute name="DocumentModeID" type="clt_ru:DocumentModeIDType" use="required" fixed="1008041E">
+          <xs:annotation>
+            <xs:documentation>Идентификатор вида документа</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:annotation>
+    <xs:documentation>Локальные прикладные типы</xs:documentation>
+  </xs:annotation>
+  <xs:complexType name="ApplicantType">
+    <xs:annotation>
+      <xs:documentation>Сведения о заявителе</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="RUScat_ru:SubjectBaseDetailsType">
+        <xs:sequence>
+          <xs:element name="ApplicantKind" type="clt_ru:LetterIndicatorType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>1 - российское юридическое лицо, 2 - иностранное юридическое лицо, 3 - физическое лицо</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="SigningPerson" type="agocw:SigningPersonType">
+            <xs:annotation>
+              <xs:documentation>Руководитель организации или уполномоченное от имени организации лицо или физическое лицо, подписывающее заявление</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="RegistryNumber" type="RUDECLcat:BrokerRegistryDocDetailsType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Регистрационный номер в реестре таможенных представителей</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="AttachedDocumentType">
+    <xs:annotation>
+      <xs:documentation>Документ, прилагаемый к заявлению</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="RUScat_ru:DocBaseV4Type">
+        <xs:sequence>
+          <xs:element name="Link" type="agocw:ElectronicDocType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Идентификаторы, присвоенные документу при размещении в ЭАД</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="CertificateNumType">
+    <xs:annotation>
+      <xs:documentation>Номер свидетельства о включении в реестр владельцев таможенных складов</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="CustomsCode" type="clt_ru:Code5Type">
+        <xs:annotation>
+          <xs:documentation>Первые пять цифр кода таможни</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="RegistrationDate" type="clt_ru:DateCustType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Дата включения в реестр владельцев ТС</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Number" type="clt_ru:Code3Type">
+        <xs:annotation>
+          <xs:documentation>Порядковый номер свидетельства</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="AddNumber" type="clt_ru:LetterIndicatorType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Дополнительная составляющая номера </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CWGoodType">
+    <xs:annotation>
+      <xs:documentation>Товар, помещенный под таможенную процедуру таможенного склада</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Number" type="clt_ru:Count5Type">
+        <xs:annotation>
+          <xs:documentation>Номер товара по порядку</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DTNumber" type="clt_ru:Count5Type">
+        <xs:annotation>
+          <xs:documentation>Номер товара в ДТ</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Quantity" type="cat_ru:SupplementaryQuantityType" maxOccurs="2">
+        <xs:annotation>
+          <xs:documentation>Количество принятого товара</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Operation" type="clt_ru:CodeVariable2Type" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Совершаемая операция:
+1 - простые сборочные операции; 
+2 - отбор проб и (или) образцов товаров;
+3 - техническое обслуживание;
+4 - дробление партии;
+5 - формирование отправок;
+6 - сортировка;
+7 - упаковка;
+8 - переупаковка;
+9 - маркировка;
+10 - улучшение товарного вида
+11 - иные операции, связанные с подготовкой товаров к продаже и перевозке (транспортировке)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="OtherOperation" type="clt_ru:FreeText250Type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Описание иных видов операций с товарами</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:choice>
+        <xs:element name="CertificateNum" type="agocw:CertificateNumType">
+          <xs:annotation>
+            <xs:documentation>Номер свидетельства о включении в реестр владельцев таможенных складов</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="PermissionNum" type="cat_ru:DocumentBaseType">
+          <xs:annotation>
+            <xs:documentation>Номер и дата разрешения на хранение товаров в местах, не являющихся таможенными складами</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ElectronicDocType">
+    <xs:annotation>
+      <xs:documentation>Идентификаторы, присвоенные документу при размещении в ЭАД</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ArchiveID" type="clt_ru:ArchiveIDType">
+        <xs:annotation>
+          <xs:documentation>Идентификатор хранилища электронных документов</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DocID" type="clt_ru:ArchiveDocumentIDType">
+        <xs:annotation>
+          <xs:documentation>Идентификатор электронного документа в хранилище</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OperationPeriodType">
+    <xs:annotation>
+      <xs:documentation>Период совершения операций</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="BeginPeriodDate" type="clt_ru:DateCustType">
+        <xs:annotation>
+          <xs:documentation>Дата начала периода</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="EndPeriodDate" type="clt_ru:DateCustType">
+        <xs:annotation>
+          <xs:documentation>Дата окончания периода</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RegistrationType">
+    <xs:annotation>
+      <xs:documentation>Регистрационный номер заявления</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="cat_ru:GTDID5Type">
+        <xs:sequence>
+          <xs:element name="AddNumber" type="clt_ru:Code4Type" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Дополнительная составляющая номера </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="SigningPersonType">
+    <xs:annotation>
+      <xs:documentation>Руководитель организации или уполномоченное от имени организации лицо</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="cat_ru:PersonBaseType">
+        <xs:sequence>
+          <xs:element name="Official" type="clt_ru:LetterIndicatorType">
+            <xs:annotation>
+              <xs:documentation>Должностное лицо: 1 - декларанта, 2 - таможенного представителя, 3 - физическое лицо</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>

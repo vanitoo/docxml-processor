@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Приказ ФТС России № 1772 от 19 ноября 2019 года Об утверждении формы обязательства налогоплательщика налога на добавленную стоимость о представлении копии свидетельства о государственной регистрации гражданского воздушного судна в Государственном реестре гражданских воздушных судов Российской Федерации  -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:clt_ru="urn:customs.ru:CommonLeafTypes:5.10.0" xmlns:RUScat_ru="urn:customs.ru:RUSCommonAggregateTypes:5.24.0" xmlns:cat_ru="urn:customs.ru:CommonAggregateTypes:5.24.0" xmlns:arcso="urn:customs.ru:Information:ExchangeDocuments:AircraftRegCertSubmitOblig:5.28.0" targetNamespace="urn:customs.ru:Information:ExchangeDocuments:AircraftRegCertSubmitOblig:5.28.0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="5.28.0.0">
+	<xs:import namespace="urn:customs.ru:CommonLeafTypes:5.10.0" schemaLocation="CommonLeafTypesCust.xsd"/>
+	<xs:import namespace="urn:customs.ru:CommonAggregateTypes:5.24.0" schemaLocation="CommonAggregateTypesCust.xsd"/>
+	<xs:import namespace="urn:customs.ru:RUSCommonAggregateTypes:5.24.0" schemaLocation="RUSCommonAggregateTypes.xsd"/>
+	<xs:annotation>
+		<xs:documentation>Обязательство налогоплательщика налога на добавленную стоимость о представлении копии свидетельства о государственной регистрации гражданского воздушного судна в Государственном реестре гражданских воздушных судов Российской Федерации</xs:documentation>
+	</xs:annotation>
+	<xs:element name="AircraftRegCertSubmitOblig" type="arcso:AircraftRegCertSubmitObligType">
+		<xs:annotation>
+			<xs:documentation>Обязательство налогоплательщика налога на добавленную стоимость о представлении копии свидетельства о государственной регистрации гражданского воздушного судна в Государственном реестре гражданских воздушных судов Российской Федерации</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="AircraftRegCertSubmitObligType">
+		<xs:annotation>
+			<xs:documentation>Обязательство налогоплательщика налога на добавленную стоимость о представлении копии свидетельства о государственной регистрации гражданского воздушного судна в Государственном реестре гражданских воздушных судов Российской Федерации</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="cat_ru:BaseDocType">
+				<xs:sequence>
+					<xs:element name="Taxpayer" type="RUScat_ru:SubjectBaseDetailsType">
+						<xs:annotation>
+							<xs:documentation>Сведения о налогоплательщике</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AircraftInfo" type="arcso:AircraftInfoType" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Сведения о воздушном судне</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AuthorizedPerson" type="cat_ru:PersonSignatureType">
+						<xs:annotation>
+							<xs:documentation>Руководитель юридического лица либо уполномоченное им лицо,либоиндивидуальный предприниматель </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+				<xs:attribute name="DocumentModeID" type="clt_ru:DocumentModeIDType" use="required" fixed="1060061E">
+					<xs:annotation>
+						<xs:documentation>Идентификатор вида документа</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:annotation>
+		<xs:documentation>Локальные прикладные типы</xs:documentation>
+	</xs:annotation>
+	<xs:complexType name="AircraftInfoType">
+		<xs:annotation>
+			<xs:documentation>Сведения о воздушном судне</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OrderNamber" type="clt_ru:Count3Type">
+				<xs:annotation>
+					<xs:documentation>Номер по порядку</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AircraftKind" type="clt_ru:FreeText250Type">
+				<xs:annotation>
+					<xs:documentation>Тип (наименование, присвоенное изготовителем)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SerialNamber" type="clt_ru:Text150Type">
+				<xs:annotation>
+					<xs:documentation>Серийный (идентификационный) номер</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ManufacturerName" type="clt_ru:FreeText250Type">
+				<xs:annotation>
+					<xs:documentation>Наименование изготовителя (для изготовителя воздушного судна самостоятельной постройки - фамилия, имя, отчество)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ManufacturerCountry" type="RUScat_ru:CountryDetailsType">
+				<xs:annotation>
+					<xs:documentation>Страна изготовителя</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Owner" type="clt_ru:FreeText250Type">
+				<xs:annotation>
+					<xs:documentation>Собственник (полное наименование организации (для физических лиц - фамилия, имя, отчество)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Address" type="RUScat_ru:RUAddressType">
+				<xs:annotation>
+					<xs:documentation>Адрес местонахождения (места жительства) собственника </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Приложение 1 к Письму ПУ от 05.10.2018 № 15-12/63248
+  -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:clt_ru="urn:customs.ru:CommonLeafTypes:5.10.0" xmlns:cat_ru="urn:customs.ru:CommonAggregateTypes:5.10.0" xmlns:RUScat_ru="urn:customs.ru:RUSCommonAggregateTypes:5.14.3" xmlns:adt_cat="urn:customs.ru:Information:CustomsAuditDocuments:AuditCommonAggregateTypesCust:5.14.3" xmlns:nead="urn:customs.ru:Information:CustomsAuditDocuments:NotifEndAuditDoc:5.14.3" targetNamespace="urn:customs.ru:Information:CustomsAuditDocuments:NotifEndAuditDoc:5.14.3" elementFormDefault="qualified" version="5.14.3.0">
+  <xs:import namespace="urn:customs.ru:CommonLeafTypes:5.10.0" schemaLocation="CommonLeafTypesCust.xsd" />
+  <xs:import namespace="urn:customs.ru:CommonAggregateTypes:5.10.0" schemaLocation="CommonAggregateTypesCust.xsd" />
+  <xs:import namespace="urn:customs.ru:Information:CustomsAuditDocuments:AuditCommonAggregateTypesCust:5.14.3" schemaLocation="AuditCommonAggregateTypesCust.xsd" />
+  <xs:import namespace="urn:customs.ru:RUSCommonAggregateTypes:5.14.3" schemaLocation="RUSCommonAggregateTypes.xsd" />
+  <xs:annotation>
+    <xs:documentation>Уведомление о завершении проверки таможенных, иных документов и (или) сведений</xs:documentation>
+  </xs:annotation>
+  <xs:element name="NotifEndAuditDoc" type="nead:NotifEndAuditDocType">
+    <xs:annotation>
+      <xs:documentation>Уведомление о завершении проверки таможенных, иных документов и (или) сведений</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="NotifEndAuditDocType">
+    <xs:annotation>
+      <xs:documentation>Уведомление о завершении проверки таможенных, иных документов и (или) сведений</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="cat_ru:BaseDocType">
+        <xs:sequence>
+          <xs:element name="Customs" type="adt_cat:CustomsType">
+            <xs:annotation>
+              <xs:documentation>Таможенный орган</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ChiefCustoms" type="cat_ru:PersonBaseType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Начальник (заместитель начальника) таможенного органа</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="NotifDate" type="clt_ru:DateCustType">
+            <xs:annotation>
+              <xs:documentation>Дата составления уведомления о завершении проверки таможенных, иных документов и (или) сведений</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="NotifPlace" type="clt_ru:NameType">
+            <xs:annotation>
+              <xs:documentation>Место составления уведомления о завершении проверки таможенных, иных документов и (или) сведений</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ObjectiveAudit" type="clt_ru:FreeText250Type" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>Цель проверки</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="DocInfo" type="cat_ru:DocumentBaseType" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>Перечень проверенных таможенных, иных документов и (или) сведений с указанием их реквизитов</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="AuditOrganization" type="RUScat_ru:SubjectDetailsType">
+            <xs:annotation>
+              <xs:documentation>Сведения о лице, чьи документы проверялись</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="EndAuditDate" type="clt_ru:DateCustType">
+            <xs:annotation>
+              <xs:documentation>Дата завершения проверки</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="SecondExempReceived" type="adt_cat:SecondExempReceivedType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Получатель второго экземпляра уведомления</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+        <xs:attribute name="DocumentModeID" type="clt_ru:DocumentModeIDType" use="required" fixed="1006929E">
+          <xs:annotation>
+            <xs:documentation>Идентификатор вида документа</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>

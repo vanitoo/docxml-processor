@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Проект поставления Правительства РФ "О внесении изменений в постановление Правительства Российской Федерации от 16 февраля 2023 г. № 240" -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:clt_ru="urn:customs.ru:CommonLeafTypes:5.10.0" xmlns:cat_ru="urn:customs.ru:CommonAggregateTypes:5.24.0" xmlns:RUDECLcat="urn:customs.ru:RUDeclCommonAggregateTypesCust:5.28.0" xmlns:cmdp="urn:customs.ru:Information:CustomsAuditDocuments:CustomsMonitoringDecisionProlongation:5.28.0" targetNamespace="urn:customs.ru:Information:CustomsAuditDocuments:CustomsMonitoringDecisionProlongation:5.28.0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="5.28.0.0">
+	<xs:import namespace="urn:customs.ru:CommonLeafTypes:5.10.0" schemaLocation="CommonLeafTypesCust.xsd"/>
+	<xs:import namespace="urn:customs.ru:CommonAggregateTypes:5.24.0" schemaLocation="CommonAggregateTypesCust.xsd"/>
+	<xs:import namespace="urn:customs.ru:RUDeclCommonAggregateTypesCust:5.28.0" schemaLocation="RUDeclCommonAggregateTypesCust.xsd"/>
+	<xs:annotation>
+		<xs:documentation>Решение о продлении срока предоставления сведений из системы учета товаров / электронных копий документов для подтверждения сведений из системы учета товаров</xs:documentation>
+	</xs:annotation>
+	<xs:element name="CustomsMonitoringDecisionProlongation" type="cmdp:CustomsMonitoringDecisionProlongationType">
+		<xs:annotation>
+			<xs:documentation>Решение о продлении срока предоставления сведений из системы учета товаров / электронных копий документов для подтверждения сведений из системы учета товаров</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="CustomsMonitoringDecisionProlongationType">
+		<xs:annotation>
+			<xs:documentation>Решение о продлении срока предоставления сведений из системы учета товаров / электронных копий документов для подтверждения сведений из системы учета товаров</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="cat_ru:BaseDocType">
+				<xs:sequence>
+					<xs:element name="DocDate" type="clt_ru:DateCustType">
+						<xs:annotation>
+							<xs:documentation>Дата Решения</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DocNumber" type="clt_ru:DocumentNumberType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Номер Решения</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Customs" type="cat_ru:CustomsType">
+						<xs:annotation>
+							<xs:documentation>Сведения о таможенном органе, принявшем Решение о продлении срока представления сведений</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SigningPerson" type="cat_ru:PersonSignatureType">
+						<xs:annotation>
+							<xs:documentation>Сведения о лице, принявшем и подписавшем Решение</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ApplicantInfo" type="RUDECLcat:AEODeclarantDetailsType" minOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Сведения о лице, в отношении внешнеэкономической деятельности которого проводится таможенный мониторинг</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DecisionProlongation" type="clt_ru:FreeText250Type" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Решение таможенного органа</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="RequestInfo" type="cmdp:RequestInfoType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Информация о запросе сведений</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="TermDate" type="clt_ru:DateCustType">
+						<xs:annotation>
+							<xs:documentation>Срок, до которого необходимо представить сведения / электронные копии документов</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+				<xs:attribute name="DocumentModeID" type="clt_ru:DocumentModeIDType" use="required" fixed="1006962E">
+					<xs:annotation>
+						<xs:documentation>Идентификатор вида документа</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:annotation>
+		<xs:documentation>Локальные прикладные типы.</xs:documentation>
+	</xs:annotation>
+	<xs:complexType name="RequestInfoType">
+		<xs:annotation>
+			<xs:documentation>Информация о запросе сведений</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="RequestNumber" type="clt_ru:DocumentNumberType" minOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Номер запроса</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RequestDate" type="clt_ru:DateCustType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата запроса</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DocKind" type="clt_ru:LetterIndicatorType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Вид документа: 1 - Запрос сведений из системы учета товаров, 2 - Запрос электронных копий документов для подтверждения сведений</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

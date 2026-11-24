@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ГУФТДиТР 2018 № 00415 ФТ на ЛК и Задолженность по формам (пошлины) (приложение).tif (Приложение № 6) -->
+<xs:schema xmlns:osc="urn:customs.ru:Information:CommercialFinanceDocuments:OrderSellCash:5.13.2" xmlns:cat_ru="urn:customs.ru:CommonAggregateTypes:5.10.0" xmlns:clt_ru="urn:customs.ru:CommonLeafTypes:5.10.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:customs.ru:Information:CommercialFinanceDocuments:OrderSellCash:5.13.2" elementFormDefault="qualified" version="5.13.2.0">
+	<xs:import namespace="urn:customs.ru:CommonLeafTypes:5.10.0" schemaLocation="CommonLeafTypesCust.xsd"/>
+	<xs:import namespace="urn:customs.ru:CommonAggregateTypes:5.10.0" schemaLocation="CommonAggregateTypesCust.xsd"/>
+	<xs:annotation>
+		<xs:documentation>Поручение таможенного органа на продажу иностранной валюты</xs:documentation>
+	</xs:annotation>
+	<xs:element name="OrderSellCash" type="osc:OrderSellCashType"/>
+	<xs:complexType name="OrderSellCashType">
+		<xs:annotation>
+			<xs:documentation>Поручение таможенного органа на продажу иностранной валюты</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="cat_ru:BaseDocType">
+				<xs:sequence>
+					<xs:element name="OSLDocDate" type="clt_ru:DateCustType">
+						<xs:annotation>
+							<xs:documentation>Дата документа</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="OSLRegNumber" type="osc:DocRegNumberType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Регистрационный номер поручения таможенного органа на продажу иностранной валюты</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="OSLCustoms" type="osc:OSLCustomsType">
+						<xs:annotation>
+							<xs:documentation>Таможенные орган</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="BankAndAccountInfo" type="cat_ru:BankInformationType">
+						<xs:annotation>
+							<xs:documentation>Информация о банке и счёте плательщика</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="PayerInfo" type="cat_ru:OrganizationBaseType">
+						<xs:annotation>
+							<xs:documentation>Сведения о плательщике-держателе счета</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="CollectionLetterReference" type="cat_ru:DocumentBaseType">
+						<xs:annotation>
+							<xs:documentation>Реквизиты инкассового поручения (поручения на перевод электронных денежных средств)</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Person" type="cat_ru:CustomsPersonType">
+						<xs:annotation>
+							<xs:documentation>Должностное лицо таможенного органа</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Performer" type="cat_ru:PersonBaseType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Исполнитель</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+				<xs:attribute name="DocumentModeID" type="clt_ru:DocumentModeIDType" use="required" fixed="1002028E">
+					<xs:annotation>
+						<xs:documentation>Идентификатор вида документа</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:annotation>
+		<xs:documentation>Локальные прикладные типы.</xs:documentation>
+	</xs:annotation>
+	<xs:complexType name="OSLCustomsType">
+		<xs:annotation>
+			<xs:documentation>Код и наименование таможенного органа</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="cat_ru:CustomsType">
+				<xs:sequence>
+					<xs:element name="FullOfficeName" type="clt_ru:FreeText250Type">
+						<xs:annotation>
+							<xs:documentation>Полное наименование таможенного органа</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="DocRegNumberType">
+		<xs:annotation>
+			<xs:documentation>Регистрационный номер поручения таможенного органа на продажу иностранной валюты</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CustomsCode" type="clt_ru:CustomsCodeType">
+				<xs:annotation>
+					<xs:documentation>Код таможенного органа, сформировавшего документ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RegistrationDate" type="clt_ru:DateYearCustType">
+				<xs:annotation>
+					<xs:documentation>Год принятия документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RegNumber" type="clt_ru:GTDIDType">
+				<xs:annotation>
+					<xs:documentation>Порядковый номер документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

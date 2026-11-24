@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Функциональные требования ГУФТДиТР 2018 № 00415 ФТ на ЛК и Задолженность по формам (пошлины) (приложение).tif Приложения 3, 5, 7, 8 -->
+<xs:schema xmlns:catComFin_ru="urn:customs.ru:Information:CommercialFinanceDocuments:CommercialFinanceCommonAgregateTypesCust:5.10.0" xmlns:cat_ru="urn:customs.ru:CommonAggregateTypes:5.10.0" xmlns:clt_ru="urn:customs.ru:CommonLeafTypes:5.10.0" xmlns:drp="urn:customs.ru:Information:CommercialFinanceDocuments:DecisionRevokePayments:5.13.3" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:customs.ru:Information:CommercialFinanceDocuments:DecisionRevokePayments:5.13.3" elementFormDefault="qualified" version="5.13.3.0">
+	<xs:import namespace="urn:customs.ru:CommonLeafTypes:5.10.0" schemaLocation="CommonLeafTypesCust.xsd"/>
+	<xs:import namespace="urn:customs.ru:CommonAggregateTypes:5.10.0" schemaLocation="CommonAggregateTypesCust.xsd"/>
+	<xs:annotation>
+		<xs:documentation>Решение об отзыве инкассового поручения/ поручения на перевод денежных средств/ приостановлении операций по счетам/ отмене приостановления операций </xs:documentation>
+	</xs:annotation>
+	<xs:element name="DecisionRevokePayments" type="drp:DecisionRevokePaymentsType"/>
+	<xs:complexType name="DecisionRevokePaymentsType">
+		<xs:annotation>
+			<xs:documentation>Решение об отзыве инкассового поручения/ поручения на перевод денежных средств/ приостановлении операций по счетам/ отмене приостановления операций по счетам </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="cat_ru:BaseDocType">
+				<xs:sequence>
+					<xs:element name="DocType" type="clt_ru:CodeVariable4Type">
+						<xs:annotation>
+							<xs:documentation>Тип документа: РОИ – Решение таможенного органа об отзыве инкассового поручения; РОП - Решение таможенного органа об отзыве поручения таможенного органа на перевод электронных денежных средств; РПО - Решение таможенного органа о приостановлении операций по счетам плательщика; РОПО - Решение таможенного органа об отмене приостановления операций по счетам </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DateDecision" type="clt_ru:DateCustType">
+						<xs:annotation>
+							<xs:documentation>Дата Решения</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DocumentReference" type="drp:DRP_DocumentReferenceType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Реквизиты Решения</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DRP_Customs" type="drp:DRP_CustomsType">
+						<xs:annotation>
+							<xs:documentation>Таможенный орган</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="BankAndAccountInfo" type="drp:BankInformationType">
+						<xs:annotation>
+							<xs:documentation>Информация о банке и счёте плательщика</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DRP_Demand" type="cat_ru:DocumentBaseType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Поручение на перевод эл. денежных средств / Инкассовое поручение</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DRP_Doc" type="drp:DRP_DocType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Решение о приостановлении операций по счетам</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Amount" type="clt_ru:AmountType">
+						<xs:annotation>
+							<xs:documentation>Сумма (руб)</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="PayerInfo" type="cat_ru:OrganizationBaseType">
+						<xs:annotation>
+							<xs:documentation>Сведения о плательщике-держателе счета</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="CustomsChief" type="cat_ru:CustomsPersonType">
+						<xs:annotation>
+							<xs:documentation>Подпись начальника (заместителя начальника) таможенного органа</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Executor" type="cat_ru:PersonBaseType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Исполнитель</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+				<xs:attribute name="DocumentModeID" type="clt_ru:DocumentModeIDType" use="required" fixed="1002029E">
+					<xs:annotation>
+						<xs:documentation>Идентификатор вида документа</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:annotation>
+		<xs:documentation>Локальные прикладные типы.</xs:documentation>
+	</xs:annotation>
+	<xs:complexType name="BankInformationType">
+		<xs:annotation>
+			<xs:documentation>Информация о банке и счёте плательщика</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="cat_ru:BankInformationType">
+				<xs:sequence>
+					<xs:element name="CEMPId" type="clt_ru:ForeignAccountType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Идентификатор КЭСП</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="DRP_CustomsType">
+		<xs:annotation>
+			<xs:documentation>Код и наименование таможенного органа</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="cat_ru:CustomsType">
+				<xs:sequence>
+					<xs:element name="FullOfficeName" type="clt_ru:FreeText250Type">
+						<xs:annotation>
+							<xs:documentation>Полное наименование таможенного органа</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="DRP_DocType">
+		<xs:annotation>
+			<xs:documentation>Решение о приостановлении операций по счетам</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="drp:DRP_DocumentReferenceType">
+				<xs:sequence>
+					<xs:element name="DRP_DocDate" type="clt_ru:DateCustType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дата решения</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="DRP_DocumentReferenceType">
+		<xs:annotation>
+			<xs:documentation>Регистрационный номер решения об отзыве инкассового поручения/ поручения на перевод денежных средств/ приостановлении операций по счетам/ отмене приостановления операций по счетам </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CustomsCode" type="clt_ru:CustomsCodeType">
+				<xs:annotation>
+					<xs:documentation>Код таможенного органа, сформировавшего решение</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RegistrationYear" type="clt_ru:DateYearCustType">
+				<xs:annotation>
+					<xs:documentation>Год принятия решения</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DocNumber" type="clt_ru:GTDIDType">
+				<xs:annotation>
+					<xs:documentation>Порядковый номер решения</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

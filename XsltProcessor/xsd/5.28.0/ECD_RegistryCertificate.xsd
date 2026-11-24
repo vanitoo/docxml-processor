@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:clt_ru="urn:customs.ru:CommonLeafTypes:5.10.0" xmlns:cat_ru="urn:customs.ru:CommonAggregateTypes:5.24.0" xmlns:RUScat_ru="urn:customs.ru:RUSCommonAggregateTypes:5.24.0" xmlns:ecd_rc="urn:customs.ru:Information:CustomsDocuments:ECD_RegistryCertificate:5.28.0" targetNamespace="urn:customs.ru:Information:CustomsDocuments:ECD_RegistryCertificate:5.28.0" elementFormDefault="qualified" version="5.28.0.0">
+	<xs:import namespace="urn:customs.ru:CommonLeafTypes:5.10.0" schemaLocation="CommonLeafTypesCust.xsd"/>
+	<xs:import namespace="urn:customs.ru:CommonAggregateTypes:5.24.0" schemaLocation="CommonAggregateTypesCust.xsd"/>
+	<xs:import namespace="urn:customs.ru:RUSCommonAggregateTypes:5.24.0" schemaLocation="RUSCommonAggregateTypes.xsd"/>
+	<xs:annotation>
+		<xs:documentation>Свидетельство о включении в реестр операторов электронной торговли</xs:documentation>
+	</xs:annotation>
+	<xs:element name="ECD_RegistryCertificate" type="ecd_rc:ECD_RegistryCertificateType">
+		<xs:annotation>
+			<xs:documentation>Свидетельство о включении в реестр операторов электронной торговли</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="ECD_RegistryCertificateType">
+		<xs:annotation>
+			<xs:documentation>Свидетельство о включении в реестр операторов электронной торговли</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="cat_ru:BaseDocType">
+				<xs:sequence>
+					<xs:element name="CertificateNumber" type="ecd_rc:CertificateNumberType">
+						<xs:annotation>
+							<xs:documentation>Регистрационный номер Свидетельства</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="EC_Operator" type="RUScat_ru:OrganizationType">
+						<xs:annotation>
+							<xs:documentation>Сведения об операторе электронной торговли</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="WHPurpose" type="clt_ru:LetterIndicatorType" maxOccurs="2">
+						<xs:annotation>
+							<xs:documentation>Назначение склада электронной торговли: 1 - временное хранение товаров электронной торговли; 2 - хранение товаров электронной торговли, помещенных под таможенную процедуру таможенного склада</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="WHPurposeAddress" type="RUScat_ru:RUAddressType">
+						<xs:annotation>
+							<xs:documentation>Адрес склада электронной торговли</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="WHUsefulVolume" type="clt_ru:QuantityBasisType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Полезный объем склада электронной торговли</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="WHUsableArea" type="clt_ru:QuantityBasisType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Полезная площадь склада электронной торговли</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="CustomsPerson" type="cat_ru:PersonBaseType">
+						<xs:annotation>
+							<xs:documentation>Руководитель ФТС России (лицо, его замещающее или лицо, им уполномоченное) </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DateOfIssue" type="clt_ru:DateCustType">
+						<xs:annotation>
+							<xs:documentation>Дата выдачи свидетельства</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+				<xs:attribute name="DocumentModeID" type="clt_ru:DocumentIDType" use="required" fixed="1001313E">
+					<xs:annotation>
+						<xs:documentation>Идентификатор вида документа</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:annotation>
+		<xs:documentation>Локальные прикладные  типы</xs:documentation>
+	</xs:annotation>
+	<xs:complexType name="CertificateNumberType">
+		<xs:annotation>
+			<xs:documentation>Регистрационный номер Свидетельства</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CustomsCode" type="clt_ru:CustomsCodeType">
+				<xs:annotation>
+					<xs:documentation>Код таможенного органа, зарегистрировавшего документ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RegistrationDate" type="clt_ru:DateCustType">
+				<xs:annotation>
+					<xs:documentation>Дата регистрации документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SerialNumber" type="clt_ru:Code3Type">
+				<xs:annotation>
+					<xs:documentation>Порядковый номер документа по журналу регистрации</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RevisionNumber" type="clt_ru:Code2Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Порядковый номер изменений документа по журналу регистрации</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

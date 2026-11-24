@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  Приказ Минфина России № 36н от 1 апреля 2024 года «Об утверждении формы обязательства о соблюдении условий использования иностранных товаров, помещенных под таможенную процедуру свободной таможенной зоны, и порядка подачи в таможенный орган такого обязательства»  -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:clt_ru="urn:customs.ru:CommonLeafTypes:5.10.0" xmlns:cat_ru="urn:customs.ru:CommonAggregateTypes:5.24.0" xmlns:RUScat_ru="urn:customs.ru:RUSCommonAggregateTypes:5.24.0" xmlns:od="urn:customs.ru:Information:ExchangeDocuments:STZ_ObligDecisionCCZ:5.26.0" targetNamespace="urn:customs.ru:Information:ExchangeDocuments:STZ_ObligDecisionCCZ:5.26.0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="5.26.0.0">
+	<xs:import namespace="urn:customs.ru:CommonLeafTypes:5.10.0" schemaLocation="CommonLeafTypesCust.xsd"/>
+	<xs:import namespace="urn:customs.ru:CommonAggregateTypes:5.24.0" schemaLocation="CommonAggregateTypesCust.xsd"/>
+	<xs:import namespace="urn:customs.ru:RUSCommonAggregateTypes:5.24.0" schemaLocation="RUSCommonAggregateTypes.xsd"/>
+	<xs:annotation>
+		<xs:documentation>Решение по обязательству о соблюдении условий использования иностранных товаров, помещенных под процедуру СТЗ</xs:documentation>
+	</xs:annotation>
+	<xs:element name="STZ_ObligDecisionCCZ" type="od:STZ_ObligDecisionCCZType">
+		<xs:annotation>
+			<xs:documentation>Решение по обязательству о соблюдении условий использования иностранных товаров, помещенных под процедуру СТЗ</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="STZ_ObligDecisionCCZType">
+		<xs:annotation>
+			<xs:documentation>Решение по обязательству о соблюдении условий использования иностранных товаров, помещенных под процедуру СТЗ</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="cat_ru:BaseDocType">
+				<xs:sequence>
+					<xs:element name="Customs" type="cat_ru:CustomsType">
+						<xs:annotation>
+							<xs:documentation>Сведения о таможенном органе</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AppRegNum" type="od:RegNumType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Регистрационный номер Обязательства</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Resident" type="od:ResidentType">
+						<xs:annotation>
+							<xs:documentation>Резидент особой  экономической зоны или участник свободной (особой) экономической зоны</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DecisionSign" type="clt_ru:LetterIndicatorType">
+						<xs:annotation>
+							<xs:documentation>Решение по Обязательству: 1 - Обязательство принято; 2 - Обязателство не принято</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="RefusalReasons" type="clt_ru:FreeText500Type" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Причины отказа в приеме Обязательства </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Actions" type="clt_ru:FreeText500Type" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Действия, которые необходимо совершить </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DecisionDocumentsBody" type="od:MessageDocBodyType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Документы, приложенные к решению</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Notes" type="clt_ru:FreeText250Type" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Примечания</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="CustomsPerson" type="cat_ru:PersonBaseType">
+						<xs:annotation>
+							<xs:documentation>Сведения об уполномоченном должностном лице таможенного органа</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="RefusalDate" type="clt_ru:DateCustType">
+						<xs:annotation>
+							<xs:documentation>Дата Решения по Обязательству </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+				<xs:attribute name="DocumentModeID" type="clt_ru:DocumentModeIDType" use="required" fixed="1060053E">
+					<xs:annotation>
+						<xs:documentation>Идентификатор вида документа</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:annotation>
+		<xs:documentation>Локальные прикладные типы</xs:documentation>
+	</xs:annotation>
+	<xs:complexType name="MessageDocBodyType">
+		<xs:annotation>
+			<xs:documentation>Тело документа с бинарными данными</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="FileName" type="clt_ru:Text50Type">
+				<xs:annotation>
+					<xs:documentation>Имя файла</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FileData" type="clt_ru:Text3MB">
+				<xs:annotation>
+					<xs:documentation>Данные файла в кодировке BASE64</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RegNumType">
+		<xs:annotation>
+			<xs:documentation>Регистрационный номер документа</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CustomsCode" type="clt_ru:CustomsCodeType">
+				<xs:annotation>
+					<xs:documentation>Код таможенного органа, зарегистрировавшего документ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RegistrationDate" type="clt_ru:DateCustType">
+				<xs:annotation>
+					<xs:documentation>Дата регистрации</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Number" type="clt_ru:CodeVariable10Type">
+				<xs:annotation>
+					<xs:documentation>Порядковый номер </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AddNumber" type="clt_ru:CodeVariable5Type">
+				<xs:annotation>
+					<xs:documentation>4-ая часть номера</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ResidentType">
+		<xs:annotation>
+			<xs:documentation>Сведения о резиденте</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="RUScat_ru:SubjectDetailsType">
+				<xs:sequence>
+					<xs:element name="ResidentCertificate" type="od:ResidentCertificateType">
+						<xs:annotation>
+							<xs:documentation>Cвидетельство о включении в реестр резидентов</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ResidentCertificateType">
+		<xs:annotation>
+			<xs:documentation>Сведения о включении в реестр резидентов</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CertificateNumber" type="clt_ru:DocumentNumberType">
+				<xs:annotation>
+					<xs:documentation>Номер свидетельства</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CertificateDate" type="clt_ru:DateCustType">
+				<xs:annotation>
+					<xs:documentation>Дата выдачи свидетельства</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CertificateValidity" type="clt_ru:DateCustType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Срок действия</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CertificateAgency" type="clt_ru:NameType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование органа, выдавшего свидетельство</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

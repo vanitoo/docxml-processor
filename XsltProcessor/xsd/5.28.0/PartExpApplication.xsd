@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- Проект постановления Правительства РФ "О внесении изменений в постановление Правительства Российской Федерации от 16 февраля 2023 г. № 240" -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:clt_ru="urn:customs.ru:CommonLeafTypes:5.10.0" xmlns:cat_ru="urn:customs.ru:CommonAggregateTypes:5.24.0" xmlns:RUDECLcat="urn:customs.ru:RUDeclCommonAggregateTypesCust:5.28.0" xmlns:pe_app="urn:customs.ru:CustomsAuditDocuments:PartExpApplication:5.28.0" targetNamespace="urn:customs.ru:CustomsAuditDocuments:PartExpApplication:5.28.0" elementFormDefault="qualified" version="5.28.0.0">
+  <xs:import namespace="urn:customs.ru:CommonLeafTypes:5.10.0" schemaLocation="CommonLeafTypesCust.xsd" />
+  <xs:import namespace="urn:customs.ru:CommonAggregateTypes:5.24.0" schemaLocation="CommonAggregateTypesCust.xsd" />
+  <xs:import namespace="urn:customs.ru:RUDeclCommonAggregateTypesCust:5.28.0" schemaLocation="RUDeclCommonAggregateTypesCust.xsd" />
+  <xs:annotation>
+    <xs:documentation>Заявление о добровольном участии в эксперименте / Уведомление о прекращении добровольного участия в эксперименте</xs:documentation>
+  </xs:annotation>
+  <xs:element name="PartExpApplication" type="pe_app:PartExpApplicationType">
+    <xs:annotation>
+      <xs:documentation>Заявление о добровольном участии в эксперименте / Уведомление о прекращении добровольного участия в эксперименте</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="PartExpApplicationType">
+    <xs:annotation>
+      <xs:documentation>Заявление о добровольном участии в эксперименте / Уведомление о прекращении добровольного участия в эксперименте</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="cat_ru:BaseDocType">
+        <xs:sequence>
+          <xs:element name="DocKind" type="clt_ru:LetterIndicatorType" minOccurs="1">
+            <xs:annotation>
+              <xs:documentation>Вид документа: 1 - Заявление о добровольном участии в эксперименте, 2 - Уведомление о прекращении добровольного участия в эксперименте</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="DocDate" type="clt_ru:DateCustType" minOccurs="1">
+            <xs:annotation>
+              <xs:documentation>Дата заявления</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="DocNumber" type="clt_ru:DocumentNumberType" minOccurs="1">
+            <xs:annotation>
+              <xs:documentation>Номер документа</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ApplicantInfo" type="RUDECLcat:AEODeclarantDetailsType" minOccurs="1">
+            <xs:annotation>
+              <xs:documentation>Сведения о лице</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ApplicantDoc" type="pe_app:ApplicantDocType" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>Документы, подтверждающие полномочия представителя на подписание уведомления</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+        <xs:attribute name="DocumentModeID" type="clt_ru:DocumentModeIDType" use="required" fixed="1006954E">
+          <xs:annotation>
+            <xs:documentation>Идентификатор вида документа</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:annotation>
+    <xs:documentation>Локальные прикладные типы</xs:documentation>
+  </xs:annotation>
+  <xs:complexType name="ApplicantDocType">
+    <xs:annotation>
+      <xs:documentation>Документы, подтверждающие полномочия представителя на подписание уведомления</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="cat_ru:DocumentBaseType">
+        <xs:sequence>
+          <xs:element name="ScanDoc" type="clt_ru:Text3MB" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>Скан документа</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>

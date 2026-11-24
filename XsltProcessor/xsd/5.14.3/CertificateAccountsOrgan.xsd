@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema elementFormDefault="qualified" targetNamespace="urn:customs.ru:Information:CommercialFinanceDocuments:CertificateAccountsOrgan:5.10.0" version="5.10.0.0" xmlns:cacc="urn:customs.ru:Information:CommercialFinanceDocuments:CertificateAccountsOrgan:5.10.0" xmlns:cat_ru="urn:customs.ru:CommonAggregateTypes:5.10.0" xmlns:clt_ru="urn:customs.ru:CommonLeafTypes:5.10.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="urn:customs.ru:CommonLeafTypes:5.10.0" schemaLocation="CommonLeafTypesCust.xsd" />
+  <xs:import namespace="urn:customs.ru:CommonAggregateTypes:5.10.0" schemaLocation="CommonAggregateTypesCust.xsd" />
+  <xs:annotation>
+    <xs:documentation>Справка о наличии счетов в банке у организации</xs:documentation>
+  </xs:annotation>
+  <xs:element name="CertificateAccountsOrgan" type="cacc:CertificateAccountsOrganType" />
+  <xs:complexType name="CertificateAccountsOrganType">
+    <xs:annotation>
+      <xs:documentation>Справка о наличии счетов в банке у организации</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="cat_ru:BaseDocType">
+        <xs:sequence>
+          <xs:element name="DateIssue" type="clt_ru:DateCustType">
+            <xs:annotation>
+              <xs:documentation>Дата выдачи справки</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="BankInfo" type="cacc:BankInfoType">
+            <xs:annotation>
+              <xs:documentation>Сведения о банке</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="RequestTax" type="cat_ru:DocumentBaseType">
+            <xs:annotation>
+              <xs:documentation>Сведения о запросе налогового органа</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="TaxInfo" type="cat_ru:OrganizationType">
+            <xs:annotation>
+              <xs:documentation>Сведения о налоговом органе</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Organization" type="cat_ru:OrganizationBaseType">
+            <xs:annotation>
+              <xs:documentation>Наименование организации / ФИО физического лица</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="AccountInfo" type="cacc:AccountInfoType">
+            <xs:annotation>
+              <xs:documentation>Сведения о счетах</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="BankRepresentative" type="cat_ru:PersonSignatureType">
+            <xs:annotation>
+              <xs:documentation>Представитель банка</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+        <xs:attribute fixed="1002020E" name="DocumentModeID" type="clt_ru:DocumentModeIDType" use="required">
+          <xs:annotation>
+            <xs:documentation>Идентификатор вида документа</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:annotation>
+    <xs:documentation>Локальные прикладные типы.</xs:documentation>
+  </xs:annotation>
+  <xs:complexType name="AccountInfoType">
+    <xs:annotation>
+      <xs:documentation>Сведения о счетах</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="BankAccount" type="clt_ru:ForeignAccountType">
+        <xs:annotation>
+          <xs:documentation>Номер банковского счета</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="BankAccountDescription" type="clt_ru:FreeText250Type">
+        <xs:annotation>
+          <xs:documentation>Описание типа счета: расчетный, валютный,...</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CurrencyCode" type="clt_ru:CurrencyN3CodeType">
+        <xs:annotation>
+          <xs:documentation>Код валюты.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="StartDate" type="clt_ru:DateCustType">
+        <xs:annotation>
+          <xs:documentation>Дата открытия</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="EndDate" type="clt_ru:DateCustType">
+        <xs:annotation>
+          <xs:documentation>Дата закрытия</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="BankInfoType">
+    <xs:annotation>
+      <xs:documentation>Сведения о банке</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="cat_ru:OrganizationBaseType">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="BIC" type="clt_ru:BICIDType">
+            <xs:annotation>
+              <xs:documentation>БИК</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>

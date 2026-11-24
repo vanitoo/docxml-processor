@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Проект постановления Правительства РФ "О внесении изменений в постановление Правительства Российской Федерации от 16 февраля 2023 г. № 240" -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:clt_ru="urn:customs.ru:CommonLeafTypes:5.10.0" xmlns:cat_ru="urn:customs.ru:CommonAggregateTypes:5.24.0" xmlns:RUDECLcat="urn:customs.ru:RUDeclCommonAggregateTypesCust:5.28.0" xmlns:pe_conc="urn:customs.ru:CustomsAuditDocuments:PartExpConclusion:5.28.0" targetNamespace="urn:customs.ru:CustomsAuditDocuments:PartExpConclusion:5.28.0" elementFormDefault="qualified" version="5.28.0.0">
+	<xs:import namespace="urn:customs.ru:CommonLeafTypes:5.10.0" schemaLocation="CommonLeafTypesCust.xsd"/>
+	<xs:import namespace="urn:customs.ru:CommonAggregateTypes:5.24.0" schemaLocation="CommonAggregateTypesCust.xsd"/>
+	<xs:import namespace="urn:customs.ru:RUDeclCommonAggregateTypesCust:5.28.0" schemaLocation="RUDeclCommonAggregateTypesCust.xsd"/>
+	<xs:annotation>
+		<xs:documentation>Заключение о результатах мониторинга таможенными органами сведений, имеющихся в их распоряжении и полученных от лиц, участвующих в эксперименте по мониторингу таможенными органами таких сведений, из систем учета товаров</xs:documentation>
+	</xs:annotation>
+	<xs:element name="PartExpConclusion" type="pe_conc:PartExpConclusionType">
+		<xs:annotation>
+			<xs:documentation>Заключение о результатах мониторинга таможенными органами сведений, имеющихся в их распоряжении и полученных от лиц, участвующих в эксперименте по мониторингу таможенными органами таких сведений, из систем учета товаров</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="PartExpConclusionType">
+		<xs:annotation>
+			<xs:documentation>Заключение о результатах мониторинга таможенными органами сведений, имеющихся в их распоряжении и полученных от лиц, участвующих в эксперименте по мониторингу таможенными органами таких сведений, из систем учета товаров</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="cat_ru:BaseDocType">
+				<xs:sequence>
+					<xs:element name="Customs" type="cat_ru:CustomsType" minOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Сведения о таможенном органе, принявшем Решение о проведении таможенного мониторинга</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DocNumber" type="pe_conc:DocNumberType" minOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Номер документа</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="RegDate" type="clt_ru:DateCustType" minOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Дата регистрации</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SigningPerson" type="cat_ru:PersonSignatureType" minOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Сведения о лице, утвердившем Заключение по результатам проведения таможенного мониторинга</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="MonitoringPerson" type="cat_ru:PersonBaseType" minOccurs="1" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Сведения о лицах, проводивших таможенный мониторинг</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="GovernmentDecree" type="pe_conc:GovernmentDecreeType" minOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Сведения о постановлении Правительства РФ, которым утверждена технология проведения таможенного мониторинга</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ApplicationNum" type="clt_ru:DocumentIDType" minOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Сведения о номере Решения</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AnalyzedPeriod" type="pe_conc:AnalyzedPeriodType" minOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Период, за который проведен таможенный мониторинг</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ApplicantInfo" type="RUDECLcat:AEODeclarantDetailsType" minOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Сведения о лице, в отношении которого проведен таможенный мониторинг</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DetectionSign" type="clt_ru:IndicatorType" minOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Отметка о выявлении / не выявлении несоответствия сведений из систем учета товаров и электронных копий документов сведениям, имеющимся в распоряжении уполномоченного таможенного органа и (или) содержащимся в информационных ресурсах иных федеральных органов исполнительной власти: 0 - не выявлены несоответствия сведений; 1 - выявлены несоответствия сведений</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DetectedGoods" type="pe_conc:DetectedGoodsType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Сведения о товарах, по которым выявлены несоответствия сведений</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ConclusionSign" type="clt_ru:IndicatorType" minOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Выводы по результатам таможенного мониторинга: 0 - для сведения; 1 - для рассмотрения, анализа и принятия соответствующих мер</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SigningList" type="cat_ru:PersonSignatureType" minOccurs="1" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Сведения о лицах, подписавших Заключение о проведении таможенного мониторинга</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+				<xs:attribute name="DocumentModeID" type="clt_ru:DocumentModeIDType" use="required" fixed="1006958E">
+					<xs:annotation>
+						<xs:documentation>Идентификатор вида документа</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:annotation>
+		<xs:documentation>Локальные прикладные типы</xs:documentation>
+	</xs:annotation>
+	<xs:complexType name="AnalyzedPeriodType">
+		<xs:annotation>
+			<xs:documentation>Анализируемый период</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="BeginDate" type="clt_ru:DateCustType" minOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Дата начала</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EndDate" type="clt_ru:DateCustType" minOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Дата окончания</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DetectedGoodsType">
+		<xs:annotation>
+			<xs:documentation>Сведения о товаре, по которому выявлены несоответствия сведений</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DTInfo" type="pe_conc:DTInfoType" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Регистрационный номер ДТ, номер и наименование товара в ДТ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OtherDiscrepancy" type="clt_ru:FreeText250Type" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Иные несоответствия</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DocNumberType">
+		<xs:annotation>
+			<xs:documentation>Номер Заключения</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="cat_ru:GTDIDType">
+				<xs:sequence>
+					<xs:element name="AddCode" type="clt_ru:Code3Type" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Указывается "210"</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="OperationCode" type="clt_ru:Code2Type" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Указывается "02"</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="DTInfoType">
+		<xs:annotation>
+			<xs:documentation>Регистрационный номер ДТ, номер и наименование товара в ДТ</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="cat_ru:GTDIDType">
+				<xs:sequence>
+					<xs:element name="GoodsNumeric" type="clt_ru:Count5Type" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Номер товара в ДТ</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="GoodsDescription" type="clt_ru:FreeText250Type" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Наименование товара в ДТ</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ColumnHeading" type="clt_ru:FreeText250Type" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Наименование выявленного несоответствия (наименование графы, по которой выявлены несоответствия)</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ColumnMeaningDT" type="clt_ru:FreeText500Type" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Значение графы в ДТ</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ColumnMeaningGMS" type="clt_ru:FreeText500Type" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Значение графы в сведениях из системы учета товаров</xs:documentation>
+						</xs:annotation>
+					</xs:element>										
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="GovernmentDecreeType">
+		<xs:annotation>
+			<xs:documentation>Сведения о постановлении Правительства РФ, которым утверждена технология проведения таможенного мониторинга</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DecreePoint" type="clt_ru:Count8Type" minOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Пункт постановления Правительства РФ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DecreeNumber" type="clt_ru:Count8Type" minOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Номер постановления Правительства РФ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DecreeDate" type="clt_ru:DateCustType" minOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Дата постановления Правительства РФ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

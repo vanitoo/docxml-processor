@@ -1,0 +1,1123 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- Решение Коллегии ЕЭК от 17.12.2024 № 143 "О декларации на товары электронной торговли"-->
+<!-- Решение Коллегии ЕЭК от 17.12.2024 № 144 "О структуре и формате декларации на товары электронной торговли" -->
+<!-- Решение Коллегии ЕЭК от 19.05.2026 № 54 "О внесении изменений в Решение Коллегии Евразийской экономической комиссии от 17 декабря 2024 г. № 144" -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:clt_ru="urn:customs.ru:CommonLeafTypes:5.10.0" xmlns:cat_ru="urn:customs.ru:CommonAggregateTypes:5.24.0" xmlns:RUSclt_ru="urn:customs.ru:RUSCommonLeafTypes:5.21.0" xmlns:RUScat_ru="urn:customs.ru:RUSCommonAggregateTypes:5.24.0" xmlns:RUDECLcat="urn:customs.ru:RUDeclCommonAggregateTypesCust:5.28.0" xmlns:cltESAD_cu="urn:customs.ru:CUESADCommonLeafTypes:5.17.0" xmlns:catESAD_cu="urn:customs.ru:CUESADCommonAggregateTypesCust:5.28.0" xmlns:e_cd="urn:customs.ru:Information:CustomsDocuments:E_CommerceDeclaration:5.28.0" targetNamespace="urn:customs.ru:Information:CustomsDocuments:E_CommerceDeclaration:5.28.0" elementFormDefault="qualified" version="5.28.0.0">
+  <xs:import namespace="urn:customs.ru:CommonAggregateTypes:5.24.0" schemaLocation="CommonAggregateTypesCust.xsd" />
+  <xs:import namespace="urn:customs.ru:CommonLeafTypes:5.10.0" schemaLocation="CommonLeafTypesCust.xsd" />
+  <xs:import namespace="urn:customs.ru:RUSCommonLeafTypes:5.21.0" schemaLocation="RUSCommonLeafTypes.xsd" />
+  <xs:import namespace="urn:customs.ru:RUSCommonAggregateTypes:5.24.0" schemaLocation="RUSCommonAggregateTypes.xsd" />
+  <xs:import namespace="urn:customs.ru:RUDeclCommonAggregateTypesCust:5.28.0" schemaLocation="RUDeclCommonAggregateTypesCust.xsd" />
+  <xs:import namespace="urn:customs.ru:CUESADCommonLeafTypes:5.17.0" schemaLocation="CUESADCommonLeafTypesCust.xsd" />
+  <xs:import namespace="urn:customs.ru:CUESADCommonAggregateTypesCust:5.28.0" schemaLocation="CUESADCommonAggregateTypesCust.xsd" />
+  <xs:annotation>
+    <xs:documentation>Декларация на товары электронной торговли и корректировка декларации на товары электронной торговли</xs:documentation>
+  </xs:annotation>
+  <xs:element name="E_CommerceDeclaration" type="e_cd:E_CommerceDeclarationType">
+    <xs:annotation>
+      <xs:documentation>Декларация на товары электронной торговли и корректировка декларации на товары электронной торговли</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="E_CommerceDeclarationType">
+    <xs:annotation>
+      <xs:documentation>Декларация на товары электронной торговли и корректировка декларации на товары электронной торговли</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="cat_ru:BaseDocType">
+        <xs:sequence>
+          <xs:element name="EECEDocHeaderAddInfo" type="RUScat_ru:EECEDocHeaderAddInfoType">
+            <xs:annotation>
+              <xs:documentation>Дополнительные технологические реквизиты электронного документа (сведений)</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="RefDeclarationIdDetails" type="e_cd:RefDeclarationIdDetailsType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Регистрационный номер декларации на товары электронной торговли, сведения в которой изменяются (дополняются)</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="DeclarationKindCode" type="clt_ru:CUCustomsProcedureType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Кодовое обозначение типа таможенной декларации </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="CustomsModeCode" type="cltESAD_cu:CustomsModeCodeType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Кодовое обозначение вида заявляемой таможенной процедуры</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="PreviousCustomsModeCode" type="cltESAD_cu:CustomsModeCodeType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Кодовое обозначение вида предшествующей таможенной процедуры </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="DeclarationKind" type="cltESAD_cu:CustomsDeclarationKindType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Кодовое обозначение особенности таможенного декларирования товаров</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ElectronicDocumentSign" type="clt_ru:Code2Type">
+            <xs:annotation>
+              <xs:documentation>Признак электронного документа "ЭД"</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="TotalSheetNumber" type="clt_ru:Count4Type" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Общее количество листов в документе</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="GoodsCategoryCode" type="clt_ru:Code2Type">
+            <xs:annotation>
+              <xs:documentation>Кодовое обозначение категории товаров электронной торговли: "ЭФ" - товары, приобретенные физическими лицами; "ЭС" - товары, предназначенные для реализации физическим лицам</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="GoodsShipment" type="e_cd:GoodsShipmentType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Сведения о товарной партии</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="EventDate" type="clt_ru:DateCustType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Дата заполнения таможенного документа</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="DeclarantDetails" type="RUDECLcat:AEODeclarantDetailsType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Сведения о лице, осуществляющем таможенное декларирование товаров электронной торговли</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="SignatoryPerson" type="e_cd:SignatoryPersonDetailsType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Сведения о сотруднике лица, осуществляющего таможенное декларирование товаров электронной торговли и (или) заполнившего таможенный документ</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+        <xs:attribute name="DocumentModeID" type="clt_ru:DocumentModeIDType" use="required" fixed="1006295E">
+          <xs:annotation>
+            <xs:documentation>Идентификатор вида документа</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:annotation>
+    <xs:documentation>Локальные прикладные типы</xs:documentation>
+  </xs:annotation>
+  <xs:complexType name="AutomobileInfoType">
+    <xs:annotation>
+      <xs:documentation>Сведения об автомобиле</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="VINID" type="clt_ru:VINIDType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Идентификационный номер транспортного средства (шасси транспортного средства, самоходной машины), присвоенный изготовителем</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="VINChassisID" type="clt_ru:VINIDType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Идентификационный номер шасси (рамы) транспортного средства, присвоенный изготовителем</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="VINBodyID" type="clt_ru:VINIDType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Идентификационный номер кузова (кабины) транспортного средства (шасси транспортного средства, самоходной машины), присвоенный изготовителем</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="MarkCode" type="clt_ru:MarkCarCodeType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Кодовое обозначение марки транспортного средства </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Mark" type="clt_ru:MarkCarNameType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Наименование марки транспортного средства (шасси транспортного средства, самоходной машины)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Model" type="clt_ru:TransportNameType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Наименование модели транспортного средства</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ManufactureDate" type="clt_ru:DateCustType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Дата изготовления (момент выпуска) транспортного средства</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="VehicleEngineDetails" type="e_cd:EngineType" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Сведения о двигателе</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ECOClassCode" type="clt_ru:LetterIndicatorType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Кодовое обозначение экологического класса транспортного средства (шасси транспортного средства), присвоенное организацией-изготовителем</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="VehicleAxleQuantity" type="clt_ru:Count2Type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Количество осей транспортного средства (шасси транспортного средства, самоходной машины и других видов техники)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="VehicleMassDetails" type="e_cd:VehicleMassDetailsType" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Сведения о массе транспортного средства (шасси транспортного средства, самоходной машины или другого вида техники)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="TransportCategoryCode" type="clt_ru:CodeVariable3Type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Кодовое обозначение категории транспортного средства (шасси транспортного средства, самоходной машины и других видов техники)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="TransportCarryingCapacityMeasure" type="catESAD_cu:UnifiedPhysicalMeasureType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Масса груза, на перевозку которого рассчитано данное транспортное средство</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="VehicleWheelbaseMeasure" type="catESAD_cu:UnifiedPhysicalMeasureType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Колесная база транспортного средства</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="VehicleModificationText" type="RUSclt_ru:FreeText4000Type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Модификация транспортного средства</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CapacityQuantity" type="clt_ru:Quantity4Type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Количество мест для сидения</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PlatformLengthMeasure" type="catESAD_cu:UnifiedPhysicalMeasureType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Максимальная внутренняя длина площадки для перевозки грузов (грузовой платформы)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="VehicleMileageMeasure" type="catESAD_cu:UnifiedPhysicalMeasureType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Пробег транспортного средства</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CAValueAmount" type="catESAD_cu:CarCostInfoType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Стоимость</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="EmergencyDeviceId" type="clt_ru:Text50Type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Идентификационный номер устройства вызова экстренных служб</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CalculationType">
+    <xs:annotation>
+      <xs:documentation>Сведения об исчислении платежа</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="RUDECLcat:CalculationType">
+        <xs:sequence>
+          <xs:element name="FractionRefinanceRate" type="clt_ru:QuantityBasis0Type" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Доля ставки рефинансирования (ключевой ставки)</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="CommodityDescriptionDetailsType">
+    <xs:annotation>
+      <xs:documentation>Дополнительные сведения о товаре</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="RecordId" type="clt_ru:Text40Type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Идентификатор записи</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="TradeMarkName" type="clt_ru:FreeText250Type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Наименование товарного знака, объекта авторского права, смежных прав, патента  и т.д. </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ProductionPlaceName" type="clt_ru:FreeText250Type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Наименование места происхождения</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ProductMarkName" type="clt_ru:FreeText250Type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Наименование марки</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ProductModelName" type="clt_ru:FreeText250Type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Наименование модели продукта (товара)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ProductId" type="cltESAD_cu:GoodsArticulType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Уникальный идентификатор вида продукта (товара) или артикул товара</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ProductSortName" type="clt_ru:FreeText250Type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Наименование сорта (группы сортов) продукта (товара)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="StandardName" type="clt_ru:Text40Type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Наименование стандарта (международного, межгосударственного, государственного, отраслевого или организации) или технических условий на товар </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ProductInstanceId" type="clt_ru:Text50Type" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Уникальный идентификатор (серийный номер, код) экземпляра продукта (товара)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="IMEIId" type="clt_ru:CodeVariable20Type" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Международный идентификатор мобильного оборудования (IMEI)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ManufactureDate" type="clt_ru:DateCustType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Дата производства (изготовления) товара</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CommodityGroupItemDetailsType">
+    <xs:annotation>
+      <xs:documentation>Характеристика товаров в группе</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="LineId" type="clt_ru:Text40Type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Идентификатор записи</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CommodityDescriptionDetails" type="e_cd:CommodityDescriptionDetailsType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Дополнительные сведения о товаре</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ManufacturerDetails" type="e_cd:ManufacturerDetailsType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Сведения о производителе (изготовителе)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="UnifiedOverallDimensionDetails" type="catESAD_cu:DimensionType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Линейные размеры объекта (длина, ширина и высота)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="GoodsMeasureDetails" type="catESAD_cu:SupplementaryQuantityType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Количество товаров</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DrugStartingMaterialDetails" type="catESAD_cu:DrugStartingMaterialDetailsType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Сведения об идентификации исходного материала для производства лекарственных препаратов</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CurrencyValueType">
+    <xs:annotation>
+      <xs:documentation>Сведения о стоимости</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="CurrencyQuantity" type="clt_ru:AmountType">
+        <xs:annotation>
+          <xs:documentation>Сумма в валюте</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CurrencyCode" type="clt_ru:CurrencyA3CodeType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Буквенный код валюты </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DeclarationChangeCodeDetailsType">
+    <xs:annotation>
+      <xs:documentation>Сведения о внесенных изменениях (дополнениях)</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="StageChangeCode" type="clt_ru:LetterIndicatorType">
+        <xs:annotation>
+          <xs:documentation>Кодовое обозначение этапа внесения изменений (дополнений) в сведения, заявленные в таможенной декларации</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ReasonChangeCode" type="clt_ru:LetterIndicatorType">
+        <xs:annotation>
+          <xs:documentation>Кодовое обозначение обстоятельств, послуживших основанием для внесения изменений (дополнений) в сведения, заявленные в таможенной декларации</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="QuantityChangeCode" type="clt_ru:LetterIndicatorType">
+        <xs:annotation>
+          <xs:documentation>Кодовое обозначение изменения (дополнения) сведений, заявленных в таможенной декларации, о количестве (массе) товаров</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CountryChangeCode" type="clt_ru:LetterIndicatorType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Кодовое обозначение изменения (дополнения) сведений, заявленных в таможенной декларации, о происхождении товаров и (или) тарифных преференциях</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="TNVEDChangeCode" type="clt_ru:LetterIndicatorType">
+        <xs:annotation>
+          <xs:documentation>Кодовое обозначение изменения кода товара в соответствии с ТН ВЭД ЕАЭС</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CustomsCostChangeCode" type="clt_ru:LetterIndicatorType">
+        <xs:annotation>
+          <xs:documentation>Кодовое обозначение изменения (дополнения) сведений, заявленных в таможенной декларации, о таможенной стоимости (стоимости) товаров</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CustomsPaymentChangeCode" type="clt_ru:LetterIndicatorType">
+        <xs:annotation>
+          <xs:documentation>Кодовое обозначение изменения (дополнения) сведений, заявленных в таможенной декларации, об исчислении (уплате) таможенных и иных платежей (влекущих изменение (дополнение) сведений об исчислении таможенных и иных платежей)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="OtherChangeCode" type="clt_ru:LetterIndicatorType">
+        <xs:annotation>
+          <xs:documentation>Кодовое обозначение изменения (дополнения) иных сведений, заявленных в таможенной декларации</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EngineMaxPowerMeasurType">
+    <xs:annotation>
+      <xs:documentation>Максимальная мощность двигателя</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="EnginePowerMeasur" type="clt_ru:QuantityBasisType">
+        <xs:annotation>
+          <xs:documentation>Мощность двигателя</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="MeasureUnitQualifierName" type="clt_ru:Text50Type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Условное обозначение единицы измерения</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="MeasureUnitQualifierCode" type="clt_ru:CodeVariable4Type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Код единицы измерения в соответствии с единицами измерения, применяемыми в ТН ВЭД ЕАЭС</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EngineType">
+    <xs:annotation>
+      <xs:documentation>Сведения о двигателе</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="EngineId" type="clt_ru:EngineIDType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Идентификационный номер двигателя, присвоенный изготовителем</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="EngineVolumeQuanity" type="clt_ru:QuantityBasis0Type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Рабочий объем цилиндров двигателя внутреннего сгорания (куб. см)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="EngineMaxPowerMeasure" type="e_cd:EngineMaxPowerMeasurType" minOccurs="0" maxOccurs="2">
+        <xs:annotation>
+          <xs:documentation>Максимальная мощность двигателя</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="EngineModel" type="clt_ru:Text50Type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Обозначение модели двигателя, присвоенное организацией-изготовителем</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="EngineModeCode" type="clt_ru:CodeVariable2Type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Кодовое обозначение типа двигателя</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="EngineModeName" type="clt_ru:FreeText250Type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Наименование типа двигателя</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="FactCustomsPaymentType">
+    <xs:annotation>
+      <xs:documentation>Сведения о фактически уплаченных (взысканных) суммах таможенных и иных платежей по декларации на товары электронной торговли</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="catESAD_cu:ESADout_CUCustomsPaymentType">
+        <xs:sequence>
+          <xs:element name="ScaleNumber" type="clt_ru:Quantity2Type" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Масштаб денежной суммы в десятичной системе счисления, представленный в виде показателя степени числа 10</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="PaymentWayCode" type="clt_ru:Code2Type" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Способ уплаты в соответствии с классификатором способов уплаты таможенных и иных платежей, взимание которых возложено на таможенные органы</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="PaymentDocument" type="RUScat_ru:DocBaseV4Type" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Сведения о документе, подтверждающем уплату таможенного или иного платежа</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:choice minOccurs="0">
+            <xs:element name="RFOrganizationFeatures" type="cat_ru:RFOrganizationFeaturesType">
+              <xs:annotation>
+                <xs:documentation>Сведения об организации. Особенности Российской Федерации</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="RKOrganizationFeatures" type="cat_ru:RKOrganizationFeaturesType">
+              <xs:annotation>
+                <xs:documentation>Сведения об организации. Особенности Республики Казахстан</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="RBOrganizationFeatures" type="cat_ru:RBOrganizationFeaturesType">
+              <xs:annotation>
+                <xs:documentation>Сведения об организации. Особенности Республики Беларусь</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="RAOrganizationFeatures" type="cat_ru:RAOrganizationFeaturesType">
+              <xs:annotation>
+                <xs:documentation>Сведения об организации. Особенности Республики Армения</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="KGOrganizationFeatures" type="cat_ru:KGOrganizationFeaturesType">
+              <xs:annotation>
+                <xs:documentation>Сведения об организации. Особенности Кыргызской Республики</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+          </xs:choice>
+          <xs:element name="PersonId" type="RUSclt_ru:PersonIdType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Уникальный идентификатор физического лица</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="CAUniqueCustomsNumberId" type="RUSclt_ru:UITNCode40Type" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Сведения об идентификационном (уникальном идентификационном) таможенном номере</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="PayerIdentityDetails" type="RUDECLcat:SignatoryPersonIdentityDetailsType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Сведения о документе, удостоверяющем личность плательщика</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="CustomsTaxPaymentNoApplyCode" type="clt_ru:Code2Type" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Кодовое обозначение случая, при котором обязанность по уплате таможенных и иных платежей прекращается и (или) меры по их взысканию не принимаются</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="PaymentDate" type="clt_ru:DateCustType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Дата уплаты или взыскания (дата исполнения обязанности по уплате таможенных и иных платежей)</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="GoodsGroupDescriptionType">
+    <xs:annotation>
+      <xs:documentation>Описание группы товаров одного наименования с отличающимися от других групп характеристиками</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="LineId" type="clt_ru:Text40Type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Идентификатор записи</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="GoodsDescriptionText" type="clt_ru:FreeText250Type" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Описание группы товаров с учетом дополнительных характеристик (качественных, количественных, технических, коммерческих), необходимых для исчисления и взимания таможенных и иных платежей, применения мер защиты внутреннего рынка, обеспечения соблюдения запретов и ограничений, принятия таможенными органами мер по защите прав на объекты интеллектуальной собственности, идентификации, отнесения к одному десятизначному классификационному коду в соответствии с ТН ВЭД ЕАЭС</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ObjectOrdinal" type="clt_ru:Count3Type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Номер (позиция) компонента товара, перемещаемого через таможенную границу Евразийского экономического союза в несобранном или разобранном виде, в том числе некомплектном или незавершенном виде, в соответствии с решением таможенного органа о классификации товара в соответствии с ТН ВЭД ЕАЭС</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="GoodsGroupInformation" type="e_cd:CommodityGroupItemDetailsType" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Сведения о характеристиках товара в группе</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="GoodsItemDetailsType">
+    <xs:annotation>
+      <xs:documentation>Сведения о товаре по индивидуальной накладной</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="GoodsNumeric" type="clt_ru:Count3Type">
+        <xs:annotation>
+          <xs:documentation>Порядковый номер товара по транспортному (перевозочному) документу (индивидуальной накладной, документу, сопровождающему почтовое отправление)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="TotalGoodsNumeric" type="clt_ru:Count3Type">
+        <xs:annotation>
+          <xs:documentation>Порядковый номер товара</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="GoodsTNVEDCode" type="clt_ru:CUGoodsNomenclatuerCodeType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Код товара по ТН ВЭД ЕАЭС</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="GoodsDescription" type="clt_ru:FreeText250Type" minOccurs="0" maxOccurs="4">
+        <xs:annotation>
+          <xs:documentation>Описание товара, включая коммерческое, фирменное или иное традиционное наименование товара</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="GrossWeightQuantity" type="cat_ru:SupplementaryQuantityType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Масса товара, брутто </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="NetWeightQuantity" type="cat_ru:SupplementaryQuantityType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Масса товара, нетто </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SupplementaryQuantity" type="cat_ru:SupplementaryQuantityType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Количество товара с указанием дополнительной единицы измерения</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CommodityAddCode" type="clt_ru:GoodsNomenclatuerAddCodeType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Кодовое обозначение товара в соответствии с классификатором дополнительной таможенной информации</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="AddGoodsMeasureDetails" type="cat_ru:SupplementaryQuantityType" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Количество товара в единице измерения, отличной от основной и дополнительной</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="GoodsItemGroupDetails" type="e_cd:GoodsGroupDescriptionType" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Сведения о группе товаров одного наименования с отличающимися от других групп характеристиками</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="AutomobileInfo" type="e_cd:AutomobileInfoType" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Сведения об автомобиле</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="IPObjectRegistryNum" type="catESAD_cu:IPObjectRegistryNumType" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Регистрационный номер объекта интеллектуальной собственности по реестру объектов интеллектуальной  собственности</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="OriginCountryDetails" type="RUScat_ru:CountryDetailsType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Страна происхождения</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CustomsDutyPrefCode" type="clt_ru:Code2Type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Кодовое обозначение преференции по уплате таможенной пошлины</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PrefOriginCountryDetails" type="RUScat_ru:CountryDetailsType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Сведения о стране происхождения, определенной в соответствии с правилами определения происхождения товаров, применяемыми при предоставлении тарифных преференций</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CAValueAmount" type="e_cd:CurrencyValueType" minOccurs="0" maxOccurs="2">
+        <xs:annotation>
+          <xs:documentation>Стоимость товара</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CustomsCost" type="e_cd:CurrencyValueType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Таможенная стоимость товара</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ExchangeRate" type="RUScat_ru:ExchangeRateWithCurrencyA3Type" minOccurs="0" maxOccurs="2">
+        <xs:annotation>
+          <xs:documentation>Курс валюты</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ValuationMethodCode" type="cltESAD_cu:CustomsCostAppraiseMethodType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Кодовое обозначение метода определения таможенной стоимости</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DeliveryTermsDetails" type="cat_ru:DeliveryTermsType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Сведения об условиях поставки</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="TransactionNatureCode" type="cltESAD_cu:DealNatureCodeType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Код характера сделки</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PrecedingDocDetails" type="e_cd:PrecedingDocDetailsType" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Сведения о предшествующем документе</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PresentedDocDetails" type="e_cd:PresentedDocDetailsType" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Сведения о дополнительном документе</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CustomsPaymentDetails" type="e_cd:CalculationType" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Сведения об исчислении таможенных пошлин, налогов</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DeclarationChangeCodeDetails" type="e_cd:DeclarationChangeCodeDetailsType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Сведения о внесенных изменениях (дополнениях)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="GoodsLocationDetailsType">
+    <xs:annotation>
+      <xs:documentation>Местонахождение товаров</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="GoodsLocationPlaceCode" type="clt_ru:Code2Type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Кодовое обозначение места нахождения товаров</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CustomsOfficeCode" type="clt_ru:CustomsCodeType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Код таможенного органа</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PlaceName" type="clt_ru:ShortNameType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Наименование места нахождения товаров (железнодорожной станции, морского (речного) порта, воздушного пункта пропуска)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CustomsControlZoneID" type="clt_ru:Text50Type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Номер (регистрационный номер) зоны таможенного контроля</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="RegisterDocumentIdDetails" type="catESAD_cu:AEORegistryIdDetailsType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Свидетельство о включении в реестр уполномоченных экономических операторов, свидетельство о включении в реестр владельцев складов временного хранения, документ (свидетельство), удостоверяющий регистрацию лица в качестве резидента (участника) свободной (специальной, особой) экономической зоны, документ, подтверждающий включение в реестр операторов электронной торговли (регистрационный номер в реестре операторов электронной торговли)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="GoodLocationTransportMeansDetails" type="e_cd:TransportMeansDetailsType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Сведения о транспортном средстве, на котором находятся товары.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SubjectAddressDetails" type="RUScat_ru:RUAddressType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Адрес местонахождения товаров. </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="GoodsShipmentType">
+    <xs:annotation>
+      <xs:documentation>Сведения о товарной партии</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ConsignorDetails" type="RUDECLcat:GoodsShipmentSubjectDetailsType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Сведения об отправителе по общей накладной</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ConsigneeDetails" type="RUDECLcat:GoodsShipmentSubjectDetailsType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Сведения о получателе по общей накладной</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="GoodsLocationDetails" type="e_cd:GoodsLocationDetailsType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Сведения о месте нахождения товаров</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="HouseShipment" type="e_cd:HouseShipmentDetailsType" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Сведения о товарной партии по индивидуальному транспортному (перевозочному) документу</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="UnifiedGrossWeightQuantity" type="cat_ru:SupplementaryQuantityType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Общая масса  брутто товаров по декларации на товары электронной торговли</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CAValueAmount" type="e_cd:CurrencyValueType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Общая стоимость товаров по декларации на товары электронной торговли в валюте государства-члена</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CustomsCost" type="e_cd:CurrencyValueType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Общая таможенная  стоимость товаров по декларации на товары электронной торговли</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CustomsPaymentDetails" type="e_cd:CalculationType" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Сведения об исчислении таможенных сборов по декларации на товары электронной торговли</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PaymentAmountDetails" type="e_cd:PaymentAmountDetailsType" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Сведения о суммах таможенных и иных платежей, подлежащих уплате по декларации на товары электронной торговли</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="FactCustomsPayment" type="e_cd:FactCustomsPaymentType" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Сведения о фактически уплаченных (взысканных) суммах таможенных и иных платежей по декларации на товары электронной торговли</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DeclarationChangeCodeDetails" type="e_cd:DeclarationChangeCodeDetailsType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Сведения о внесенных изменениях (дополнениях)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="HouseShipmentDetailsType">
+    <xs:annotation>
+      <xs:documentation>Сведения о товарной партии по индивидуальной накладной</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="WayBillID" type="clt_ru:DocumentIDType">
+        <xs:annotation>
+          <xs:documentation>Уникальный идентификатор партии товаров в ДЭТ</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ObjectOrdinal" type="clt_ru:Count3Type">
+        <xs:annotation>
+          <xs:documentation>Порядковый номер транспортного (перевозочного) документа (индивидуальной накладной) или почтового отправления</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="TransportDocumentDetails" type="RUScat_ru:DocBaseV4Type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Сведения о транспортном (перевозочном) документе (общей накладной)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="HouseWaybillDetails" type="RUScat_ru:DocBaseV4Type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Сведения о транспортном (перевозочном) документе (индивидуальной накладной) или почтовом отправлении</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ConsignorDetails" type="RUDECLcat:GoodsShipmentSubjectDetailsType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Сведения об отправителе по индивидуальной накладной</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ConsigneeDetails" type="RUDECLcat:GoodsShipmentSubjectDetailsType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Сведения о получателе по индивидуальной накладной</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="GoodsItemDetails" type="e_cd:GoodsItemDetailsType" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Сведения о товаре по индивидуальной накладной</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="UnifiedGrossWeightQuantity" type="cat_ru:SupplementaryQuantityType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Общая масса брутто товаров по транспортному (перевозочному) документу (индивидуальной накладной, документу, сопровождающему почтовое отправление</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CustomsCost" type="e_cd:CurrencyValueType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Общая таможенная стоимость товаров по транспортному (перевозочному) документу (индивидуальной накладной, документу, сопровождающему почтовое отправление)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CAValueAmount" type="e_cd:CurrencyValueType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Общая стоимость товаров по индивидуальной накладной или документу, сопровождающему международное почтовое отправление, в валюте государства-члена</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CustomsPaymentDetails" type="e_cd:CalculationType" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Сведения об исчислении таможенных сборов, пеней, процентов по транспортному (перевозочному) документу (индивидуальной накладной, документу, сопровождающему почтовое отправление)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="WayBillPaymentAmountDetails" type="e_cd:PaymentAmountDetailsType" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Сведения о суммах таможенных пошлин, налогов, специальных, антидемпинговых, компенсационных пошлин, таможенных сборов, подлежащих уплате по транспортному (перевозочному) документу (индивидуальной накладной, документу, сопровождающему почтовое отправление)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DeclarationChangeCodeDetails" type="e_cd:DeclarationChangeCodeDetailsType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Сведения о внесенных изменениях (дополнениях)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ManufacturerDetailsType">
+    <xs:annotation>
+      <xs:documentation>Сведения о производителе (изготовителе)</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="SubjectName" type="RUSclt_ru:Name300Type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Полное наименование хозяйствующего субъекта или фамилия, имя и отчество физического лица</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SubjectBriefName" type="RUSclt_ru:Name120Type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Сокращенное наименование хозяйствующего субъекта или фамилия, имя и отчество физического лица</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="UITN" type="RUScat_ru:UITN40Type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Сведения об идентификационном (уникальном идентификационном) таможенном номере</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ManufacturerINN" type="clt_ru:INNIDType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>ИНН производителя (изготовителя) товара</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ManufacturerKPP" type="clt_ru:KPPCodeType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>КПП производителя (изготовителя) товара</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PersonId" type="RUSclt_ru:PersonIdType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Уникальный идентификатор физического лица</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SubjectAddressDetails" type="RUScat_ru:RUAddressType" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Адрес</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PaymentAmountDetailsType">
+    <xs:annotation>
+      <xs:documentation>Сведения о  таможенных пошлинах, налогах, подлежащих уплате</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="PaymentModeCode" type="clt_ru:CustomsPaymentCodeType">
+        <xs:annotation>
+          <xs:documentation>Код вида платежа в соответствии с Классификатором видов таможенных и иных платежей</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Amount" type="clt_ru:AmountType">
+        <xs:annotation>
+          <xs:documentation>Сумма, подлежащая уплате</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CurrencyCode" type="clt_ru:CurrencyN3CodeType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Цифровой код валюты</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PaymentPrevious" type="clt_ru:AmountType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Предыдущая сумма платежа</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CurrencyCodePrevious" type="clt_ru:CurrencyN3CodeType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Цифровой код валюты предыдущей суммы платежа</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ChangeAmount" type="clt_ru:AmountType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Изменение</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CurrencyCodeChangeAmount" type="clt_ru:CurrencyN3CodeType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Цифровой код валюты изменения суммы платежа</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PrecedingDocDetailsType">
+    <xs:annotation>
+      <xs:documentation>Сведения о предшествующем документе</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="PrecedingDocumentModeCode" type="clt_ru:CustomsDocumentCodeType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Кодовое обозначение вида документа</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CustomsDocIdDetails" type="RUDECLcat:CustomDocIDType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Регистрационный номер таможенной декларации</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="TIRIdDetails" type="catESAD_cu:TIRIdDetailsType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Регистрационный номер книжки МДП</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SVHDocNumber" type="clt_ru:Text50Type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Номер документа, подтверждающего помещение товаров на склад временного хранения</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SVHDocDate" type="clt_ru:DateCustType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Дата документа, подтверждающего помещение товаров на склад временного хранения</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PrecedingDocumentGoodsNumeric" type="clt_ru:Count3Type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Порядковый номер товара в предшествующем документе </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PrecedingGoodsDetails" type="e_cd:PrecedingGoodsDetailsType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Сведения о товаре, заявленные в предшествующем документе </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="UnifiedCountryCode" type="RUScat_ru:CountryDetailsType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Кодовое обозначение страны, заявленное в предшествующем документе </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PrecedingGoodsDetailsType">
+    <xs:annotation>
+      <xs:documentation>Сведения о товаре, заявленные в предшествующем документе </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="GoodsTNVEDCode" type="clt_ru:CUGoodsNomenclatuerCodeType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Код товара по ТН ВЭД ЕАЭС</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DeclGrossWeightQuantity" type="cat_ru:SupplementaryQuantityType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Масса брутто декларируемого товара </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DeclNetWeightQuantity" type="cat_ru:SupplementaryQuantityType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Масса нетто декларируемого товара </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PreDeclarationNetMassMeasure" type="cat_ru:SupplementaryQuantityType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Масса нетто товара, указанного в предшествующем документе </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CustomsValueAmount" type="e_cd:CurrencyValueType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Таможенная стоимость товара, указанная в предшествующем документе</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SupplementaryQuantity" type="cat_ru:SupplementaryQuantityType" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Количество декларируемого товара </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PresentedDocDetailsType">
+    <xs:annotation>
+      <xs:documentation>Сведения о дополнительном документе</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="RUDECLcat:BasePresentedDocDetailsType">
+        <xs:sequence>
+          <xs:element name="DocumentPresentingDetails" type="RUDECLcat:DocumentPresentingDetailsType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Сведения о фактическом представлении документа</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="RefDeclarationIdDetailsType">
+    <xs:annotation>
+      <xs:documentation>Регистрационный номер декларации на товары электронной торговли, сведения в которой изменяются (дополняются)</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="cat_ru:GTDIDType">
+        <xs:sequence>
+          <xs:element name="CustomsDocumentOrdinalId" type="clt_ru:CodeVariable2Type" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Номер (идентификатор) вносимых изменений и (или) дополнений</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="SignatoryPersonDetailsType">
+    <xs:annotation>
+      <xs:documentation>Сведения о физическом лице, заполнившем (подписавшем) таможенный документ</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="SigningDetails" type="RUScat_ru:SigningDetailsType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Cведения о должностном лице, подписавшем документ</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SignatoryPersonIdentityDetails" type="RUDECLcat:SignatoryPersonIdentityDetailsType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Сведения о документе, удостоверяющем личность лица, заполнившего (подписавшего) таможенный документ</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="QualificationCertificate" type="clt_ru:CodeVariable6Type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Номер квалификационного аттестата специалиста по таможенному оформлению</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PowerOfAttorneyDetails" type="catESAD_cu:DocBaseType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Документ, удостоверяющий полномочия</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TransportMeansDetailsType">
+    <xs:annotation>
+      <xs:documentation>Сведения о транспортном средстве, на котором находятся товары</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="catESAD_cu:CUTransportType">
+        <xs:sequence>
+          <xs:element name="CountryCode" type="clt_ru:CountryA2CodeType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Кодовое обозначение страны</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="VehicleMassDetailsType">
+    <xs:annotation>
+      <xs:documentation>Масса транспортного средства</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="VehicleMassKindCode" type="clt_ru:Code2Type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Код вида массы транспортного средства: 02 – полная масса; 12 – технически допустимая максимальная масса</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="UnifiedMassMeasure" type="catESAD_cu:UnifiedPhysicalMeasureType">
+        <xs:annotation>
+          <xs:documentation>Масса</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

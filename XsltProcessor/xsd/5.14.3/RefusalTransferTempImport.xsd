@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+Проект Приказа ФТС "Об утверждении формы заявления о передаче товаров, помещенных под таможенную процедуру временного ввоза (допуска), во владение и пользование иным лицам, и форм решений таможенного органа по результатам рассмотрения указанного заявления"
+Приложение № 3 - Решение таможенного органа об отказе в выдаче разрешения на передачу товаров, помещенных под таможенную процедуру временного ввоза (допуска), во владение и пользование иным лицам
+-->
+<xs:schema xmlns:RUScat_ru="urn:customs.ru:RUSCommonAggregateTypes:5.14.3" xmlns:cat_ru="urn:customs.ru:CommonAggregateTypes:5.10.0" xmlns:clt_ru="urn:customs.ru:CommonLeafTypes:5.10.0" xmlns:rftti="urn:customs.ru:Information:TransportDocuments:RefusalTransferTempImport:5.14.3" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:customs.ru:Information:TransportDocuments:RefusalTransferTempImport:5.14.3" elementFormDefault="qualified" version="5.14.3.0">
+  <xs:import namespace="urn:customs.ru:RUSCommonAggregateTypes:5.14.3" schemaLocation="RUSCommonAggregateTypes.xsd" />
+  <xs:import namespace="urn:customs.ru:CommonAggregateTypes:5.10.0" schemaLocation="CommonAggregateTypesCust.xsd" />
+  <xs:import namespace="urn:customs.ru:CommonLeafTypes:5.10.0" schemaLocation="CommonLeafTypesCust.xsd" />
+  <xs:annotation>
+    <xs:documentation>Решение таможенного органа об отказе в выдаче разрешения на передачу товаров, помещенных под таможенную процедуру временного ввоза (допуска), во владение и пользование иным лицам</xs:documentation>
+  </xs:annotation>
+  <xs:element name="RefusalTransferTempImport" type="rftti:RefusalTransferTempImportType">
+    <xs:annotation>
+      <xs:documentation>Решение таможенного органа об отказе в выдаче разрешения на передачу товаров, помещенных под таможенную процедуру временного ввоза (допуска), во владение и пользование иным лицам</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="RefusalTransferTempImportType">
+    <xs:annotation>
+      <xs:documentation>Решение таможенного органа об отказе в выдаче разрешения на передачу товаров, помещенных под таможенную процедуру временного ввоза (допуска), во владение и пользование иным лицам</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="cat_ru:BaseDocType">
+        <xs:sequence>
+          <xs:element name="ResDate" type="clt_ru:DateCustType">
+            <xs:annotation>
+              <xs:documentation>Дата решения</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Customs" type="cat_ru:CustomsType">
+            <xs:annotation>
+              <xs:documentation>Код и наименование таможенного органа</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Applicant" type="RUScat_ru:SubjectDetailsType">
+            <xs:annotation>
+              <xs:documentation>Сведения о заявителе</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="AppDate" type="clt_ru:DateCustType">
+            <xs:annotation>
+              <xs:documentation>Дата заявления</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Reason" type="rftti:ReasonsType">
+            <xs:annotation>
+              <xs:documentation>Причина отказа в выдаче разрешения со ссылкой на норму (статья 168) ФЗ от __ № __ "О таможенном регулировании", в соответствии с которой принято решение</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="CustomsChief" type="cat_ru:CustomsPersonType">
+            <xs:annotation>
+              <xs:documentation>Подпись начальника (заместителя начальника) таможенного органа</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+        <xs:attribute name="DocumentModeID" type="clt_ru:DocumentModeIDType" use="required" fixed="1003013E">
+          <xs:annotation>
+            <xs:documentation>Идентификатор вида документа</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:annotation>
+    <xs:documentation>Локальные прикладные типы.</xs:documentation>
+  </xs:annotation>
+  <xs:complexType name="ReasonsType">
+    <xs:annotation>
+      <xs:documentation>Причина отказа в выдаче разрешения со ссылкой на норму (статья 168) ФЗ от __ № __ "О таможенном регулировании", в соответствии с которой принято решение</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ReferenceNormFederalLaw" type="clt_ru:LetterIndicatorType" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Ссылка на норму (статья 168) ФЗ (1 - несоблюдения условий использования товаров в соответствии с таможенной процедурой временного ввоза (допуска), установленных пунктом 2 статьи 220 Кодекса Союза; 2 - несоблюдения условий, установленных частями 4 и 5 статьи 168 ФЗ от __ № __ "О таможенном регулировании"; 3 - неисполнение требований таможенного органа, предусмотренных частью 6  статьи 168 ФЗ от __ № __ "О таможенном регулировании".)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Reason" type="clt_ru:FreeText250Type" minOccurs="0" maxOccurs="2">
+        <xs:annotation>
+          <xs:documentation>Доп. сведения о причине отказа</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

@@ -1,0 +1,415 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- Проект постановления Правительства РФ "О внесении изменений в постановление Правительства Российской Федерации от 16 февраля 2023 г. № 240" -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:CategoryCust="urn:customs.ru:Categories:3.0.0" xmlns:clt_ru="urn:customs.ru:CommonLeafTypes:5.10.0" xmlns:cat_ru="urn:customs.ru:CommonAggregateTypes:5.24.0" xmlns:RUDECLcat="urn:customs.ru:RUDeclCommonAggregateTypesCust:5.28.0" xmlns:pe_per="urn:customs.ru:CustomsAuditDocuments:PartExpPerform:5.28.0" targetNamespace="urn:customs.ru:CustomsAuditDocuments:PartExpPerform:5.28.0" elementFormDefault="qualified" version="5.28.0.0">
+  <xs:import namespace="urn:customs.ru:Categories:3.0.0" schemaLocation="CategoriesCust.xsd" />
+  <xs:import namespace="urn:customs.ru:CommonLeafTypes:5.10.0" schemaLocation="CommonLeafTypesCust.xsd" />
+  <xs:import namespace="urn:customs.ru:CommonAggregateTypes:5.24.0" schemaLocation="CommonAggregateTypesCust.xsd" />
+  <xs:import namespace="urn:customs.ru:RUDeclCommonAggregateTypesCust:5.28.0" schemaLocation="RUDeclCommonAggregateTypesCust.xsd" />
+  <xs:annotation>
+    <xs:documentation>Представление электронных копий документов для подтверждения сведений из системы учета товаров / Представление сведений из системы учета товаров</xs:documentation>
+  </xs:annotation>
+  <xs:element name="PartExpPerform" type="pe_per:PartExpPerformType">
+    <xs:annotation>
+      <xs:documentation>Представление электронных копий документов для подтверждения сведений из системы учета товаров / Представление сведений из системы учета товаров</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="PartExpPerformType">
+    <xs:annotation>
+      <xs:documentation>Представление электронных копий документов для подтверждения сведений из системы учета товаров / Представление сведений из системы учета товаров</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="cat_ru:BaseDocType">
+        <xs:sequence>
+          <xs:element name="DocKind" type="clt_ru:LetterIndicatorType" minOccurs="1">
+            <xs:annotation>
+              <xs:documentation>Вид документа: 1 - Представление электронных копий документов для подтверждения сведений из системы учета товаров, 2 - Представление сведений из системы учета товаров</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="RequestDate" type="clt_ru:DateCustType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Дата запроса</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="RequestNumber" type="clt_ru:DocumentNumberType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Номер запроса</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ApplicantInfo" type="RUDECLcat:AEODeclarantDetailsType" minOccurs="1">
+            <xs:annotation>
+              <xs:documentation>Сведения о лице, которое представляет электронные копии документов / сведений</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="AnalyzedPeriod" type="pe_per:AnalyzedPeriodType" minOccurs="1">
+            <xs:annotation>
+              <xs:documentation>Анализируемый период</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:choice>
+            <xs:element name="RequestedDoc" type="pe_per:RequestedDocType" minOccurs="1" maxOccurs="unbounded">
+              <xs:annotation>
+                <xs:documentation>Представляемые документы</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="PresentedInfo" type="pe_per:PresentedInfoType" minOccurs="1">
+              <xs:annotation>
+                <xs:documentation>Представляемые сведения</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+          </xs:choice>
+        </xs:sequence>
+        <xs:attribute name="DocumentModeID" type="clt_ru:DocumentModeIDType" use="required" fixed="1006957E">
+          <xs:annotation>
+            <xs:documentation>Идентификатор вида документа</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:annotation>
+    <xs:documentation>Локальные прикладные типы</xs:documentation>
+  </xs:annotation>
+  <xs:complexType name="AnalyzedPeriodType">
+    <xs:annotation>
+      <xs:documentation>Анализируемый период</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="BeginDate" type="clt_ru:DateCustType" minOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Дата начала</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="EndDate" type="clt_ru:DateCustType" minOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Дата окончания</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DTDocType">
+    <xs:annotation>
+      <xs:documentation>Регистрационный номер ДТ / ЗВТ</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="cat_ru:GTDIDType">
+        <xs:sequence>
+          <xs:element name="AddNumber" type="clt_ru:Code2Type" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Дополнительная составляющая номера (ЗВ)</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="DTInfoType">
+    <xs:annotation>
+      <xs:documentation>Регистрационный номер ДТ / ЗВТ и номер товара в ДТ / ЗВТ</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="pe_per:DTDocType">
+        <xs:sequence>
+          <xs:element name="GoodsNumeric" type="clt_ru:Count5Type" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Номер товара в ДТ / ЗВТ</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="DTInfo2Type">
+    <xs:annotation>
+      <xs:documentation>Регистрационный номер ДТ и номер товара в ДТ</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="cat_ru:GTDIDType">
+        <xs:sequence>
+          <xs:element name="GoodsNumeric" type="clt_ru:Count5Type" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Номер товара в ДТ</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ExportGoodsType">
+    <xs:annotation>
+      <xs:documentation>Сведения о товаре, вывезенном из РФ в страны, не являющиеся государствами-членами ЕАЭС, и помещенном под таможенные процедуры</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="NumPP" type="clt_ru:Count8Type">
+        <xs:annotation>
+          <xs:documentation>Порядковый номер строки</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DiscardedDate" type="clt_ru:DateCustType">
+        <xs:annotation>
+          <xs:documentation>Дата выбытия (списания с бухгалтерского учета) товара</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DTInfo" type="pe_per:DTInfo2Type" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Регистрационный номер ДТ и номер товара в ДТ</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ID" type="clt_ru:DocumentIDType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Уникальный идентификатор товара</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="GoodsDescription" type="clt_ru:FreeText250Type" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Наименование товара согласно данным первичного учетного документа</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="GoodsTNVEDCode" type="clt_ru:CUGoodsNomenclatuerCodeType" minOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Код товара по ТН ВЭД ЕАЭС</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="FirstDocInfo" type="cat_ru:DocumentBaseType" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Реквизиты первичного учетного документа, согласно которому товар выбыл (списан с бухгалтерского учета)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="AccountNum" type="pe_per:Account30Type" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Номера счета, в соответствии с планом счетов бухгалтерского учета</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SubAccountNum" type="pe_per:Account30Type" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Номера субсчета (при наличии), в соответствии с планом счетов бухгалтерского учета</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DiscardedQuantity" type="cat_ru:SupplementaryQuantityType">
+        <xs:annotation>
+          <xs:documentation>Количество товара, выбывшего (списанного с бухгалтерского учета)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Cost" type="clt_ru:AmountType">
+        <xs:annotation>
+          <xs:documentation>Стоимость товара, выбывшего (списанного с бухгалтерского учета), в рублях в соответствии с первичным учетным документом</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ImportGoodsType">
+    <xs:annotation>
+      <xs:documentation>Сведения о товаре, вывезенном из РФ в страны, не являющиеся государствами-членами ЕАЭС, и помещенном под таможенные процедуры</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="NumPP" type="clt_ru:Count8Type">
+        <xs:annotation>
+          <xs:documentation>Порядковый номер строки</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="AcceptanceDate" type="clt_ru:DateCustType">
+        <xs:annotation>
+          <xs:documentation>Дата принятия товара к бухгалтерскому учету</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DTInfo" type="pe_per:DTInfoType" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Регистрационный номер ДТ / ЗВТ и номер товара в ДТ / ЗВТ</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ID" type="clt_ru:DocumentIDType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Уникальный идентификатор товара</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="GoodsDescription" type="clt_ru:FreeText250Type" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Наименование товара согласно данным первичного учетного документа</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="GoodsTNVEDCode" type="clt_ru:CUGoodsNomenclatuerCodeType" minOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Код товара по ТН ВЭД ЕАЭС</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="FirstDocInfo" type="cat_ru:DocumentBaseType" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Реквизиты первичного учетного документа</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="GoodsQuantity" type="cat_ru:SupplementaryQuantityType">
+        <xs:annotation>
+          <xs:documentation>Количество товара, принятое к бухгалтерскому учету в соответствии с первичным учетным документом</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Cost" type="clt_ru:AmountType">
+        <xs:annotation>
+          <xs:documentation>Стоимость товара в рублях</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="RemainsQuantity" type="cat_ru:SupplementaryQuantityType">
+        <xs:annotation>
+          <xs:documentation>Остаток товара от количества, находящийся на бухгалтерском учете организации на дату направления сведений из системы учета товаров</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DiscardedQuantity" type="cat_ru:SupplementaryQuantityType">
+        <xs:annotation>
+          <xs:documentation>Количество выбывшего (списанного) товара на дату направления сведений из системы учета товаров</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Price" type="clt_ru:AmountType">
+        <xs:annotation>
+          <xs:documentation>Цена реализуемого товара</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="FirstDocDiscardedInfo" type="cat_ru:DocumentBaseType" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Реквизиты первичного учетного документа, согласно которому товар выбыл (списан с бухгалтерского учета)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="AccountNum" type="pe_per:Account30Type" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Номера счета бухгалтерского учета, на котором учтен товар на дату направления сведений из системы учета товаров</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SubAccountNum" type="pe_per:Account30Type" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Номера субсчета (при наличии), на котором учтен товар на дату направления сведений из системы учета товаров</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PresentedInfoType">
+    <xs:annotation>
+      <xs:documentation>Представляемые сведения</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="CreateDate" type="clt_ru:DateCustType">
+        <xs:annotation>
+          <xs:documentation>Дата формирования сведений</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:choice>
+        <xs:element name="ImportGoods" type="pe_per:ImportGoodsType" maxOccurs="unbounded">
+          <xs:annotation>
+            <xs:documentation>Сведения о товарах, ввезенных в РФ из стран, не являющихся государствами-членами ЕАЭС, и помещенных под таможенные процедуры</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="ExportGoods" type="pe_per:ExportGoodsType" maxOccurs="unbounded">
+          <xs:annotation>
+            <xs:documentation>Сведения о товарах, вывезенных из РФ в страны, не являющиеся государствами-членами ЕАЭС, и помещенных под таможенные процедуры</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="WarehouseGoods" type="pe_per:WarehouseGoodsType" maxOccurs="unbounded">
+          <xs:annotation>
+            <xs:documentation>Сведения о товарах, размещенных на временное хранение</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RequestedDocType">
+    <xs:annotation>
+      <xs:documentation>Реквизиты представляемого документа</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="cat_ru:DocumentBaseType">
+        <xs:sequence>
+          <xs:element name="DocCode" type="clt_ru:CustomsDocumentCodeType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Код документа в соответствии с классификатором видов документов и сведений</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ScanDoc" type="clt_ru:Text3MB" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>Скан документа</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="WarehouseGoodsType">
+    <xs:annotation>
+      <xs:documentation>Сведения о товаре, размещенном на временное хранение</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="NumPP" type="clt_ru:Count8Type">
+        <xs:annotation>
+          <xs:documentation>Порядковый номер строки</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="AcceptanceDate" type="clt_ru:DateCustType">
+        <xs:annotation>
+          <xs:documentation>Дата принятия товара к бухгалтерскому или складскому учету (в зависимости от того, по какому виду учета первично учитывается товар)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="WHDate" type="clt_ru:DateCustType">
+        <xs:annotation>
+          <xs:documentation>Дата помещения товара на временное хранение</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="GoodsDescription" type="clt_ru:FreeText250Type" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Наименование товара согласно данным учета</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="GoodsQuantity" type="cat_ru:SupplementaryQuantityType">
+        <xs:annotation>
+          <xs:documentation>Количество товара, принятое на временное хранение</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="BruttoWeight" type="clt_ru:QuantityBasisType">
+        <xs:annotation>
+          <xs:documentation>Вес брутто товара (кг), принятого на временное хранение</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="NetWeight" type="clt_ru:QuantityBasisType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Вес нетто (кг, при наличии)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="GoodsTNVEDCode" type="clt_ru:CUGoodsNomenclatuerCodeType" minOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Код товара по ТН ВЭД ЕАЭС</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="WHDocInfo" type="cat_ru:DocumentBaseType">
+        <xs:annotation>
+          <xs:documentation>Реквизиты документа, подтверждающего принятие товара на временное хранение</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="EndWHDate" type="clt_ru:DateCustType">
+        <xs:annotation>
+          <xs:documentation>Дата прекращения временного хранения товара</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CustomsDocInfo" type="pe_per:DTDocType">
+        <xs:annotation>
+          <xs:documentation>Регистрационный номер таможенного документа (ДТ / ТД / ЗВТ), в соответствии с которым осуществлен выпуск товара</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="OtherDocInfo" type="cat_ru:DocumentBaseType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Реквизиты иного таможенного документа, на основании которого товар перемещен в иное место временного хранения</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="LossDocInfo" type="cat_ru:DocumentBaseType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Реквизиты документа о факте уничтожения и (или) безвозвратной утраты товара вследствие аварии или действия непреодолимой силы либо факте безвозвратной утраты товара в результате естественной убыли при нормальных условиях хранения</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:annotation>
+    <xs:documentation>Простые локальные прикладные типы</xs:documentation>
+  </xs:annotation>
+  <xs:simpleType name="Account30Type">
+    <xs:annotation>
+      <xs:documentation>Номер счета. Символьная строка (буквы, цифры, знаки) используемая для краткого (и (или) независимого от языка) представления или замены определенных значений или текстовых свойств. От 1 до 30 символов</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="CategoryCust:CodeCategoriesCust">
+      <xs:minLength value="1" />
+      <xs:maxLength value="30" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

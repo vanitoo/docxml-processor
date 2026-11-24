@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ct="urn:customs.ru:Information:EArchDocuments:EADCommonTypes:5.13.1" xmlns:ndr="urn:customs.ru:Information:EArchDocuments:NotifDocRegistration:5.13.1" targetNamespace="urn:customs.ru:Information:EArchDocuments:NotifDocRegistration:5.13.1" elementFormDefault="qualified" version="5.13.1.0">
+  <xs:import namespace="urn:customs.ru:Information:EArchDocuments:EADCommonTypes:5.13.1" schemaLocation="EADCommonTypes.xsd" />
+  <xs:annotation>
+    <xs:documentation>Сведения о регистрации документа</xs:documentation>
+  </xs:annotation>
+  <xs:element name="NotifDocRegistration" type="ndr:NotifDocRegistrationType" />
+  <xs:complexType name="NotifDocRegistrationType">
+    <xs:annotation>
+      <xs:documentation>Сведения о регистрации документа</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ct:BaseDocType">
+        <xs:sequence>
+          <xs:element name="AgreementParticipants" type="ct:AgreementNumType">
+            <xs:annotation>
+              <xs:documentation>Реквизиты документа</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+        <xs:attribute name="DocumentModeID" type="ct:DocumentModeIDType" use="required" fixed="1005018E">
+          <xs:annotation>
+            <xs:documentation>Идентификатор вида документа</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>

@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Новый Приказ ФТС России вместо Приказа от 21.11.2018 г. № 1876 "Об утверждении форм документов, применяемых таможенными органами в целях обеспечения взыскания таможенных платежей,
+специальных, антидемпинговых, компенсационных пошлин, процентов и пеней за счет имущества и обращения взыскания на товары":
+Приложение 6 (DocKind = 1) - Протокол таможенного органа Российской Федерации о наложении ареста на имущество.
+Приложение 10 (DocKind = 2) - Протокол таможенного органа Российской Федерации о наложении ареста на товары.
+-->
+<xs:schema xmlns:clt_ru="urn:customs.ru:CommonLeafTypes:5.10.0" xmlns:pimar="urn:customs.ru:Information:CustomsAuditDocuments:ProtocolImpositionArrest:5.28.0" xmlns:cat_ru="urn:customs.ru:CommonAggregateTypes:5.24.0" xmlns:RUSclt_ru="urn:customs.ru:RUSCommonLeafTypes:5.21.0" xmlns:RUScat_ru="urn:customs.ru:RUSCommonAggregateTypes:5.24.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:customs.ru:Information:CustomsAuditDocuments:ProtocolImpositionArrest:5.28.0" elementFormDefault="qualified" version="5.28.0.0">
+	<xs:import namespace="urn:customs.ru:CommonLeafTypes:5.10.0" schemaLocation="CommonLeafTypesCust.xsd"/>
+	<xs:import namespace="urn:customs.ru:CommonAggregateTypes:5.24.0" schemaLocation="CommonAggregateTypesCust.xsd"/>
+	<xs:import namespace="urn:customs.ru:RUSCommonLeafTypes:5.21.0" schemaLocation="RUSCommonLeafTypes.xsd"/>
+	<xs:import namespace="urn:customs.ru:RUSCommonAggregateTypes:5.24.0" schemaLocation="RUSCommonAggregateTypes.xsd"/>
+	<xs:annotation>
+		<xs:documentation>Протокол таможенного органа Российской Федерации о наложении ареста на имущество/ Протокол таможенного органа Российской Федерации о наложении ареста на товары</xs:documentation>
+	</xs:annotation>
+	<xs:element name="ProtocolImpositionArrest" type="pimar:ProtocolImpositionArrestType">
+		<xs:annotation>
+			<xs:documentation>Протокол таможенного органа Российской Федерации о наложении ареста на имущество/ Протокол таможенного органа Российской Федерации о наложении ареста на товары</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="ProtocolImpositionArrestType">
+		<xs:annotation>
+			<xs:documentation>Протокол таможенного органа Российской Федерации о наложении ареста на имущество/ Протокол таможенного органа Российской Федерации о наложении ареста на товары</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="cat_ru:BaseDocType">
+				<xs:sequence>
+					<xs:element name="InfoDate" type="clt_ru:DateCustType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дата формирования сведений</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="InfoTime" type="clt_ru:TimeCustType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Время формирования сведений</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DocumentInfo" type="pimar:DocumentInfoType">
+						<xs:annotation>
+							<xs:documentation>Сведения о документе</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+				<xs:attribute name="DocumentModeID" type="clt_ru:DocumentModeIDType" use="required" fixed="1006951E">
+					<xs:annotation>
+						<xs:documentation>Идентификатор вида документа</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:annotation>
+		<xs:documentation>Локальные прикладные типы</xs:documentation>
+	</xs:annotation>
+	<xs:complexType name="AdvancedCustomsType">
+		<xs:annotation>
+			<xs:documentation>Таможенный орган</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="cat_ru:CustomsType">
+				<xs:sequence>
+					<xs:element name="City" type="clt_ru:CityNameType">
+						<xs:annotation>
+							<xs:documentation>Населенный пункт</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ArrestDecisionType">
+		<xs:annotation>
+			<xs:documentation>Реквизиты решения о наложении ареста</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="cat_ru:DocumentBaseType">
+				<xs:sequence>
+					<xs:element name="SheetsNumber" type="clt_ru:Count3Type">
+						<xs:annotation>
+							<xs:documentation>Количество листов документа</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="DocumentInfoType">
+		<xs:annotation>
+			<xs:documentation>Сведения о документе</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CustomsOffice" type="pimar:AdvancedCustomsType">
+				<xs:annotation>
+					<xs:documentation>Код и наименование таможенного органа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DocKind" type="clt_ru:LetterIndicatorType">
+				<xs:annotation>
+					<xs:documentation>Вид документа: 1 - Протокол о наложении ареста на имущество, 2 - Протокол о наложении ареста на товары</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RequisitesDocument" type="cat_ru:DocumentBaseType">
+				<xs:annotation>
+					<xs:documentation>Реквизиты протокола</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="StartDate" type="clt_ru:DateTimeCustType">
+				<xs:annotation>
+					<xs:documentation>Дата и время начала</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EndDate" type="clt_ru:DateCustType">
+				<xs:annotation>
+					<xs:documentation>Дата и время окончания</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CompilationPlase" type="clt_ru:FreeText250Type">
+				<xs:annotation>
+					<xs:documentation>Mесто составления протокола</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CustomsPerson" type="cat_ru:PersonBaseType">
+				<xs:annotation>
+					<xs:documentation>Должностное лицо таможенного органа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Persons" type="pimar:PersonType" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Понятые/ специалисты/ присутствующие лица</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VideoInf" type="RUSclt_ru:FreeText4000Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Сведения о технических средствах, использованных для проведения видеозаписи</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ArrestDecision" type="pimar:ArrestDecisionType">
+				<xs:annotation>
+					<xs:documentation>Реквизиты решения о наложении ареста</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ArrestKind" type="clt_ru:LetterIndicatorType">
+				<xs:annotation>
+					<xs:documentation>Вид ареста: 1 - полный; 2 - частичный</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OwnerOrganization" type="pimar:OrganizationMeasType">
+				<xs:annotation>
+					<xs:documentation>Сведения о лице, на имущество (товары) которого наложен арест</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ListArrest" type="pimar:ListArrestType" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Перечень имущества (товаров), на которое накладывается (наложен) арест</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TotalCost" type="clt_ru:AmountType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Общая сумма описаного имущества (товаров), подлежащая списанию</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="KeeperPerson" type="pimar:KeeperPersonType">
+				<xs:annotation>
+					<xs:documentation>Сведения о лице, которому передано на хранение имущество (товары)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="KeeperOrganization" type="pimar:KeeperOrganizationType">
+				<xs:annotation>
+					<xs:documentation>Сведения об организации и месте хранения имущества (товаров)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="StatementsComments" type="RUSclt_ru:FreeText4000Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Заявления, замечания лиц, присутствовавших при производстве ареста имущества (товаров)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<!--			fjhgghjg			-->
+			<xs:element name="OtherDocStatementsComments" type="RUSclt_ru:FreeText4000Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Иные документы, замечания, объяснения, поступившие во время составления протокола</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OwnerOrgPerson" type="pimar:OrgPersonType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Лицо (представитель лица), на имущество (товары) которого налагается арест</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="KeeperOrgPerson" type="pimar:OrgPersonType">
+				<xs:annotation>
+					<xs:documentation>Представитель организации, осуществляющей хранение арестованного имущества (товаров)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="KeeperOrganizationType">
+		<xs:annotation>
+			<xs:documentation>Сведения об организации и месте хранения имущества (товаров)</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OrganizationName" type="clt_ru:NameType">
+				<xs:annotation>
+					<xs:documentation>Наименование организации</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Address" type="RUScat_ru:RUAddressType">
+				<xs:annotation>
+					<xs:documentation>Адрес </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="StorageLocation" type="clt_ru:FreeText500Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Место хранения арестованного имущества (товаров)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="KeeperPersonType">
+		<xs:annotation>
+			<xs:documentation>Сведения о лице, которому передано на хранение имущество (товары)</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="cat_ru:PersonBaseType">
+				<xs:sequence>
+					<xs:element name="IdentityCard" type="RUScat_ru:RUIdentityCardType">
+						<xs:annotation>
+							<xs:documentation>Сведения о документе, удостоверяющем личность физического лица</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="PowerOfAttorney" type="cat_ru:DocumentBaseType">
+						<xs:annotation>
+							<xs:documentation>Номер и дата доверенности</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="RegAddress" type="RUScat_ru:RUAddressType">
+						<xs:annotation>
+							<xs:documentation>Адрес регистрации</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="FactAddress" type="RUScat_ru:RUAddressType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Адрес фактического проживания</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ConsentSign" type="clt_ru:IndicatorType">
+						<xs:annotation>
+							<xs:documentation>Признак согласия физического лица подписать протокол</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ListArrestType">
+		<xs:annotation>
+			<xs:documentation>Сведения об имуществе (товарах), на которое накладывается (наложен) арест</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="SerialNumber" type="clt_ru:Code5Type">
+				<xs:annotation>
+					<xs:documentation>Порядковый номер</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NameProperty" type="clt_ru:FreeText250Type">
+				<xs:annotation>
+					<xs:documentation>Наименование имущества (товаров)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Quantitypoint" type="clt_ru:Quantity18point3Type">
+				<xs:annotation>
+					<xs:documentation>Количество в единице измерения</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MeasureUnitOperationCode" type="clt_ru:MeasureUnitQualifierCodeType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Код единицы измерения веса/количества</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MeasureUnitOperation" type="clt_ru:MeasureUnitQualifierNameType">
+				<xs:annotation>
+					<xs:documentation>Наименование единицы измерения веса/количества</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CostProperty" type="clt_ru:AmountType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Стоимость имущества (товаров)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Characteristics" type="clt_ru:FreeText500Type">
+				<xs:annotation>
+					<xs:documentation>Индивидуальные признаки имущества (товара)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrganizationMeasType">
+		<xs:annotation>
+			<xs:documentation>Сведения об участнике ВЭД</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="cat_ru:OrganizationBaseType">
+				<xs:sequence>
+					<xs:element name="OKPOID" type="clt_ru:OKPOIDType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Код организации по ОКПО</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="OKATOCode" type="clt_ru:OKATOCodeType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Код ОКАТО</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Address" type="RUScat_ru:RUAddressType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Адрес </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Contact" type="cat_ru:ContactType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Контактная информация</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ITN" type="clt_ru:ITNType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>ИТН</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AddressText" type="clt_ru:FreeText500Type" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Сведение об адресе Участника ВЭД, текстом</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="OrgPersonType">
+		<xs:annotation>
+			<xs:documentation>Лицо (представитель лица), на имущество (товары) которого налагается арест/ Представитель организации, осуществляющей хранение арестованного имущества (товаров)</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="cat_ru:PersonBaseType">
+				<xs:sequence>
+					<xs:element name="IdentityCard" type="RUScat_ru:RUIdentityCardType">
+						<xs:annotation>
+							<xs:documentation>Сведения о документе, удостоверяющем личность физического лица</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="PowerOfAttorney" type="cat_ru:DocumentBaseType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Реквизиты документа, подтверждающего полномочия лица </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="PersonType">
+		<xs:annotation>
+			<xs:documentation>Сведения о присутствующем лице</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="cat_ru:PersonBaseType">
+				<xs:sequence>
+					<xs:element name="PersonRole" type="clt_ru:LetterIndicatorType">
+						<xs:annotation>
+							<xs:documentation>Роль физического лица: 1 - понятой; 2 - специалист; 3 - присутствующее лицо</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="IdentityCard" type="RUScat_ru:RUIdentityCardType">
+						<xs:annotation>
+							<xs:documentation>Сведения о документе, удостоверяющем личность физического лица</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ConsentSign" type="clt_ru:IndicatorType">
+						<xs:annotation>
+							<xs:documentation>Признак согласия физического лица подписать протокол</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

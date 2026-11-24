@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:cat_ru="urn:customs.ru:CommonAggregateTypes:5.10.0" xmlns:clt_ru="urn:customs.ru:CommonLeafTypes:5.10.0" xmlns:irg="urn:customs.ru:Information:CustomsDocuments:InqRecallGTD:5.13.3" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:customs.ru:Information:CustomsDocuments:InqRecallGTD:5.13.3" elementFormDefault="qualified" version="5.13.3.0">
+	<xs:import namespace="urn:customs.ru:CommonLeafTypes:5.10.0" schemaLocation="CommonLeafTypesCust.xsd"/>
+	<xs:import namespace="urn:customs.ru:CommonAggregateTypes:5.10.0" schemaLocation="CommonAggregateTypesCust.xsd"/>
+	<xs:annotation>
+		<xs:documentation>Обращение об отзыве декларации.</xs:documentation>
+	</xs:annotation>
+	<xs:element name="InqRecallGTD" type="irg:InqRecallGTDType"/>
+	<xs:complexType name="DocNumberType">
+		<xs:annotation>
+			<xs:documentation>Регистрационный номер документа</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="cat_ru:GTDIDType">
+				<xs:sequence>
+					<xs:element name="AddNumber" type="clt_ru:Code2Type" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дополнительная составляющая 3ей части номера (ЗВ)</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="InqRecallGTDType">
+		<xs:annotation>
+			<xs:documentation>Обращение об отзыве декларации</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="cat_ru:BaseDocType">
+				<xs:sequence>
+					<xs:element name="SendDate" type="clt_ru:DateCustType">
+						<xs:annotation>
+							<xs:documentation>Дата направления</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SendTime" type="clt_ru:TimeCustType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Время направления</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="RecallReason" type="clt_ru:FreeText250Type" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Причина отзыва</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Applicant" type="cat_ru:OrganizationType">
+						<xs:annotation>
+							<xs:documentation>Сведения о заявителе</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="GTDNumber" type="irg:DocNumberType">
+						<xs:annotation>
+							<xs:documentation>Справочный номер документа</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="UIN" type="cat_ru:GTDIDType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>УИН описи</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+				<xs:attribute name="DocumentModeID" type="clt_ru:DocumentModeIDType" use="required" fixed="1006013E">
+					<xs:annotation>
+						<xs:documentation>Идентификатор вида документа</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

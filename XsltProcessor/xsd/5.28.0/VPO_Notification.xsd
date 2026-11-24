@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:clt_ru="urn:customs.ru:CommonLeafTypes:5.10.0" xmlns:cat_ru="urn:customs.ru:CommonAggregateTypes:5.24.0" xmlns:vpon="urn:customs.ru:Information:RegistrationDocuments:VPO_Notification:5.26.0" targetNamespace="urn:customs.ru:Information:RegistrationDocuments:VPO_Notification:5.26.0" elementFormDefault="qualified" version="5.26.0.0">
+	<xs:import namespace="urn:customs.ru:CommonLeafTypes:5.10.0" schemaLocation="CommonLeafTypesCust.xsd"/>
+	<xs:import namespace="urn:customs.ru:CommonAggregateTypes:5.24.0" schemaLocation="CommonAggregateTypesCust.xsd"/>
+	<xs:annotation>
+		<xs:documentation>Уведомление о дальнейшей пересылке ВПО</xs:documentation>
+	</xs:annotation>
+	<xs:element name="VPO_Notification" type="vpon:VPO_NotificationType">
+		<xs:annotation>
+			<xs:documentation>Уведомление о дальнейшей пересылке ВПО</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="VPO_NotificationType">
+		<xs:annotation>
+			<xs:documentation>Уведомление о дальнейшей пересылке ВПО</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="cat_ru:BaseDocType">
+				<xs:sequence>
+					<xs:element name="CustomsName" type="cat_ru:CustomsType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Наименование и код таможенного органа</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="NotifRegNum" type="vpon:NotifRegNumType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Регистрационный номер Уведомления</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="VPO_Number" type="clt_ru:CodeVariable14Type" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Уникальный номер ВПО</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="VPOSender" type="vpon:VPOSenderType">
+						<xs:annotation>
+							<xs:documentation>Отправитель ВПО</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="CustomsInspDateTime" type="clt_ru:DateTimeCustType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дата и время проведения таможенного осмотра</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="CustomsPerson" type="cat_ru:CustomsPersonType">
+						<xs:annotation>
+							<xs:documentation>Уполномоченное должностное лицо таможенного органа</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+				<xs:attribute name="DocumentModeID" type="clt_ru:DocumentModeIDType" use="required" fixed="1006383E">
+					<xs:annotation>
+						<xs:documentation>Идентификатор вида документа</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:annotation>
+		<xs:documentation>Локальные прикладные типы.</xs:documentation>
+	</xs:annotation>
+	<xs:complexType name="NotifRegNumType">
+		<xs:annotation>
+			<xs:documentation>Регистрационный номер Уведомления</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CustomsCode" type="clt_ru:CustomsCodeType">
+				<xs:annotation>
+					<xs:documentation>Код таможенного органа, зарегистрировавшего документ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RegistrationDate" type="clt_ru:DateCustType">
+				<xs:annotation>
+					<xs:documentation>Дата регистрации документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NotifNumber" type="clt_ru:Code8Type">
+				<xs:annotation>
+					<xs:documentation>Порядковый номер по сквозной нумерации</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VPOSenderType">
+		<xs:annotation>
+			<xs:documentation>Отправитель ВПО</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="PersonSurname" type="clt_ru:NameType">
+				<xs:annotation>
+					<xs:documentation>Фамилия</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PersonName" type="clt_ru:NameType">
+				<xs:annotation>
+					<xs:documentation>Имя</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PersonMiddleName" type="clt_ru:NameType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Отчество</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

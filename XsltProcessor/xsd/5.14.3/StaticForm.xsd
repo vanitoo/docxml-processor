@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:RUScat_ru="urn:customs.ru:RUSCommonAggregateTypes:5.14.3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:clt_ru="urn:customs.ru:CommonLeafTypes:5.10.0" xmlns:cat_ru="urn:customs.ru:CommonAggregateTypes:5.10.0" xmlns:statf="urn:customs.ru:Information:CustomsDocuments:StaticForm:5.14.3" targetNamespace="urn:customs.ru:Information:CustomsDocuments:StaticForm:5.14.3" elementFormDefault="qualified" version="5.14.3.0">
+	<xs:import namespace="urn:customs.ru:RUSCommonAggregateTypes:5.14.3" schemaLocation="RUSCommonAggregateTypes.xsd"/>
+	<xs:import namespace="urn:customs.ru:CommonLeafTypes:5.10.0" schemaLocation="CommonLeafTypesCust.xsd"/>
+	<xs:import namespace="urn:customs.ru:CommonAggregateTypes:5.10.0" schemaLocation="CommonAggregateTypesCust.xsd"/>
+	<xs:annotation>
+		<xs:documentation>Статистическая форма учета перемещения товара</xs:documentation>
+	</xs:annotation>
+	<xs:element name="StaticForm" type="statf:StaticFormType"/>
+	<xs:complexType name="StaticFormType">
+		<xs:annotation>
+			<xs:documentation>Статистическая форма учета перемещения товара</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="cat_ru:BaseDocType">
+				<xs:sequence>
+					<xs:element name="PreviousRegNumberDoc" type="clt_ru:DocumentNumberType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Номер аннулируемой статистической формы</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="CustomsProcedure" type="clt_ru:CUCustomsProcedureType">
+						<xs:annotation>
+							<xs:documentation>Направление перемещения</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="TransportModeCode" type="clt_ru:TransportModeCodeType">
+						<xs:annotation>
+							<xs:documentation>Код вида транспорта на границе</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="TransportName" type="clt_ru:TransportNameType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Наименование вида транспорта на границе</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ReportingDate" type="clt_ru:MonthYearType">
+						<xs:annotation>
+							<xs:documentation>Отчетный месяц перемещения товаров</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="NSF" type="clt_ru:CodeVariable20Type" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Системный номер</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Consignor" type="statf:ConsignorType">
+						<xs:annotation>
+							<xs:documentation>Продавец</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Consignee" type="statf:ConsigneeType">
+						<xs:annotation>
+							<xs:documentation>Покупатель</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="FinancialAdjustingResponsiblePerson" type="statf:FinancialAdjustingResponsiblePersonType">
+						<xs:annotation>
+							<xs:documentation>Лицо, ответственное за финансовое урегулирование</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="TradeCountry" type="statf:CountryInfoType">
+						<xs:annotation>
+							<xs:documentation>Торгующая страна</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DispatchCountry" type="statf:CountryInfoType">
+						<xs:annotation>
+							<xs:documentation>Страна отправления</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DestinationCountry" type="statf:CountryInfoType">
+						<xs:annotation>
+							<xs:documentation>Страна назначения</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="CustCostCurrencyCode" type="clt_ru:CurrencyA3CodeType">
+						<xs:annotation>
+							<xs:documentation>Код валюты</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="CustCostTotalAmount" type="clt_ru:AmountType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Общая стоимость товаров</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Documents" type="cat_ru:DocumentBaseType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Документы</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="GoodsInfo" type="statf:GoodsInfoType" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Сведения о товарах</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ProvidePerson" type="statf:ProvidePersonType">
+						<xs:annotation>
+							<xs:documentation>Сведения о лице, ответственное за предоставление статистической формы (лицо, уполномоченное предоставлять статистическую форму от имени юридического лица)</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+				<xs:attribute name="DocumentModeID" type="clt_ru:DocumentModeIDType" use="required" fixed="1006124E">
+					<xs:annotation>
+						<xs:documentation>Идентификатор вида документа</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:annotation>
+		<xs:documentation>Локальные прикладные типы</xs:documentation>
+	</xs:annotation>
+	<xs:complexType name="CountryInfoType">
+		<xs:annotation>
+			<xs:documentation>Сведения о стране</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CountryName" type="clt_ru:CountryNameType">
+				<xs:annotation>
+					<xs:documentation>Наименование страны</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CountryCode" type="clt_ru:CountryA2CodeType">
+				<xs:annotation>
+					<xs:documentation>Код страны в соответствии с классификатором</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ConsignorType">
+		<xs:annotation>
+			<xs:documentation>Продавец</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="RUScat_ru:SubjectDetailsType">
+				<xs:sequence>
+					<xs:element name="OrganizationForm" type="clt_ru:FreeText250Type" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Организационно-правовая форма</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="BranchDescription" type="cat_ru:CUBranchDescriptionType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Сведения об обособленном подразделении</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ConsigneeType">
+		<xs:annotation>
+			<xs:documentation>Покупатель</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="RUScat_ru:SubjectDetailsType">
+				<xs:sequence>
+					<xs:element name="OrganizationForm" type="clt_ru:FreeText250Type" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Организационно-правовая форма</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="BranchDescription" type="cat_ru:CUBranchDescriptionType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Сведения об обособленном подразделении</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="FinancialAdjustingResponsiblePersonType">
+		<xs:annotation>
+			<xs:documentation>Лицо ответственное за финансовое урегулирование</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="RUScat_ru:SubjectDetailsType">
+				<xs:sequence>
+					<xs:element name="OrganizationForm" type="clt_ru:FreeText250Type" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Организационно-правовая форма</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="BranchDescription" type="cat_ru:CUBranchDescriptionType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Сведения об обособленном подразделении</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="DTInfoType">
+		<xs:annotation>
+			<xs:documentation>Сведения из декларации на товары</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="GoodsNumeric" type="clt_ru:Count3Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер товара по ДТ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DTNumber" type="cat_ru:GTDIDType">
+				<xs:annotation>
+					<xs:documentation>Регистрационный номер декларации на товары</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="GoodsInfoType">
+		<xs:annotation>
+			<xs:documentation>Сведения о товарах</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="GoodsTNVEDCode" type="clt_ru:CUGoodsNomenclatuerCodeType">
+				<xs:annotation>
+					<xs:documentation>Код товара</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GoodsDescription" type="clt_ru:FreeText250Type" maxOccurs="5">
+				<xs:annotation>
+					<xs:documentation>Описание товара</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NetWeightQuantity" type="clt_ru:QuantityBasisType">
+				<xs:annotation>
+					<xs:documentation>Вес нетто товара (кг)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="InvoicedCost" type="clt_ru:AmountType">
+				<xs:annotation>
+					<xs:documentation>Стоимость товара</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="StatisticalCostRUB" type="clt_ru:AmountType">
+				<xs:annotation>
+					<xs:documentation>Статистическая стоимость товара (в рублях)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="StatisticalCostUSD" type="clt_ru:CurrencyRateType">
+				<xs:annotation>
+					<xs:documentation>Статистическая стоимость товара (в долларах США)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OriginCountry" type="statf:CountryInfoType">
+				<xs:annotation>
+					<xs:documentation>Страна происхождения</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SupplementaryQuantity" type="cat_ru:SupplementaryQuantityType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дополнительные единицы</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AdditionalInformationCode" type="clt_ru:CodeVariable2Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Код дополнительных сведений</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AdditionalInformation" type="clt_ru:FreeText250Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дополнительные сведения</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DTInfo" type="statf:DTInfoType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Декларация на товары</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ProvidePersonType">
+		<xs:annotation>
+			<xs:documentation>Сведения о лице, ответственное за предоставление статистической формы (лицо, уполномоченное предоставлять статистическую форму от имени юридического лица)</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="cat_ru:PersonBaseType">
+				<xs:sequence>
+					<xs:element name="ExecutionDate" type="clt_ru:DateCustType">
+						<xs:annotation>
+							<xs:documentation>Дата заполнения документа</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ContactPhone" type="clt_ru:PhoneNumberType">
+						<xs:annotation>
+							<xs:documentation>Номер телефона (код, номер телефона)</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Email" type="clt_ru:FreeText250Type" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Адрес электронной почты</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="OrganizationName" type="clt_ru:NameType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Полное наименование организации / ФИО</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="OrganizationShortName" type="clt_ru:ShortNameType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Краткое наименование организации</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Address" type="cat_ru:AddressType">
+						<xs:annotation>
+							<xs:documentation>Почтовый адрес</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="RFOrganizationFeatures" type="cat_ru:RFOrganizationFeaturesType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Сведения об организации. Особенности Российской Федерации</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

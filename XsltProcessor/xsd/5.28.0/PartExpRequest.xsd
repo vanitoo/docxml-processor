@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- Проект постановления Правительства РФ "О внесении изменений в постановление Правительства Российской Федерации от 16 февраля 2023 г. № 240" -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:clt_ru="urn:customs.ru:CommonLeafTypes:5.10.0" xmlns:cat_ru="urn:customs.ru:CommonAggregateTypes:5.24.0" xmlns:RUDECLcat="urn:customs.ru:RUDeclCommonAggregateTypesCust:5.28.0" xmlns:pe_req="urn:customs.ru:CustomsAuditDocuments:PartExpRequest:5.28.0" targetNamespace="urn:customs.ru:CustomsAuditDocuments:PartExpRequest:5.28.0" elementFormDefault="qualified" version="5.28.0.0">
+  <xs:import namespace="urn:customs.ru:CommonLeafTypes:5.10.0" schemaLocation="CommonLeafTypesCust.xsd" />
+  <xs:import namespace="urn:customs.ru:CommonAggregateTypes:5.24.0" schemaLocation="CommonAggregateTypesCust.xsd" />
+  <xs:import namespace="urn:customs.ru:RUDeclCommonAggregateTypesCust:5.28.0" schemaLocation="RUDeclCommonAggregateTypesCust.xsd" />
+  <xs:annotation>
+    <xs:documentation>Запрос сведений из системы учета товаров / Запрос электронных копий документов для подтверждения сведений из системы учета товаров</xs:documentation>
+  </xs:annotation>
+  <xs:element name="PartExpRequest" type="pe_req:PartExpRequestType">
+    <xs:annotation>
+      <xs:documentation>Запрос сведений из системы учета товаров / Запрос электронных копий документов для подтверждения сведений из системы учета товаров</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="PartExpRequestType">
+    <xs:annotation>
+      <xs:documentation>Запрос сведений из системы учета товаров / Запрос электронных копий документов для подтверждения сведений из системы учета товаров</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="cat_ru:BaseDocType">
+        <xs:sequence>
+          <xs:element name="DocKind" type="clt_ru:LetterIndicatorType" minOccurs="1">
+            <xs:annotation>
+              <xs:documentation>Вид документа: 1 - Запрос сведений из системы учета товаров, 2 - Запрос электронных копий документов для подтверждения сведений</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="DocDate" type="clt_ru:DateCustType" minOccurs="1">
+            <xs:annotation>
+              <xs:documentation>Дата запроса</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="DocNumber" type="clt_ru:DocumentNumberType" minOccurs="1">
+            <xs:annotation>
+              <xs:documentation>Номер запроса</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Customs" type="cat_ru:CustomsType" minOccurs="1">
+            <xs:annotation>
+              <xs:documentation>Сведения о таможенном органе, направившем запрос</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="SigningPerson" type="cat_ru:PersonSignatureType" minOccurs="1">
+            <xs:annotation>
+              <xs:documentation>Сведения о лице, принявшем и подписавшем запрос</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="AnalyzedPeriod" type="pe_req:AnalyzedPeriodType" minOccurs="1">
+            <xs:annotation>
+              <xs:documentation>Анализируемый период</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ApplicantInfo" type="RUDECLcat:AEODeclarantDetailsType" minOccurs="1">
+            <xs:annotation>
+              <xs:documentation>Сведения о лице, у которого запрашиваются сведения</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="RequestedDoc" type="pe_req:RequestedDocType" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>Реквизиты запрашиваемых документов</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="TermDate" type="clt_ru:DateCustType" minOccurs="1">
+            <xs:annotation>
+              <xs:documentation>Срок, до которого необходимо представить сведения / электронные копии документов</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+        <xs:attribute name="DocumentModeID" type="clt_ru:DocumentModeIDType" use="required" fixed="1006956E">
+          <xs:annotation>
+            <xs:documentation>Идентификатор вида документа</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:annotation>
+    <xs:documentation>Локальные прикладные типы</xs:documentation>
+  </xs:annotation>
+  <xs:complexType name="AnalyzedPeriodType">
+    <xs:annotation>
+      <xs:documentation>Анализируемый период</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="BeginDate" type="clt_ru:DateCustType" minOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Дата начала</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="EndDate" type="clt_ru:DateCustType" minOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Дата окончания</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RequestedDocType">
+    <xs:annotation>
+      <xs:documentation>Реквизиты запрашиваемых документов</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="cat_ru:DocumentBaseType">
+        <xs:sequence>
+          <xs:element name="DocCode" type="clt_ru:CustomsDocumentCodeType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Код документа в соответствии с классификатором видов документов и сведений</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>

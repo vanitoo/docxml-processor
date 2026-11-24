@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:CategoryCust="urn:customs.ru:Categories:3.0.0" xmlns:clt_ru="urn:customs.ru:CommonLeafTypes:5.10.0" xmlns:cat_ru="urn:customs.ru:CommonAggregateTypes:5.24.0" xmlns:ripri="urn:customs.ru:Information:RegistrationDocuments:RusIndustrialProdRegInfo:5.28.0" targetNamespace="urn:customs.ru:Information:RegistrationDocuments:RusIndustrialProdRegInfo:5.28.0" elementFormDefault="qualified" version="5.28.0.0">
+	<xs:import namespace="urn:customs.ru:Categories:3.0.0" schemaLocation="CategoriesCust.xsd"/>
+	<xs:import namespace="urn:customs.ru:CommonLeafTypes:5.10.0" schemaLocation="CommonLeafTypesCust.xsd"/>
+	<xs:import namespace="urn:customs.ru:CommonAggregateTypes:5.24.0" schemaLocation="CommonAggregateTypesCust.xsd"/>
+	<xs:annotation>
+		<xs:documentation>Сведения из Реестра российской промышленной продукции</xs:documentation>
+	</xs:annotation>
+	<xs:element name="RusIndustrialProdRegInfo" type="ripri:RusIndustrialProdRegInfoType">
+		<xs:annotation>
+			<xs:documentation>Сведения из Реестра российской промышленной продукции</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="RusIndustrialProdRegInfoType">
+		<xs:annotation>
+			<xs:documentation>Сведения из Реестра российской промышленной продукции</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="cat_ru:BaseDocType">
+				<xs:sequence>
+					<xs:element name="OrganizationName" type="ripri:FreeText1024Type" minOccurs="0" maxOccurs="2">
+						<xs:annotation>
+							<xs:documentation>Наименование предприятия</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="OGRN" type="clt_ru:OGRNIDType">
+						<xs:annotation>
+							<xs:documentation>ОГРН предприятия</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="INN" type="clt_ru:INNIDType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>ИНН предприятия</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="RegisterNumber" type="clt_ru:Text50Type">
+						<xs:annotation>
+							<xs:documentation>Реестровый номер</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DigitalPassportNumber" type="ripri:FreeText1024Type" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Номер цифрового паспорта</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="RegisterDate" type="clt_ru:DateCustType">
+						<xs:annotation>
+							<xs:documentation>Дата внесения в реестр</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ValidityDate" type="clt_ru:DateCustType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Срок действия</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="TermRegDate" type="clt_ru:DateCustType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Фактическая дата прекращения действия реестровой записи</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ProductName" type="ripri:FreeText1024Type">
+						<xs:annotation>
+							<xs:documentation>Наименование продукции</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="NationalCommodityCode" type="clt_ru:CodeVariable14Type" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Кодовое обозначение продукции ОКПД 2</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="TNVED" type="clt_ru:CUGoodsNomenclatuerCodeType" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>ТН ВЭД код продукции</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ManufacturingStandard" type="ripri:FreeText1024Type" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Стандарт изготовления</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="BaseDocument" type="ripri:BaseDocumentType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Основание</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Conclusion" type="ripri:ConclusionType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Заключение</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+				<xs:attribute name="DocumentModeID" type="clt_ru:DocumentModeIDType" use="required" fixed="1001205E">
+					<xs:annotation>
+						<xs:documentation>Идентификатор вида документа</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:annotation>
+		<xs:documentation>Локальные прикладные типы.</xs:documentation>
+	</xs:annotation>
+	<xs:complexType name="BaseDocumentType">
+		<xs:annotation>
+			<xs:documentation>Основание</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DocumentName" type="ripri:Text100Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DocumentNumber" type="ripri:Text100Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PrDocumentDate" type="clt_ru:DateCustType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DocValidityDate" type="clt_ru:DateCustType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Срок действия</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ConclusionType">
+		<xs:annotation>
+			<xs:documentation>Заключение</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Department" type="ripri:FreeText1024Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Департамент</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ConclusionNumber" type="clt_ru:Text50Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер заключения</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Document" type="ripri:FreeText1024Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Cсылка на документ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="FreeText1024Type">
+		<xs:annotation>
+			<xs:documentation>Текстовая строка. До 1024 символов</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="CategoryCust:TextCategoriesCust">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="1024"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Text100Type">
+		<xs:annotation>
+			<xs:documentation>Текстовое описание. До 100 символов</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="CategoryCust:TextCategoriesCust">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="100"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

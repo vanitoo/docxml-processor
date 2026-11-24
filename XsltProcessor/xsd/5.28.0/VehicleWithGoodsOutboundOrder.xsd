@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Приказ ФТС России от 6 мая 2026 г. № 380 «Об утверждении формата и структуры Предписания о выезде транспортного средства с находящимися в нем товарами за пределы территории Российской Федерации». -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:clt_ru="urn:customs.ru:CommonLeafTypes:5.10.0" xmlns:cat_ru="urn:customs.ru:CommonAggregateTypes:5.24.0" xmlns:vwgoo="urn:customs.ru:Information:CustomsDocuments:VehicleWithGoodsOutboundOrder:5.28.0" targetNamespace="urn:customs.ru:Information:CustomsDocuments:VehicleWithGoodsOutboundOrder:5.28.0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="5.28.0.0">
+	<xs:import namespace="urn:customs.ru:CommonLeafTypes:5.10.0" schemaLocation="CommonLeafTypesCust.xsd"/>
+	<xs:import namespace="urn:customs.ru:CommonAggregateTypes:5.24.0" schemaLocation="CommonAggregateTypesCust.xsd"/>
+	<xs:annotation>
+		<xs:documentation>Предписание о выезде транспортного средства с находящимися в нем товарами за пределы территории Российской Федерации</xs:documentation>
+	</xs:annotation>
+	<xs:element name="VehicleWithGoodsOutboundOrder" type="vwgoo:VehicleWithGoodsOutboundOrderType">
+		<xs:annotation>
+			<xs:documentation>Предписание о выезде транспортного средства с находящимися в нем товарами за пределы территории Российской Федерации</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="VehicleWithGoodsOutboundOrderType">
+		<xs:annotation>
+			<xs:documentation>Предписание о выезде транспортного средства с находящимися в нем товарами за пределы территории Российской Федерации</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="cat_ru:BaseDocType">
+				<xs:sequence>
+					<xs:element name="DocDate" type="clt_ru:DateCustType">
+						<xs:annotation>
+							<xs:documentation>Дата документа</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DocNumber" type="vwgoo:DocNumberType">
+						<xs:annotation>
+							<xs:documentation>Номер документа</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="StopLocation" type="vwgoo:StopLocationType">
+						<xs:annotation>
+							<xs:documentation>Место остановки</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="StopDateTime" type="clt_ru:DateTimeCustType">
+						<xs:annotation>
+							<xs:documentation>Дата и время остановки</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="TransportMeansRegId" type="clt_ru:TransportMeansIDType">
+						<xs:annotation>
+							<xs:documentation>Регистрационный номер транспортного средства</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="TrailerCode" type="clt_ru:TransportMeansIDType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Регистрационный номер прицепа</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="IssuingOrderReason" type="clt_ru:LetterIndicatorType" maxOccurs="3">
+						<xs:annotation>
+							<xs:documentation>Основание выдачи настоящего предписания: 1 - отсутствие визуализированной ссылки; 2	- отсутствие у документа о предстоящей поставке товаров статуса, необходимого для ввоза товаров; 3	- несоответствие сведений, указанных в документе о предстоящей поставке товаров, сведениям, указанным в документах, представленных перевозчиком </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DepartureDate" type="clt_ru:DateCustType">
+						<xs:annotation>
+							<xs:documentation>Срок выезда</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="CustomsPerson" type="cat_ru:PersonBaseType">
+						<xs:annotation>
+							<xs:documentation>Должностное лицо таможенного органа, составившее настоящее предписание</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ReceivedOrderPerson" type="vwgoo:ReceivedOrderPersonType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Сведения о лице,получившем предписание (управляющем автомобильным транспортным средством)</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+				<xs:attribute name="DocumentModeID" type="clt_ru:DocumentModeIDType" use="required" fixed="1006170E">
+					<xs:annotation>
+						<xs:documentation>Идентификатор вида документа</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:annotation>
+		<xs:documentation>Локальные прикладные типы</xs:documentation>
+	</xs:annotation>
+	<xs:complexType name="DocNumberType">
+		<xs:annotation>
+			<xs:documentation>Регистрационный номер документа</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CustomsCode" type="clt_ru:CustomsCodeType">
+				<xs:annotation>
+					<xs:documentation>Код таможенного органа, зарегистрировавшего документ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RegistrationDate" type="clt_ru:DateCustType">
+				<xs:annotation>
+					<xs:documentation>Дата регистрации документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MobileGroupNumber" type="clt_ru:CodeVariable4Type">
+				<xs:annotation>
+					<xs:documentation>Номер мобильной группы</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GTDNumber" type="clt_ru:CodeVariable7Type">
+				<xs:annotation>
+					<xs:documentation>Номер, присваиваемый программным средством</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ReceivedOrderPersonType">
+		<xs:annotation>
+			<xs:documentation>Сведения о лице,получившем предписание (управляющем автомобильным транспортным средством)</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="cat_ru:PersonBaseType">
+				<xs:sequence>
+					<xs:element name="DateTimeReceipt" type="clt_ru:DateCustType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дата, время получения настоящего предписания</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="StopLocationType">
+		<xs:annotation>
+			<xs:documentation>Место остановки</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="District" type="clt_ru:Text150Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Район</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="City" type="clt_ru:Text150Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Населенный пункт</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CheckpointName" type="clt_ru:Text150Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование пункта пропуска</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RoadRegNumber" type="clt_ru:Text50Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Учетный номер автодороги</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>
